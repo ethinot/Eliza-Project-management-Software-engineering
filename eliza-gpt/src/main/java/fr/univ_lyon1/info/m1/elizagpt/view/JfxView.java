@@ -30,11 +30,12 @@ public class JfxView {
     private Label searchTextLabel = null;
     private MessageProcessor processor = new MessageProcessor();
     private final Random random = new Random();
+
     /**
      * Create the main view of the application.
      */
-        // TODO: style error in the following line. Check that checkstyle finds it, and then fix it.
-        public JfxView(final Stage stage, final int width, final int height){
+    // TODO: style error in the following line. Check that checkstyle finds it, and then fix it.
+    public JfxView(final Stage stage, final int width, final int height) {
         stage.setTitle("Eliza GPT");
 
         final VBox root = new VBox(10);
@@ -75,8 +76,11 @@ public class JfxView {
         hBox.setAlignment(Pos.BASELINE_LEFT);
         dialog.getChildren().add(hBox);
         // TODO: a click on this hbox should delete the message.
+        hBox.setOnMouseClicked(e -> {
+            dialog.getChildren().remove(hBox);
+        });
     }
-    
+
     private void sendMessage(final String text) {
         HBox hBox = new HBox();
         final Label label = new Label(text);
@@ -87,12 +91,12 @@ public class JfxView {
         hBox.setOnMouseClicked(e -> {
             dialog.getChildren().remove(hBox);
         });
-    
+
         String normalizedText = processor.normalize(text);
-    
+
         Pattern pattern;
         Matcher matcher;
-    
+
         // First, try to answer specifically to what the user said
         pattern = Pattern.compile(".*Je m'appelle (.*)\\.", Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(normalizedText);
@@ -114,18 +118,25 @@ public class JfxView {
         matcher = pattern.matcher(normalizedText);
         if (matcher.matches()) {
             replyToUser("Le plus " + matcher.group(1)
-                        + " est bien sûr votre enseignant de MIF01 !");
+                    + " est bien sûr votre enseignant de MIF01 !");
             return;
         }
         pattern = Pattern.compile("(Je .*)\\.", Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(normalizedText);
         if (matcher.matches()) {
-            final String startQuestion = processor.pickRandom(new String[] {
-                "Pourquoi dites-vous que ",
-                "Pourquoi pensez-vous que ",
-                "Êtes-vous sûr que ",
+            final String startQuestion = processor.pickRandom(new String[]{
+                    "Pourquoi dites-vous que ",
+                    "Pourquoi pensez-vous que ",
+                    "Êtes-vous sûr que ",
             });
             replyToUser(startQuestion + processor.firstToSecondPerson(matcher.group(1)) + " ?");
+            return;
+        }
+        // If the sentence finish with an ?
+        pattern = Pattern.compile(".*\\?", Pattern.CASE_INSENSITIVE);
+        matcher = pattern.matcher(normalizedText);
+        if (matcher.matches()) {
+            replyToUser("C'est mon terrain, c'est moi qui pose les questions.");
             return;
         }
         // Nothing clever to say, answer randomly
@@ -150,17 +161,18 @@ public class JfxView {
     }
 
     /**
-    * Extract the name of the user from the dialog.
-    * TODO: this totally breaks the MVC pattern, never, ever, EVER do that.
-    * @return
-    */
+     * Extract the name of the user from the dialog.
+     * TODO: this totally breaks the MVC pattern, never, ever, EVER do that.
+     *
+     * @return
+     */
     private String getName() {
         for (Node hBox : dialog.getChildren()) {
             for (Node label : ((HBox) hBox).getChildren()) {
                 if (((Label) label).getStyle().equals("-fx-background-color: #A0E0A0;")) {
                     String text = ((Label) label).getText();
                     Pattern pattern = Pattern.compile("Je m'appelle (.*)\\.",
-                                                      Pattern.CASE_INSENSITIVE);
+                            Pattern.CASE_INSENSITIVE);
                     Matcher matcher = pattern.matcher(text);
                     if (matcher.matches()) {
                         return matcher.group(1);
@@ -200,6 +212,7 @@ public class JfxView {
         String currentSearchText = text.getText();
         if (currentSearchText == null) {
             searchTextLabel.setText("No active search");
+            return;
         } else {
             searchTextLabel.setText("Searching for: " + currentSearchText);
         }
@@ -207,8 +220,11 @@ public class JfxView {
         for (Node hBox : dialog.getChildren()) {
             for (Node label : ((HBox) hBox).getChildren()) {
                 String t = ((Label) label).getText();
-                if (!t.contains(text.getText())) {
-                    // Can delete it right now, we're iterating over the list.
+                // Use the search text as a regexp:
+                // TODO : FIX THIS
+                Pattern pattern = Pattern.compile(currentSearchText, Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(t);
+                if (!matcher.find()) {
                     toDelete.add((HBox) hBox);
                 }
             }
