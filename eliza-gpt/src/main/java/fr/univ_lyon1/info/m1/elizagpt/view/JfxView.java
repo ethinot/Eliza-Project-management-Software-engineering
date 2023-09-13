@@ -1,8 +1,5 @@
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.univ_lyon1.info.m1.elizagpt.model.MessageProcessor;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,26 +12,33 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Random;
 
 
 /**
  * Main class of the View (GUI) of the application.
  */
 public class JfxView {
+    static final String BASE_STYLE = "-fx-padding: 8px; "
+            + "-fx-margin: 5px; "
+            + "-fx-background-radius: 5px;";
+    static final String USER_STYLE = "-fx-background-color: #A0E0A0; " + BASE_STYLE;
+    static final String ELIZA_STYLE = "-fx-background-color: #A0A0E0; " + BASE_STYLE;
     private final VBox dialog;
+    private final Random random = new Random();
+    private final MessageProcessor processor = new MessageProcessor();
     private TextField text = null;
     private TextField searchText = null;
     private Label searchTextLabel = null;
-    private MessageProcessor processor = new MessageProcessor();
-    private final Random random = new Random();
 
     /**
      * Create the main view of the application.
      */
-    // TODO: style error in the following line. Check that checkstyle finds it, and then fix it.
     public JfxView(final Stage stage, final int width, final int height) {
         stage.setTitle("Eliza GPT");
 
@@ -62,12 +66,6 @@ public class JfxView {
         stage.show();
     }
 
-    static final String BASE_STYLE = "-fx-padding: 8px; "
-            + "-fx-margin: 5px; "
-            + "-fx-background-radius: 5px;";
-    static final String USER_STYLE = "-fx-background-color: #A0E0A0; " + BASE_STYLE;
-    static final String ELIZA_STYLE = "-fx-background-color: #A0A0E0; " + BASE_STYLE;
-
     private void replyToUser(final String text) {
         HBox hBox = new HBox();
         final Label label = new Label(text);
@@ -75,7 +73,6 @@ public class JfxView {
         label.setStyle(USER_STYLE);
         hBox.setAlignment(Pos.BASELINE_LEFT);
         dialog.getChildren().add(hBox);
-        // TODO: a click on this hbox should delete the message.
         hBox.setOnMouseClicked(e -> {
             dialog.getChildren().remove(hBox);
         });
@@ -169,7 +166,7 @@ public class JfxView {
     private String getName() {
         for (Node hBox : dialog.getChildren()) {
             for (Node label : ((HBox) hBox).getChildren()) {
-                if (((Label) label).getStyle().equals("-fx-background-color: #A0E0A0;")) {
+                if (label.getStyle().equals("-fx-background-color: #A0E0A0;")) {
                     String text = ((Label) label).getText();
                     Pattern pattern = Pattern.compile("Je m'appelle (.*)\\.",
                             Pattern.CASE_INSENSITIVE);
@@ -221,7 +218,6 @@ public class JfxView {
             for (Node label : ((HBox) hBox).getChildren()) {
                 String t = ((Label) label).getText();
                 // Use the search text as a regexp:
-                // TODO : FIX THIS
                 Pattern pattern = Pattern.compile(currentSearchText, Pattern.CASE_INSENSITIVE);
                 Matcher matcher = pattern.matcher(t);
                 if (!matcher.find()) {
