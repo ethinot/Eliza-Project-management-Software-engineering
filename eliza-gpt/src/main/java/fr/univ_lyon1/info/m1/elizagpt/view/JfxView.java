@@ -1,6 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.MessageProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -67,27 +67,13 @@ public class JfxView {
     }
 
     private void replyToUser(final String text) {
-        HBox hBox = new HBox();
-        final Label label = new Label(text);
-        hBox.getChildren().add(label);
-        label.setStyle(USER_STYLE);
-        hBox.setAlignment(Pos.BASELINE_LEFT);
-        dialog.getChildren().add(hBox);
-        hBox.setOnMouseClicked(e -> {
-            dialog.getChildren().remove(hBox);
-        });
+        MessageBox messageBox = new MessageBox(text, USER_STYLE, Pos.BASELINE_LEFT, dialog);
+        dialog.getChildren().add(messageBox.createMessageContainer());
     }
 
     private void sendMessage(final String text) {
-        HBox hBox = new HBox();
-        final Label label = new Label(text);
-        hBox.getChildren().add(label);
-        label.setStyle(ELIZA_STYLE);
-        hBox.setAlignment(Pos.BASELINE_RIGHT);
-        dialog.getChildren().add(hBox);
-        hBox.setOnMouseClicked(e -> {
-            dialog.getChildren().remove(hBox);
-        });
+        MessageBox messageBox = new MessageBox(text, ELIZA_STYLE, Pos.BASELINE_RIGHT, dialog);
+        dialog.getChildren().add(messageBox.createMessageContainer());
 
         String normalizedText = processor.normalize(text);
 
