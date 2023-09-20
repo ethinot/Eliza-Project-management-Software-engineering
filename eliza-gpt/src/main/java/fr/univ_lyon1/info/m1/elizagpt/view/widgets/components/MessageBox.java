@@ -7,17 +7,32 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
+/**
+ * Represents a message box that displays a message with specified style and alignment.
+ */
 public class MessageBox {
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
     private final VBox dialog;
 
-    public MessageBox(Message message, VBox dialog) {
+    /**
+     * Creates a new instance of the MessageBox class.
+     *
+     * @param message The Message object associated with the MessageBox.
+     * @param dialog  The VBox object representing the dialog that
+     *                the MessageBox will be displayed in.
+     */
+    public MessageBox(final Message message, final VBox dialog) {
         this.message = message;
         this.dialog = dialog;
     }
 
+    /**
+     * Creates a new HBox object to represent a MessageBox.
+     *
+     * @return The created HBox object.
+     */
     public HBox create() {
         HBox hBox = createBoxComponent();
 
@@ -26,7 +41,7 @@ public class MessageBox {
         return hBox;
     }
 
-    private void removeMessageBox(HBox hBox) {
+    private void removeMessageBox(final HBox hBox) {
         // TODO : appeler le controller pour supprimer le message
         this.dialog.getChildren().remove(hBox);
     }
@@ -47,9 +62,10 @@ public class MessageBox {
         return label;
     }
 
-    private void addCSS(Label label) {
+    private void addCSS(final Label label) {
         label.getStyleClass().add("message-box");
-        label.getStyleClass().add(this.message.isFromUser() ? "user-message-box" : "eliza-message-box");
+        label.getStyleClass().add(this.message.isFromUser()
+                ? "user-message-box" : "eliza-message-box");
     }
 
     private Pos getAlignment() {

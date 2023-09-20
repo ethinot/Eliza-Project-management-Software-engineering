@@ -7,7 +7,18 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * The ChatView class represents a view for displaying the chat window.
+ * It extends the View class and implements the addWidgets() method.
+ */
 public class ChatView extends View {
+    /**
+     * Creates a new ChatView with specified stage, width, and height.
+     *
+     * @param stage  the stage to display the ChatView in
+     * @param width  the width of the ChatView
+     * @param height the height of the ChatView
+     */
     public ChatView(final Stage stage, final int width, final int height) {
         super(stage, width, height, new VBox());
 
@@ -15,8 +26,10 @@ public class ChatView extends View {
     }
 
     @Override
-    protected void loadCSS(Scene scene) {
-        String css = Objects.requireNonNull(getClass().getResource("/style/ChatView.css")).toExternalForm();
+    protected void loadCSS(final Scene scene) {
+        // TODO : refactor this
+        String css = Objects.requireNonNull(getClass()
+                .getResource("/style/ChatView.css")).toExternalForm();
         scene.getStylesheets().add(css);
     }
 
@@ -28,6 +41,6 @@ public class ChatView extends View {
     @Override
     public void addWidgets() {
         ChatWidget chatWidget = new ChatWidget();
-        this.rootContainer.getChildren().add(chatWidget.getWidget());
+        this.getRootContainer().getChildren().add(chatWidget.getWidget());
     }
 }
