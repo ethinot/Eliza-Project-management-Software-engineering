@@ -1,7 +1,10 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
 import fr.univ_lyon1.info.m1.elizagpt.view.widgets.components.MessageBox;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -20,6 +23,7 @@ public class ChatWidget implements Widget {
 
     private void initScrollPane() {
         dialogScroll.setContent(dialog);
+        dialogScroll.setPadding(new Insets(10));
         dialogScroll.vvalueProperty().bind(dialog.heightProperty());
         dialogScroll.setFitToWidth(true);
     }
@@ -32,6 +36,11 @@ public class ChatWidget implements Widget {
     @Override
     public void addComponents() {
         // TODO
+        MessageBox messageBox = new MessageBox(new UserMessage("Hello"), dialog);
+        dialog.getChildren().add(messageBox.create());
+
+        MessageBox messageBox2 = new MessageBox(new ElizaMessage("Hello :)"), dialog);
+        dialog.getChildren().add(messageBox2.create());
     }
 
     @Override

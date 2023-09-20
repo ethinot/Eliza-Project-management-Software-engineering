@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.messages;
 
 public class UserMessage extends Message {
-    protected UserMessage(String text) {
+    public UserMessage(String text) {
         super(text);
     }
 

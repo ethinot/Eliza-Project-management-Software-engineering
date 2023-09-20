@@ -8,11 +8,6 @@ import javafx.scene.layout.VBox;
 
 
 public class MessageBox {
-    private static final String BASE_STYLE = "-fx-padding: 8px; -fx-margin: 5px; -fx-background-radius: 5px; -fx-background-color: ";
-    private static final String USER_COLOR = "#A0E0A0";
-    private static final String ELIZA_COLOR = "#A0A0E0";
-    private static final String USER_STYLE = BASE_STYLE + USER_COLOR + ";";
-    private static final String ELIZA_STYLE = BASE_STYLE + ELIZA_COLOR + ";";
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
@@ -48,12 +43,13 @@ public class MessageBox {
 
     private Label createLabel() {
         Label label = new Label(this.message.getText());
-        label.setStyle(getStyle());
+        addCSS(label);
         return label;
     }
 
-    private String getStyle() {
-        return this.message.isFromUser() ? USER_STYLE : ELIZA_STYLE;
+    private void addCSS(Label label) {
+        label.getStyleClass().add("message-box");
+        label.getStyleClass().add(this.message.isFromUser() ? "user-message-box" : "eliza-message-box");
     }
 
     private Pos getAlignment() {
