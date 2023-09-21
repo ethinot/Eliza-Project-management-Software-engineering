@@ -1,9 +1,14 @@
 package fr.univ_lyon1.info.m1.elizagpt.controller;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-
+/**
+ * This class is responsible for sending messages to the model.
+ */
 public class MessageController {
-    public void sendMessage(String message) {
-        MessageRepository.getInstance().sendMessage(message);
+    /**
+     * Sends a message to the model.
+     *
+     * @param message the message to be sent
+     */
+    public void sendMessage(final String message) {
     }
 }
