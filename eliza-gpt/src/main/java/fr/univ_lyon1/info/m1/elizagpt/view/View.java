@@ -41,7 +41,7 @@ public abstract class View {
 
     abstract void addWidgets();
 
-    protected void addWidget(Node widget) {
+    protected void addWidget(final Node widget) {
         this.rootContainer.getChildren().add(widget);
     }
 }
