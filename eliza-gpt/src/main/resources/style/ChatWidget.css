@@ -1,3 +1,7 @@
+.chat-dialog-scroll {
+    -fx-background-color: transparent;
+}
+
 .message-box {
     -fx-padding: 10px;
     -fx-margin: 5px;

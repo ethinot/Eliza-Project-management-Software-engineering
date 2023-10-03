@@ -1,7 +1,10 @@
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
+import fr.univ_lyon1.info.m1.elizagpt.view.widgets.ChatInputWidget;
 import fr.univ_lyon1.info.m1.elizagpt.view.widgets.ChatWidget;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -27,10 +30,15 @@ public class ChatView extends View {
 
     @Override
     protected void loadCSS(final Scene scene) {
-        // TODO : refactor this
-        String css = Objects.requireNonNull(getClass()
-                .getResource("/style/ChatView.css")).toExternalForm();
-        scene.getStylesheets().add(css);
+        // TODO : refactor this into a CSSLoader class
+        String css1 = Objects.requireNonNull(getClass()
+                .getResource("/style/ChatWidget.css")).toExternalForm();
+        scene.getStylesheets().add(css1);
+
+        String css2 = Objects.requireNonNull(getClass()
+                .getResource("/style/ChatInputWidget.css")).toExternalForm();
+
+        scene.getStylesheets().add(css2);
     }
 
     @Override
@@ -41,6 +49,11 @@ public class ChatView extends View {
     @Override
     public void addWidgets() {
         ChatWidget chatWidget = new ChatWidget();
-        this.getRootContainer().getChildren().add(chatWidget.getWidget());
+        VBox.setVgrow(chatWidget.getWidget(), Priority.ALWAYS); // Occupe tout l'espace vertical
+        this.addWidget(chatWidget.getWidget());
+
+        ChatInputWidget inputWidget = new ChatInputWidget();
+        VBox.setMargin(inputWidget.getWidget(), new Insets(10, 10, 10, 10));
+        this.addWidget(inputWidget.getWidget());
     }
 }

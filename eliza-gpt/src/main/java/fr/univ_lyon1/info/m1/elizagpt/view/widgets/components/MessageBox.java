@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a message box that displays a message with specified style and alignment.
  */
-public class MessageBox {
+public class MessageBox implements Component {
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
@@ -33,6 +33,7 @@ public class MessageBox {
      *
      * @return The created HBox object.
      */
+    @Override
     public HBox create() {
         HBox hBox = createBoxComponent();
 

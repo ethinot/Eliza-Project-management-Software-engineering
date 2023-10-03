@@ -35,6 +35,7 @@ public class ChatWidget implements Widget {
         dialogScroll.setPadding(new Insets(10));
         dialogScroll.vvalueProperty().bind(dialog.heightProperty());
         dialogScroll.setFitToWidth(true);
+        dialogScroll.getStyleClass().add("chat-dialog-scroll");
     }
 
     private void addMessage(final Message message) {
