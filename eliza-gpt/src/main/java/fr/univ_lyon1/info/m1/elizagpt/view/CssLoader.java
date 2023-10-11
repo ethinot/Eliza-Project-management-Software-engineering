@@ -4,6 +4,9 @@ import javafx.scene.Scene;
 
 import java.util.Objects;
 
+/**
+ * This enum facilitates the loading of CSS files.
+ */
 public enum CssLoader {
     CHAT_WIDGET("ChatWidget.css"),
     CHAT_INPUT_WIDGET("ChatInputWidget.css"),
@@ -11,12 +14,17 @@ public enum CssLoader {
 
     private final String cssPath;
 
-    CssLoader(String cssPath) {
+    CssLoader(final String cssPath) {
         String pathPrefix = "/style/";
         this.cssPath = pathPrefix + cssPath;
     }
 
-    public void load(Scene scene) {
+    /**
+     * Loads the CSS associated with this enumeration value into the specified JavaFX scene.
+     *
+     * @param scene The JavaFX scene to apply the style to.
+     */
+    public void load(final Scene scene) {
         String css = Objects.requireNonNull(CssLoader.class.getResource(cssPath)).toExternalForm();
         scene.getStylesheets().add(css);
     }
