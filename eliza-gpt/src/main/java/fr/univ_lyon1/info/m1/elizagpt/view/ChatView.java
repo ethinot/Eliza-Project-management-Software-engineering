@@ -30,15 +30,9 @@ public class ChatView extends View {
 
     @Override
     protected void loadCSS(final Scene scene) {
-        // TODO : refactor this into a CSSLoader class
-        String css1 = Objects.requireNonNull(getClass()
-                .getResource("/style/ChatWidget.css")).toExternalForm();
-        scene.getStylesheets().add(css1);
-
-        String css2 = Objects.requireNonNull(getClass()
-                .getResource("/style/ChatInputWidget.css")).toExternalForm();
-
-        scene.getStylesheets().add(css2);
+        CssLoader.CHAT_WIDGET.load(scene);
+        CssLoader.CHAT_INPUT_WIDGET.load(scene);
+        CssLoader.SEARCH_INPUT_WIDGET.load(scene);
     }
 
     @Override
