@@ -1,0 +1,50 @@
+.search-input-box {
+    -fx-background-color: #f2f2f2;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-border-color: #ccc;
+}
+
+.search-input-label {
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+}
+
+.search-input-field {
+    -fx-background-color: #fff;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+    -fx-border-color: #ccc;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-pref-width: 200px;
+}
+
+.search-input-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.search-input-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.cancel-input-button {
+    -fx-background-color: #e32828;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.cancel-input-button:hover {
+    -fx-background-color: #c12020;
+    -fx-text-fill: #fff;
+}

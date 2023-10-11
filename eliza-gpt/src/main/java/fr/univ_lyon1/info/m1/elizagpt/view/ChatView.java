@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.elizagpt.view;
 
 import fr.univ_lyon1.info.m1.elizagpt.view.widgets.ChatInputWidget;
 import fr.univ_lyon1.info.m1.elizagpt.view.widgets.ChatWidget;
+import fr.univ_lyon1.info.m1.elizagpt.view.widgets.SearchInputWidget;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.Priority;
@@ -42,6 +43,10 @@ public class ChatView extends View {
 
     @Override
     public void addWidgets() {
+        SearchInputWidget searchWidget = new SearchInputWidget();
+        VBox.setMargin(searchWidget.getWidget(), new Insets(10, 10, 10, 10));
+        this.addWidget(searchWidget.getWidget());
+
         ChatWidget chatWidget = new ChatWidget();
         VBox.setVgrow(chatWidget.getWidget(), Priority.ALWAYS); // Occupe tout l'espace vertical
         this.addWidget(chatWidget.getWidget());
