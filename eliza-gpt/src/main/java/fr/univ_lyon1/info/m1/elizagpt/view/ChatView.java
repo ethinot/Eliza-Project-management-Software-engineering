@@ -9,8 +9,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 /**
  * The ChatView class represents a view for displaying the chat window.
  * It extends the View class and implements the addWidgets() method.
