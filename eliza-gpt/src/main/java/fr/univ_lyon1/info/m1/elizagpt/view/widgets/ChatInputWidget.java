@@ -22,7 +22,7 @@ public class ChatInputWidget implements Widget {
     public ChatInputWidget() {
         this.inputBox = new HBox(10);
         this.messageField = new TextField();
-        this.sendButton = new Button("Send");
+        this.sendButton = new Button("Envoyer");
 
         this.inputBox.getStyleClass().add("chat-input-box");
         this.messageField.getStyleClass().add("chat-input-field");
