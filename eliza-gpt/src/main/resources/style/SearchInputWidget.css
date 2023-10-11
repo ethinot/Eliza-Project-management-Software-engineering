@@ -23,7 +23,7 @@
 }
 
 .search-input-button {
-    -fx-background-color: #007bff;
+    -fx-background-color: #3bbe1f;
     -fx-text-fill: #fff;
     -fx-font-size: 14px;
     -fx-padding: 5px 10px;
@@ -32,7 +32,7 @@
 }
 
 .search-input-button:hover {
-    -fx-background-color: #0056b3;
+    -fx-background-color: #33a01d;
 }
 
 .cancel-input-button {
