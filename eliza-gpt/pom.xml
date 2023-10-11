@@ -35,6 +35,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>19.0.2.1</version>
         </dependency>
+        <!-- Load XML files -->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6.1</version>
+        </dependency>
     </dependencies>
 
     <reporting>
