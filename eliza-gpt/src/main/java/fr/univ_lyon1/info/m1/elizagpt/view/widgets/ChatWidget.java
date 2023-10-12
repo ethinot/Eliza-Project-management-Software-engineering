@@ -46,11 +46,8 @@ public class ChatWidget implements Widget {
     @Override
     public void addComponents() {
         // TODO
-        MessageBox messageBox = new MessageBox(new UserMessage("Hello"), dialog);
-        dialog.getChildren().add(messageBox.create());
-
-        MessageBox messageBox2 = new MessageBox(new ElizaMessage("Hello :)"), dialog);
-        dialog.getChildren().add(messageBox2.create());
+        addMessage(new UserMessage("Hello"));
+        addMessage(new ElizaMessage("Hello :)"));
     }
 
     @Override
