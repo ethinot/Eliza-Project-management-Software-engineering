@@ -1,8 +1,10 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -20,10 +22,10 @@ public class ChatInputWidget implements Widget {
      * Calls the addComponents method to add components to the ChatInputWidget.
      */
     public ChatInputWidget() {
-        this.inputBox = new HBox(10);
-        this.messageField = new TextField();
-        this.sendButton = new Button("Envoyer");
+        inputBox = new HBox(10);
+        messageField = new TextField();
         messageField.setOnKeyPressed(onEnterKeyPressed());
+        sendButton = new Button("Envoyer");
         sendButton.setOnAction(e -> sendMessage());
 
         this.inputBox.getStyleClass().add("chat-input-box");
