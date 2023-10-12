@@ -44,7 +44,6 @@ public class MessageBox implements Component {
 
     private void removeMessageBox(final HBox hBox) {
         // TODO : appeler le controller pour supprimer le message
-        this.dialog.getChildren().remove(hBox);
     }
 
     private HBox createBoxComponent() {
