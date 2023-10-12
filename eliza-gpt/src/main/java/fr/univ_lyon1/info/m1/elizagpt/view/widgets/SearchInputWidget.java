@@ -30,7 +30,9 @@ public class SearchInputWidget implements Widget {
         searchField = new TextField();
         searchField.setPromptText("Rechercher un message");
         searchButton = new Button("Appliquer");
+        searchButton.setOnAction(event -> onSearchButtonClicked());
         cancelButton = new Button("Annuler");
+        cancelButton.setOnAction(event -> onCancelButtonClicked());
 
         inputBox.getStyleClass().add("search-input-box");
         searchLabel.getStyleClass().add("search-input-label");
@@ -54,5 +56,14 @@ public class SearchInputWidget implements Widget {
     @Override
     public Node getWidget() {
         return inputBox;
+    }
+
+    private void onSearchButtonClicked() {
+        // TODO: appeler le controller pour appliquer la recherche
+    }
+
+    private void onCancelButtonClicked() {
+        // TODO: appeler le controller pour annuler la recherche
+        searchField.clear();
     }
 }
