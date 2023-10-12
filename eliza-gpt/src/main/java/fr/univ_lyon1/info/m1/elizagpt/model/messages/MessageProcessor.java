@@ -20,8 +20,8 @@ public class MessageProcessor {
             new Verb("fais", "faites"),
             new Verb("sais", "savez"),
             new Verb("dois", "devez"));
-    private final Random random = new Random();
-
+    private static final Random random = new Random();
+    
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
      *
@@ -44,7 +44,7 @@ public class MessageProcessor {
      * @param text The 1st-person sentence.
      * @return The 2nd-person sentence.
      */
-    public String firstToSecondPerson(final String text) {
+    public static String firstToSecondPerson(final String text) {
         String processedText = text
                 .replaceAll("[Jj]e ([a-z]*)e ", "vous $1ez ");
         for (Verb v : VERBS) {
@@ -64,7 +64,7 @@ public class MessageProcessor {
     /**
      * Pick an element randomly in the array.
      */
-    public <T> T pickRandom(final T[] array) {
+    public static <T> T pickRandom(final T[] array) {
         return array[random.nextInt(array.length)];
     }
 
