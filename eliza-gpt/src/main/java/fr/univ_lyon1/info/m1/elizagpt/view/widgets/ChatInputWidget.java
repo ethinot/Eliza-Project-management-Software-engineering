@@ -23,6 +23,8 @@ public class ChatInputWidget implements Widget {
         this.inputBox = new HBox(10);
         this.messageField = new TextField();
         this.sendButton = new Button("Envoyer");
+        messageField.setOnKeyPressed(onEnterKeyPressed());
+        sendButton.setOnAction(e -> sendMessage());
 
         this.inputBox.getStyleClass().add("chat-input-box");
         this.messageField.getStyleClass().add("chat-input-field");
@@ -58,5 +60,18 @@ public class ChatInputWidget implements Widget {
     @Override
     public Node getWidget() {
         return inputBox;
+    }
+
+    private EventHandler<KeyEvent> onEnterKeyPressed() {
+        return e -> {
+            if (e.getCode().toString().equals("ENTER")) {
+                sendMessage();
+            }
+        };
+    }
+
+    private void sendMessage() {
+        // TODO : appeler le controller pour envoyer le message
+        messageField.clear();
     }
 }
