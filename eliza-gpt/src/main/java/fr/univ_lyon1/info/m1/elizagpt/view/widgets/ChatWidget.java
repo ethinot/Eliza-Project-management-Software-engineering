@@ -23,11 +23,11 @@ public class ChatWidget implements Widget {
      * Calls the addComponents method to add components to the ChatWidget.
      */
     public ChatWidget() {
-        this.dialog = new VBox(10);
-        this.dialogScroll = new ScrollPane();
-        this.initScrollPane();
+        dialog = new VBox(10);
+        dialogScroll = new ScrollPane();
+        initScrollPane();
 
-        this.addComponents();
+        addComponents();
     }
 
     private void initScrollPane() {

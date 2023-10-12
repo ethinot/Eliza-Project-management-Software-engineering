@@ -43,14 +43,14 @@ public class ChatView extends View {
     public void addWidgets() {
         SearchInputWidget searchWidget = new SearchInputWidget();
         VBox.setMargin(searchWidget.getWidget(), new Insets(10, 10, 10, 10));
-        this.addWidget(searchWidget.getWidget());
+        addWidget(searchWidget.getWidget());
 
         ChatWidget chatWidget = new ChatWidget();
         VBox.setVgrow(chatWidget.getWidget(), Priority.ALWAYS); // Occupe tout l'espace vertical
-        this.addWidget(chatWidget.getWidget());
+        addWidget(chatWidget.getWidget());
 
         ChatInputWidget inputWidget = new ChatInputWidget();
         VBox.setMargin(inputWidget.getWidget(), new Insets(10, 10, 10, 10));
-        this.addWidget(inputWidget.getWidget());
+        addWidget(inputWidget.getWidget());
     }
 }

@@ -58,18 +58,18 @@ public class MessageBox implements Component {
     }
 
     private Label createLabel() {
-        Label label = new Label(this.message.getText());
+        Label label = new Label(message.getText());
         addCSS(label);
         return label;
     }
 
     private void addCSS(final Label label) {
         label.getStyleClass().add("message-box");
-        label.getStyleClass().add(this.message.isFromUser()
+        label.getStyleClass().add(message.isFromUser()
                 ? "user-message-box" : "eliza-message-box");
     }
 
     private Pos getAlignment() {
-        return this.message.isFromUser() ? USER_POS : ELIZA_POS;
+        return message.isFromUser() ? USER_POS : ELIZA_POS;
     }
 }

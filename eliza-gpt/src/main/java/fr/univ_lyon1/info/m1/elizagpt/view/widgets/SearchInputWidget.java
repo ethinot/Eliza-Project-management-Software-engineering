@@ -38,7 +38,7 @@ public class SearchInputWidget implements Widget {
         searchButton.getStyleClass().add("search-input-button");
         cancelButton.getStyleClass().add("cancel-input-button");
 
-        this.addComponents();
+        addComponents();
     }
 
     @Override

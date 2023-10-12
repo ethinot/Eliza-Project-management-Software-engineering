@@ -28,11 +28,11 @@ public class ChatInputWidget implements Widget {
         sendButton = new Button("Envoyer");
         sendButton.setOnAction(e -> sendMessage());
 
-        this.inputBox.getStyleClass().add("chat-input-box");
-        this.messageField.getStyleClass().add("chat-input-field");
-        this.sendButton.getStyleClass().add("chat-input-button");
+        inputBox.getStyleClass().add("chat-input-box");
+        messageField.getStyleClass().add("chat-input-field");
+        sendButton.getStyleClass().add("chat-input-button");
 
-        this.addComponents();
+        addComponents();
     }
 
     @Override

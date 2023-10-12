@@ -34,7 +34,7 @@ public abstract class View {
     protected abstract void loadCSS(Scene scene);
 
     protected Pane getRootContainer() {
-        return this.rootContainer;
+        return rootContainer;
     }
 
     abstract String getName();
@@ -42,6 +42,6 @@ public abstract class View {
     abstract void addWidgets();
 
     protected void addWidget(final Node widget) {
-        this.rootContainer.getChildren().add(widget);
+        rootContainer.getChildren().add(widget);
     }
 }
