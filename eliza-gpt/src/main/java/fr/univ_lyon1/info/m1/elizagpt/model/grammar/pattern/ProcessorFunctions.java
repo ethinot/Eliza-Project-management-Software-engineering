@@ -8,7 +8,7 @@ import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProces
 
 class MyNameIsProcessor implements UnaryOperator<String> {
     @Override
-    public String apply(String s) {
+    public String apply(final String s) {
         final String newName = getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
         if (PatternProcessor.getName() == null) {
             PatternProcessor.setName(newName);
@@ -18,14 +18,15 @@ class MyNameIsProcessor implements UnaryOperator<String> {
         } else {
             String oldName = PatternProcessor.getName();
             PatternProcessor.setName(newName);
-            return "Je sais maintenant que vous vous appelez " + newName + " et non plus " + oldName + ".";
+            return "Je sais maintenant que vous vous appelez "
+                    + newName + " et non plus " + oldName + ".";
         }
     }
 }
 
 class WhatIsMyNameProcessor implements UnaryOperator<String> {
     @Override
-    public String apply(String s) {
+    public String apply(final String s) {
         if (PatternProcessor.getName() != null) {
             return "Votre nom est " + PatternProcessor.getName() + ".";
         } else {
@@ -36,23 +37,31 @@ class WhatIsMyNameProcessor implements UnaryOperator<String> {
 
 class WhoIsTheMostProcessor implements UnaryOperator<String> {
     @Override
-    public String apply(String s) {
-        return "Le plus " + getFirstMatchedString(PatternProcessor.WHO_IS_THE_MOST.getPattern(), s) + " est bien sûr votre enseignant de MIF01 !";
+    public String apply(final String s) {
+        return "Le plus " + getFirstMatchedString(
+                PatternProcessor.WHO_IS_THE_MOST.getPattern(), s)
+                + " est bien sûr votre enseignant de MIF01 !";
     }
 }
 
 class IProcessor implements UnaryOperator<String> {
     @Override
-    public String apply(String s) {
-        final String startQuestion = MessageProcessor.pickRandom(new String[]{"Pourquoi dites-vous que ", "Pourquoi pensez-vous que ", "Êtes-vous sûr que ",});
+    public String apply(final String s) {
+        final String startQuestion = MessageProcessor.pickRandom(
+                new String[]{"Pourquoi dites-vous que ",
+                        "Pourquoi pensez-vous que ",
+                        "Êtes-vous sûr que ",
+                });
 
-        return startQuestion + MessageProcessor.firstToSecondPerson(getFirstMatchedString(PatternProcessor.I.getPattern(), s)) + " ?";
+        return startQuestion + MessageProcessor
+                .firstToSecondPerson(getFirstMatchedString(
+                        PatternProcessor.I.getPattern(), s)) + " ?";
     }
 }
 
 class IAskHereProcessor implements UnaryOperator<String> {
     @Override
-    public String apply(String s) {
+    public String apply(final String s) {
         return "C'est mon terrain ici, c'est moi qui pose les questions.";
     }
 }

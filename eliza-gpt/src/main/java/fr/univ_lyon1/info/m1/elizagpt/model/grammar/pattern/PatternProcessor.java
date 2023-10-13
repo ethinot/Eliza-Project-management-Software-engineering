@@ -5,6 +5,9 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that enable to process each pattern.
+ */
 public enum PatternProcessor {
     MY_NAME_IS(".*Je m'appelle (.*)\\.", new MyNameIsProcessor()),
     WHAT_IS_MY_NAME(".*Quel est mon nom \\?", new WhatIsMyNameProcessor()),
@@ -17,12 +20,18 @@ public enum PatternProcessor {
 
     private final Function<String, String> processor;
 
-    PatternProcessor(String regex, UnaryOperator<String> processor) {
+    PatternProcessor(final String regex, final UnaryOperator<String> processor) {
         this.pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         this.processor = processor;
     }
 
-    public static String process(String input) {
+    /**
+     * Processes the input string using the appropriate pattern processor.
+     *
+     * @param input the input string to be processed
+     * @return the processed string, or null if no pattern processor matches the input
+     */
+    public static String process(final String input) {
         for (PatternProcessor p : PatternProcessor.values()) {
             if (p.matches(input)) {
                 return p.applyProcess(input);
@@ -35,11 +44,11 @@ public enum PatternProcessor {
         return name;
     }
 
-    static void setName(String name) {
+    static void setName(final String name) {
         PatternProcessor.name = name;
     }
 
-    static String getFirstMatchedString(Pattern pattern, String input) {
+    static String getFirstMatchedString(final Pattern pattern, final String input) {
         Matcher matcher = pattern.matcher(input);
         boolean found = matcher.find();
 
@@ -50,7 +59,7 @@ public enum PatternProcessor {
         }
     }
 
-    private boolean matches(String input) {
+    private boolean matches(final String input) {
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }
@@ -59,7 +68,7 @@ public enum PatternProcessor {
         return pattern;
     }
 
-    private String applyProcess(String input) {
+    private String applyProcess(final String input) {
         return processor.apply(input);
     }
 }

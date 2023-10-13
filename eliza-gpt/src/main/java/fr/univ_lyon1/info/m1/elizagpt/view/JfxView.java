@@ -32,7 +32,6 @@ public class JfxView {
     static final String ELIZA_STYLE = "-fx-background-color: #A0A0E0; " + BASE_STYLE;
     private final VBox dialog;
     private final Random random = new Random();
-    private final MessageProcessor processor = new MessageProcessor();
     private TextField text = null;
     private TextField searchText = null;
     private Label searchTextLabel = null;
