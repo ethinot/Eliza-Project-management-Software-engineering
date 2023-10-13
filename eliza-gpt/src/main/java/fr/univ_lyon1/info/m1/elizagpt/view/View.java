@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -33,10 +34,14 @@ public abstract class View {
     protected abstract void loadCSS(Scene scene);
 
     protected Pane getRootContainer() {
-        return this.rootContainer;
+        return rootContainer;
     }
 
     abstract String getName();
 
     abstract void addWidgets();
+
+    protected void addWidget(final Node widget) {
+        rootContainer.getChildren().add(widget);
+    }
 }

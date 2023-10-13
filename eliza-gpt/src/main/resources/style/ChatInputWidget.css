@@ -1,0 +1,23 @@
+.chat-input-box {
+    -fx-background-color: #f0f0f0;
+}
+
+.chat-input-box .chat-input-field {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 30px;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+.chat-input-box .chat-input-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px 20px;
+    -fx-cursor: hand;
+}
+
+.chat-input-box .chat-input-button:hover {
+    -fx-background-color: #0056b3;
+}
