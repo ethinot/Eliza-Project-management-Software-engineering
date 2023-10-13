@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
@@ -28,6 +29,10 @@ public class ChatWidget implements Widget {
         initScrollPane();
 
         addComponents();
+
+        MessageController.getInstance().addListener(observable -> {
+            addMessage(MessageController.getLastMessage());
+        });
     }
 
     private void initScrollPane() {

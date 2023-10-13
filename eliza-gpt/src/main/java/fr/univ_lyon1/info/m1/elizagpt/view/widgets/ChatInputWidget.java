@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -73,7 +74,7 @@ public class ChatInputWidget implements Widget {
     }
 
     private void sendMessage() {
-        // TODO : appeler le controller pour envoyer le message
+        MessageController.sendUserMessage(messageField.getText());
         messageField.clear();
     }
 }
