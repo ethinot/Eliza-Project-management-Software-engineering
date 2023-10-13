@@ -40,7 +40,7 @@ public enum PatternProcessor {
         return null;
     }
 
-    static String getName() {
+    public static String getName() {
         return name;
     }
 

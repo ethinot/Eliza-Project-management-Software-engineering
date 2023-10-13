@@ -1,7 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -57,7 +56,6 @@ public class JfxView {
 
         final Pane input = createInputWidget();
         root.getChildren().add(input);
-        replyToUser("Bonjour");
 
         // Everything's ready: add it to the scene and display it
         final Scene scene = new Scene(root, width, height);
@@ -66,66 +64,11 @@ public class JfxView {
         stage.show();
     }
 
-    private void replyToUser(final String text) {
-        MessageBox messageBox = new MessageBox(text, USER_STYLE, Pos.BASELINE_LEFT, dialog);
-        dialog.getChildren().add(messageBox.createMessageContainer());
-    }
-
     private void sendMessage(final String text) {
         MessageBox messageBox = new MessageBox(text, ELIZA_STYLE, Pos.BASELINE_RIGHT, dialog);
         dialog.getChildren().add(messageBox.createMessageContainer());
 
-        String normalizedText = MessageProcessor.normalize(text);
-
-        String response = PatternProcessor.process(normalizedText);
-
-        if (response != null) {
-            replyToUser(response);
-            return;
-        }
-
-        // Nothing clever to say, answer randomly
-        if (random.nextBoolean()) {
-            replyToUser("Il faut beau aujourd'hui, vous ne trouvez pas ?");
-            return;
-        }
-        if (random.nextBoolean()) {
-            replyToUser("Je ne comprends pas.");
-            return;
-        }
-        if (random.nextBoolean()) {
-            replyToUser("Hmmm, hmm ...");
-            return;
-        }
-        // Default answer
-        if (getName() != null) {
-            replyToUser("Qu'est-ce qui vous fait dire cela, " + getName() + " ?");
-        } else {
-            replyToUser("Qu'est-ce qui vous fait dire cela ?");
-        }
-    }
-
-    /**
-     * Extract the name of the user from the dialog.
-     * TODO: this totally breaks the MVC pattern, never, ever, EVER do that.
-     *
-     * @return
-     */
-    private String getName() {
-        for (Node hBox : dialog.getChildren()) {
-            for (Node label : ((HBox) hBox).getChildren()) {
-                if (label.getStyle().equals("-fx-background-color: #A0E0A0;")) {
-                    String text = ((Label) label).getText();
-                    Pattern pattern = Pattern.compile("Je m'appelle (.*)\\.",
-                            Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = pattern.matcher(text);
-                    if (matcher.matches()) {
-                        return matcher.group(1);
-                    }
-                }
-            }
-        }
-        return null;
+        MessageController.sendUserMessage(text);
     }
 
     private Pane createSearchWidget() {
