@@ -49,3 +49,10 @@ class IProcessor implements UnaryOperator<String> {
         return startQuestion + MessageProcessor.firstToSecondPerson(getFirstMatchedString(PatternProcessor.I.getPattern(), s)) + " ?";
     }
 }
+
+class IAskHereProcessor implements UnaryOperator<String> {
+    @Override
+    public String apply(String s) {
+        return "C'est mon terrain ici, c'est moi qui pose les questions.";
+    }
+}
