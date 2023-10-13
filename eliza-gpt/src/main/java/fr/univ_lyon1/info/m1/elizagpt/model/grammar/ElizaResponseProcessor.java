@@ -23,7 +23,12 @@ public class ElizaResponseProcessor {
         verbsRepository = new VerbsRepository("./verb/vocabulary.xml");
     }
 
-    public static void process(String input) {
+    /**
+     * Process the input and generate a response.
+     *
+     * @param input the input to be processed
+     */
+    public static void process(final String input) {
         // TODO: découper cette fonction
         String normalizedInput = MessageProcessor.normalize(input);
 
@@ -58,7 +63,7 @@ public class ElizaResponseProcessor {
         }
     }
 
-    private static void replyToUser(String s) {
+    private static void replyToUser(final String s) {
         MessageController.sendElizaMessage(s);
     }
 }
