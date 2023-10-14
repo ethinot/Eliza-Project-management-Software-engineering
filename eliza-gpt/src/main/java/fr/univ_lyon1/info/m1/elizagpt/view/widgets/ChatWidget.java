@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
@@ -23,11 +24,15 @@ public class ChatWidget implements Widget {
      * Calls the addComponents method to add components to the ChatWidget.
      */
     public ChatWidget() {
-        this.dialog = new VBox(10);
-        this.dialogScroll = new ScrollPane();
-        this.initScrollPane();
+        dialog = new VBox(10);
+        dialogScroll = new ScrollPane();
+        initScrollPane();
 
-        this.addComponents();
+        addComponents();
+
+        MessageController.getInstance().addListener(observable -> {
+            addMessage(MessageController.getLastMessage());
+        });
     }
 
     private void initScrollPane() {
@@ -35,6 +40,7 @@ public class ChatWidget implements Widget {
         dialogScroll.setPadding(new Insets(10));
         dialogScroll.vvalueProperty().bind(dialog.heightProperty());
         dialogScroll.setFitToWidth(true);
+        dialogScroll.getStyleClass().add("chat-dialog-scroll");
     }
 
     private void addMessage(final Message message) {
@@ -45,11 +51,8 @@ public class ChatWidget implements Widget {
     @Override
     public void addComponents() {
         // TODO
-        MessageBox messageBox = new MessageBox(new UserMessage("Hello"), dialog);
-        dialog.getChildren().add(messageBox.create());
-
-        MessageBox messageBox2 = new MessageBox(new ElizaMessage("Hello :)"), dialog);
-        dialog.getChildren().add(messageBox2.create());
+        addMessage(new UserMessage("Hello"));
+        addMessage(new ElizaMessage("Hello :)"));
     }
 
     @Override

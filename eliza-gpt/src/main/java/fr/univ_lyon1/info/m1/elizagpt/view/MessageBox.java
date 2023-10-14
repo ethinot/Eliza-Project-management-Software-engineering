@@ -38,7 +38,7 @@ public class MessageBox {
      * @return the text of the message
      */
     public String getMessageText() {
-        return this.messageText;
+        return messageText;
     }
 
     /**
@@ -49,10 +49,10 @@ public class MessageBox {
      */
     public HBox createMessageContainer() {
         HBox hBox = new HBox();
-        final Label label = new Label(this.messageText);
+        final Label label = new Label(messageText);
         hBox.getChildren().add(label);
-        label.setStyle(this.messageStyle);
-        hBox.setAlignment(this.messagePos);
+        label.setStyle(messageStyle);
+        hBox.setAlignment(messagePos);
         hBox.setOnMouseClicked(e -> {
             dialog.getChildren().remove(hBox);
         });

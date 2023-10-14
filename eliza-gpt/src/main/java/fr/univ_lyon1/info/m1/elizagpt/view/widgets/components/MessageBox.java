@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents a message box that displays a message with specified style and alignment.
  */
-public class MessageBox {
+public class MessageBox implements Component {
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
@@ -33,6 +33,7 @@ public class MessageBox {
      *
      * @return The created HBox object.
      */
+    @Override
     public HBox create() {
         HBox hBox = createBoxComponent();
 
@@ -43,7 +44,6 @@ public class MessageBox {
 
     private void removeMessageBox(final HBox hBox) {
         // TODO : appeler le controller pour supprimer le message
-        this.dialog.getChildren().remove(hBox);
     }
 
     private HBox createBoxComponent() {
@@ -57,18 +57,18 @@ public class MessageBox {
     }
 
     private Label createLabel() {
-        Label label = new Label(this.message.getText());
+        Label label = new Label(message.getText());
         addCSS(label);
         return label;
     }
 
     private void addCSS(final Label label) {
         label.getStyleClass().add("message-box");
-        label.getStyleClass().add(this.message.isFromUser()
+        label.getStyleClass().add(message.isFromUser()
                 ? "user-message-box" : "eliza-message-box");
     }
 
     private Pos getAlignment() {
-        return this.message.isFromUser() ? USER_POS : ELIZA_POS;
+        return message.isFromUser() ? USER_POS : ELIZA_POS;
     }
 }
