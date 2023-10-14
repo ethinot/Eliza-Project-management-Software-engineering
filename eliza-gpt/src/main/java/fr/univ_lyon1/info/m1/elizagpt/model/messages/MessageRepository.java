@@ -15,6 +15,14 @@ public class MessageRepository {
      */
     private static final Collection<Message> MESSAGES = new ArrayList<>();
 
+    /**
+     * Function that check if the collection of messages is empty.
+     *
+     * @return True if there is no messages stored.
+     */
+    public static boolean isEmpty() {
+        return MESSAGES.isEmpty();
+    }
 
     /**
      * Sends a message to the chat. The message is added to the list of messages and
