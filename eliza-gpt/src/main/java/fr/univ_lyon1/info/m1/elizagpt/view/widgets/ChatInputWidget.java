@@ -16,13 +16,16 @@ public class ChatInputWidget implements Widget {
     private final HBox inputBox;
     private final TextField messageField;
     private final Button sendButton;
+    private final MessageController messageController;
 
     /**
      * Creates a new instance of the ChatInputWidget class.
      * Initializes the inputBox HBox and its components.
      * Calls the addComponents method to add components to the ChatInputWidget.
      */
-    public ChatInputWidget() {
+    public ChatInputWidget(MessageController messageController) {
+        this.messageController = messageController;
+
         inputBox = new HBox(10);
         messageField = new TextField();
         messageField.setOnKeyPressed(onEnterKeyPressed());
@@ -74,7 +77,7 @@ public class ChatInputWidget implements Widget {
     }
 
     private void sendMessage() {
-        MessageController.sendUserMessage(messageField.getText());
+        messageController.sendUserMessage(messageField.getText());
         messageField.clear();
     }
 }

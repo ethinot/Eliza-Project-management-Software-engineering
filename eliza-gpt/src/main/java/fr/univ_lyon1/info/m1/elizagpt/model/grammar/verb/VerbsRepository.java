@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,18 @@ public class VerbsRepository {
     private final List<Verb> verbs;
 
     /**
-     * List of 3rd group verbs and their correspondance from 1st person signular
+     * List of 3rd group verbs and their correspondance from 1st person singular
      * (Je) to 2nd person plural (Vous).
      * Verbs are load from XML file
      */
     public VerbsRepository(final String xmlFilePath) throws IOException {
         SAXBuilder saxBuilder = new SAXBuilder();
         try {
-            Document document = saxBuilder.build(xmlFilePath);
+            InputStream xmlFile = getClass().getClassLoader().getResourceAsStream(xmlFilePath);
+            if (xmlFile == null) {
+                throw new IOException("Fichier XML non trouvé");
+            }
+            Document document = saxBuilder.build(xmlFile);
             Element rootElement = document.getRootElement();
             List<Element> verbElements = rootElement.getChildren("verb");
 
@@ -37,6 +42,7 @@ public class VerbsRepository {
             throw new IOException("Erreur lors du chargement du fichier XML : " + e.getMessage());
         }
     }
+
     public List<Verb> getVerbs() {
         return verbs;
     }

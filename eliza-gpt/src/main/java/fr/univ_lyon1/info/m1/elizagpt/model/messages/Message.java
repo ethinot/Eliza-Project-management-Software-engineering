@@ -1,5 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.messages;
 
+import java.util.UUID;
+
 /**
  * The Message class represents a message object.
  * It is an abstract class, so it cannot be instantiated.
@@ -9,6 +11,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.messages;
  */
 public abstract class Message {
     private final String text;
+    private final UUID uuid = UUID.randomUUID();
 
     protected Message(final String text) {
         this.text = text;
@@ -32,5 +35,24 @@ public abstract class Message {
      */
     public boolean isFromUser() {
         return getAuthor() == Author.USER;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public int hashCode() {
+        return uuid.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+
+        Message message = (Message) o;
+
+        return uuid.equals(message.uuid);
     }
 }

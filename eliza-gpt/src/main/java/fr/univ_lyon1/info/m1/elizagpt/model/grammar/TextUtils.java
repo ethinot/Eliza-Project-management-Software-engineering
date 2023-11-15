@@ -8,7 +8,9 @@ import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
  * Operators for formatting Eliza's message.
  */
 public final class TextUtils {
-    private TextUtils() { }
+    private TextUtils() {
+    }
+
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
      *
