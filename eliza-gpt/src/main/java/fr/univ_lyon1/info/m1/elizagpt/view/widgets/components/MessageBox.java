@@ -36,7 +36,7 @@ public class MessageBox implements Component {
     @Override
     public HBox create() {
         HBox hBox = createBoxComponent();
-
+        // Todo : ajouter la petite croix moche pour delete
         hBox.setOnMouseClicked(e -> removeMessageBox(hBox));
 
         return hBox;
