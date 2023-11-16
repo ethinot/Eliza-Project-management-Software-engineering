@@ -48,8 +48,12 @@ public abstract class Message {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Message)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Message)) {
+            return false;
+        }
 
         Message message = (Message) o;
 

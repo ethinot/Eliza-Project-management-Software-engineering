@@ -23,7 +23,7 @@ public class ChatInputWidget implements Widget {
      * Initializes the inputBox HBox and its components.
      * Calls the addComponents method to add components to the ChatInputWidget.
      */
-    public ChatInputWidget(MessageController messageController) {
+    public ChatInputWidget(final MessageController messageController) {
         this.messageController = messageController;
 
         inputBox = new HBox(10);

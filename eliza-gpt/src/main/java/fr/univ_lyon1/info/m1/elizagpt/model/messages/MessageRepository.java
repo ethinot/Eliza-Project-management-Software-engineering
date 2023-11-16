@@ -29,6 +29,12 @@ public class MessageRepository {
         MESSAGES.add(message);
     }
 
+    /**
+     * Removed a message to the chat. The message is deleted to the list of messages and
+     * appropriate actions are taken such as notifying observers and sending the message to a bot.
+     *
+     * @param message the message to be removed
+     */
     public void removeMessage(final Message message) {
         MESSAGES.remove(message);
     }

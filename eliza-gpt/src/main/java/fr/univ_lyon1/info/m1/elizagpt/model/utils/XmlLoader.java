@@ -10,8 +10,30 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class XmlLoader {
-    public static <T> List<T> load(String xmlFilePath, String elementName, Function<Element, T> mapper) {
+/**
+ * An XmlLoader is used for loading different types
+ * of XML files and create associated list of objet.
+ *
+ */
+public final class XmlLoader {
+
+    private XmlLoader() {
+
+    }
+
+    /**
+     * Loads a list of objects from an XML file based on the specified element
+     * name and mapping function.
+     *
+     * @param <T> the type of objects to be loaded
+     * @param xmlFilePath the path to the XML file to be loaded
+     * @param elementName the name of the XML elements to be processed
+     * @param mapper a function that maps XML elements to objects of type T
+     * @return list of objects of type T loaded from the XML file
+     * @throws NullPointerException if xmlFilePath or elementName is null
+     */
+    public static <T> List<T> load(final String xmlFilePath, final String elementName,
+                                   final Function<Element, T> mapper) {
         SAXBuilder saxBuilder = new SAXBuilder();
         InputStream xmlFile = XmlLoader.class.getClassLoader().getResourceAsStream(xmlFilePath);
         if (xmlFile == null) {

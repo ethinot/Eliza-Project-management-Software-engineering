@@ -25,7 +25,8 @@ public class ChatView extends View {
      * @param height            the height of the ChatView
      * @param messageController the message controller
      */
-    public ChatView(final Stage stage, final int width, final int height, MessageController messageController) {
+    public ChatView(final Stage stage, final int width, final int height,
+                    final MessageController messageController) {
         super(stage, width, height, new VBox());
 
         this.messageController = messageController;

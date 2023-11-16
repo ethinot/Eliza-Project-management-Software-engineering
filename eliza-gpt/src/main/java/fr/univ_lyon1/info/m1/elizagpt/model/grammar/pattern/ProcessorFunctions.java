@@ -1,6 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.model.grammar.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
@@ -104,7 +104,7 @@ class DefaultResponseProcessor implements UnaryOperator<String> {
         return DEFAULT_RESPONSES.get(randomIndex);
     }
 
-    private String getRandomResponseWithName(String name) {
+    private String getRandomResponseWithName(final String name) {
         String template = RESPONSES_WITH_NAME.get(RandomUtils.nextInt(RESPONSES_WITH_NAME.size()));
         return String.format(template, name);
     }

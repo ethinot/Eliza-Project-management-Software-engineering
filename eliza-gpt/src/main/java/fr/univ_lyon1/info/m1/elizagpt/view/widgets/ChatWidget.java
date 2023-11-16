@@ -27,7 +27,7 @@ public class ChatWidget implements Widget {
      * Calls the initScrollPane method to set up the properties of the ScrollPane.
      * Calls the addComponents method to add components to the ChatWidget.
      */
-    public ChatWidget(MessageController messageController) {
+    public ChatWidget(final MessageController messageController) {
         this.messageController = messageController;
 
         dialog = new VBox(10);
@@ -44,7 +44,7 @@ public class ChatWidget implements Widget {
         this.messageController.getMessagesObservableList().addListener(this::processMessageChange);
     }
 
-    private void processMessageChange(ListChangeListener.Change<? extends Message> c) {
+    private void processMessageChange(final ListChangeListener.Change<? extends Message> c) {
         while (c.next()) {
             if (c.wasAdded()) {
                 for (Message message : c.getAddedSubList()) {

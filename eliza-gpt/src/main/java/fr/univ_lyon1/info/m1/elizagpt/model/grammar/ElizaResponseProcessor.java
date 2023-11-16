@@ -7,8 +7,6 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
 
-import java.io.IOException;
-
 /**
  * Main class for build and store Eliza responses.
  */
@@ -18,9 +16,8 @@ public class ElizaResponseProcessor {
     /**
      * Build instances required by the class.
      *
-     * @throws IOException exception throw if the file can't open.
      */
-    public ElizaResponseProcessor(MessageRepository messageRepository) {
+    public ElizaResponseProcessor(final MessageRepository messageRepository) {
         new VerbsRepository("vocabulary/vocabulary.xml");
         this.messageRepository = messageRepository;
     }

@@ -8,6 +8,12 @@ public class Verb {
     private final String firstSingular;
     private final String secondPlural;
 
+    /**
+     * Constructor of Verb class.
+     *
+     * @param firstSingular the first person of singular conjugation
+     * @param secondPlural the second person of singular conjugation
+     */
     public Verb(final String firstSingular, final String secondPlural) {
         this.firstSingular = firstSingular;
         this.secondPlural = secondPlural;

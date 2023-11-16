@@ -5,7 +5,6 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import javafx.collections.ObservableList;
-import org.jdom2.JDOMException;
 
 import java.io.IOException;
 
@@ -15,13 +14,19 @@ import java.io.IOException;
 public class MessageController {
     private final Model model = new Model();
 
+    /**
+     * Constructor of the MessageController class.
+     *
+     * @throws IOException if
+     */
     public MessageController() throws IOException {
         addDefaultMessages();
     }
 
     private void addDefaultMessages() {
-        model.messageRepository.sendMessage(new ElizaMessage("Bonjour, je suis Eliza, votre thérapeute virtuelle."));
-        model.messageRepository.sendMessage(new ElizaMessage("Comment allez-vous ?"));
+        model.getMessageRepository().sendMessage(new ElizaMessage(
+                "Bonjour, je suis Eliza, votre thérapeute virtuelle."));
+        model.getMessageRepository().sendMessage(new ElizaMessage("Comment allez-vous ?"));
     }
 
     public ObservableList<Message> getMessagesObservableList() {
@@ -34,10 +39,15 @@ public class MessageController {
      * @param message the message to be sent
      */
     public void sendUserMessage(final String message) {
-        model.elizaResponseProcessor.process(message);
+        model.getElizaResponseProcessor().process(message);
     }
 
+    /**
+     * Remove a message to the model.
+     *
+     * @param message the message to be sent
+     */
     public void removeMessage(final Message message) {
-        model.messageRepository.removeMessage(message);
+        model.getMessageRepository().removeMessage(message);
     }
 }

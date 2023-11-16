@@ -37,7 +37,7 @@ public final class RandomUtils {
      * @param bound the upper bound (exclusive) for generating the random integer
      * @return a random integer between 0 and bound-1
      */
-    public static int nextInt(int bound) {
+    public static int nextInt(final int bound) {
         return MY_RANDOM.nextInt(bound);
     }
 }

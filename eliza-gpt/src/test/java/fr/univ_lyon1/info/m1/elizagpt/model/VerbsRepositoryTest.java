@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class VerbsRepositoryTest {
 
@@ -31,7 +32,8 @@ class VerbsRepositoryTest {
     @Test
     void testInvalidVerbsRepositoryCreation() {
         try {
-            VerbsRepository invalidVerbsRepository = new VerbsRepository("ce/chemin/ne/mene/pas/a/rome");
+            VerbsRepository invalidVerbsRepository = new VerbsRepository(
+                    "ce/chemin/ne/mene/pas/a/rome");
         } catch (Exception e) {
             assertNotNull(e);
         }

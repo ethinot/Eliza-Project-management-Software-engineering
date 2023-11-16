@@ -22,7 +22,7 @@ public class MessageBox implements Component {
      * @param message           The Message object associated with the MessageBox.
      * @param messageController the MessageBox will be displayed in.
      */
-    public MessageBox(final Message message, MessageController messageController) {
+    public MessageBox(final Message message, final MessageController messageController) {
         this.message = message;
         this.messageController = messageController;
     }
