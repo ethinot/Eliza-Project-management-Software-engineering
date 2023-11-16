@@ -41,7 +41,7 @@ public class MessageRepository {
      * @return The type of the last messages among ElizaMessage and UserMessage
      */
     public static <T extends Message> T getLastMessage(final Class<T> messageType) {
-        if (isEmpty()) {
+        if (MESSAGES.isEmpty()) {
             return null;
         }
 
