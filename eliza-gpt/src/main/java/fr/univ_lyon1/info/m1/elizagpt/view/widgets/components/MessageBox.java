@@ -1,10 +1,10 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets.components;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 
 /**
@@ -36,7 +36,8 @@ public class MessageBox implements Component {
     public HBox create() {
         HBox hBox = createBoxComponent();
         // Todo : ajouter la petite croix moche pour delete
-        hBox.setOnMouseClicked(e -> removeMessageBox(hBox));
+        // Todo : Changer la manière de remove (method remove... cannot be applied to given types)
+        //hBox.setOnMouseClicked(e -> removeMessageBox(hBox));
 
         return hBox;
     }
