@@ -33,9 +33,29 @@ public class MessageRepository {
     public void sendMessage(final String message) {
         UserMessage userMessage = new UserMessage(message);
         MESSAGES.add(userMessage);
-        // TODO : notify observers
-
+        // TODO : notify observers (C'est le controller qui la fait ?)
         // TODO : send message to bot
         // ElizaResponseProcessor.processMessage(message);
+    }
+
+    /**
+     * Function that return the last message of the message repository.
+     *
+     * @param messageType The type of the last messages among ElizaMessage and UserMessage
+     * @param <T> final the of message
+     * @return The type of the last messages among ElizaMessage and UserMessage
+     */
+    public static <T extends Message> T getLastMessage(final Class<T> messageType) {
+        if (isEmpty()) {
+            return null;
+        }
+
+        T lastMessage = null;
+        for (Message message : MESSAGES) {
+            if (messageType.isInstance(message)) {
+                lastMessage = messageType.cast(message);
+            }
+        }
+        return lastMessage;
     }
 }
