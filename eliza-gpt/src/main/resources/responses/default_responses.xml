@@ -1,0 +1,50 @@
+<responses>
+    <response>
+        <default>Il fait beau aujourd'hui, vous ne trouvez pas ?</default>
+        <withName>Il fait beau aujourd'hui, %s, vous ne trouvez pas ?</withName>
+    </response>
+    <response>
+        <default>Je ne comprends pas.</default>
+        <withName>Je ne comprends pas, %s.</withName>
+    </response>
+    <response>
+        <default>Parfois, il est préférable de prendre du recul pour mieux avancer.</default>
+        <withName>Parfois, %s, il est préférable de prendre du recul pour mieux avancer.</withName>
+    </response>
+    <response>
+        <default>La vie est pleine de surprises, n'est-ce pas ?</default>
+        <withName>La vie est pleine de surprises, n'est-ce pas, %s ?</withName>
+    </response>
+    <response>
+        <default>Ça semble être une situation complexe.</default>
+        <withName>Ça semble être une situation complexe, %s.</withName>
+    </response>
+    <response>
+        <default>Intéressant, pouvez-vous en dire plus ?</default>
+        <withName>Intéressant, %s, pouvez-vous en dire plus ?</withName>
+    </response>
+    <response>
+        <default>C'est une perspective unique.</default>
+        <withName>C'est une perspective unique, %s.</withName>
+    </response>
+    <response>
+        <default>Je comprends. Comment cela vous fait-il sentir ?</default>
+        <withName>Je comprends, %s. Comment cela vous fait-il sentir ?</withName>
+    </response>
+    <response>
+        <default>Parlez-moi davantage de vos sentiments à ce sujet.</default>
+        <withName>Parlez-moi davantage de vos sentiments à ce sujet, %s.</withName>
+    </response>
+    <response>
+        <default>Cela doit être difficile pour vous.</default>
+        <withName>Cela doit être difficile pour vous, %s.</withName>
+    </response>
+    <response>
+        <default>Comment puis-je vous aider aujourd'hui ?</default>
+        <withName>Comment puis-je vous aider aujourd'hui, %s ?</withName>
+    </response>
+    <response>
+        <default>Êtes-vous certain de cela ?</default>
+        <withName>Êtes-vous certain de cela, %s ?</withName>
+    </response>
+</responses>

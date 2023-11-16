@@ -13,7 +13,8 @@ public enum PatternProcessor {
     WHAT_IS_MY_NAME(".*Quel est mon nom \\?", new WhatIsMyNameProcessor()),
     WHO_IS_THE_MOST(".*Qui est le plus (.*) \\?", new WhoIsTheMostProcessor()),
     I("(Je .*)\\.", new IProcessor()),
-    I_ASK_HERE(".*\\?", new IAskHereProcessor());
+    I_ASK_HERE(".*\\?", new IAskHereProcessor()),
+    DEFAULT_RESPONSE(".*", new DefaultResponseProcessor());
 
     private static String name = null;
     private final Pattern pattern;

@@ -1,10 +1,16 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.grammar.TextUtils;
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor.getFirstMatchedString;
 
@@ -64,5 +70,42 @@ class IAskHereProcessor implements UnaryOperator<String> {
     @Override
     public String apply(final String s) {
         return "C'est mon terrain ici, c'est moi qui pose les questions.";
+    }
+}
+
+class DefaultResponseProcessor implements UnaryOperator<String> {
+    private static final ArrayList<String> DEFAULT_RESPONSES;
+    private static final ArrayList<String> RESPONSES_WITH_NAME;
+
+    static {
+        List<Map.Entry<String, String>> responseEntries = XmlLoader.load(
+                "responses/default_responses.xml", "response", XmlMapper::mapElementToResponse
+        );
+
+        Map<String, String> responsesMap = responseEntries.stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        DEFAULT_RESPONSES = new ArrayList<>(responsesMap.keySet());
+        RESPONSES_WITH_NAME = new ArrayList<>(responsesMap.values());
+    }
+
+    @Override
+    public String apply(final String s) {
+        String name = PatternProcessor.getName();
+        if (name != null) {
+            return getRandomResponseWithName(name);
+        } else {
+            return getRandomDefaultResponse();
+        }
+    }
+
+    private String getRandomDefaultResponse() {
+        int randomIndex = RandomUtils.nextInt(DEFAULT_RESPONSES.size());
+        return DEFAULT_RESPONSES.get(randomIndex);
+    }
+
+    private String getRandomResponseWithName(String name) {
+        String template = RESPONSES_WITH_NAME.get(RandomUtils.nextInt(RESPONSES_WITH_NAME.size()));
+        return String.format(template, name);
     }
 }
