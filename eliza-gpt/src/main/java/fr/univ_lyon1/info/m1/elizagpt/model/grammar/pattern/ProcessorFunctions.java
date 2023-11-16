@@ -1,7 +1,9 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.model.grammar.TextUtils;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor.getFirstMatchedString;
@@ -47,15 +49,14 @@ class WhoIsTheMostProcessor implements UnaryOperator<String> {
 class IProcessor implements UnaryOperator<String> {
     @Override
     public String apply(final String s) {
-        final String startQuestion = MessageProcessor.pickRandom(
+        final String startQuestion = RandomUtils.pickArrayRandom(
                 new String[]{"Pourquoi dites-vous que ",
                         "Pourquoi pensez-vous que ",
                         "Êtes-vous sûr que ",
                 });
 
-        return startQuestion + MessageProcessor
-                .firstToSecondPerson(getFirstMatchedString(
-                        PatternProcessor.I.getPattern(), s)) + " ?";
+        return startQuestion + TextUtils.firstToSecondPerson(Objects.requireNonNull(
+                getFirstMatchedString(PatternProcessor.I.getPattern(), s))).concat(" ?");
     }
 }
 
