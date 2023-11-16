@@ -4,6 +4,7 @@ import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.IOException;
  */
 public class ElizaResponseProcessor {
     private final VerbsRepository verbsRepository;
+    private MessageRepository messageRepository;
 
     /**
      * Build instances required by the class.
@@ -20,7 +22,7 @@ public class ElizaResponseProcessor {
      * @throws IOException exception throw if the file can't open.
      */
     public ElizaResponseProcessor() throws IOException {
-        verbsRepository = new VerbsRepository("./verb/vocabulary.xml");
+        verbsRepository = new VerbsRepository("vocabulary.xml");
     }
 
     /**
@@ -32,7 +34,9 @@ public class ElizaResponseProcessor {
         // TODO: découper cette fonction
         String normalizedInput = MessageProcessor.normalize(input);
 
+        // TODO : Add la respond au messageRepo
         String response = PatternProcessor.process(normalizedInput);
+
 
         if (response != null) {
             replyToUser(response);
@@ -66,4 +70,5 @@ public class ElizaResponseProcessor {
     private static void replyToUser(final String s) {
         MessageController.sendElizaMessage(s);
     }
+
 }
