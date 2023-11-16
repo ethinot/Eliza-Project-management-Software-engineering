@@ -1,8 +1,8 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.messages;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Responsible for storing messages.
@@ -13,15 +13,10 @@ public class MessageRepository {
      *
      * @see Message
      */
-    private static final Collection<Message> MESSAGES = new ArrayList<>();
+    private static final ObservableList<Message> MESSAGES = FXCollections.observableArrayList();
 
-    /**
-     * Function that check if the collection of messages is empty.
-     *
-     * @return True if there is no messages stored.
-     */
-    public static boolean isEmpty() {
-        return MESSAGES.isEmpty();
+    public static ObservableList<Message> getObservableList() {
+        return MESSAGES;
     }
 
     /**
@@ -30,12 +25,12 @@ public class MessageRepository {
      *
      * @param message the message to be sent
      */
-    public void sendMessage(final String message) {
-        UserMessage userMessage = new UserMessage(message);
-        MESSAGES.add(userMessage);
-        // TODO : notify observers (C'est le controller qui la fait ?)
-        // TODO : send message to bot
-        // ElizaResponseProcessor.processMessage(message);
+    public void sendMessage(final Message message) {
+        MESSAGES.add(message);
+    }
+
+    public void removeMessage(final Message message) {
+        MESSAGES.remove(message);
     }
 
     /**

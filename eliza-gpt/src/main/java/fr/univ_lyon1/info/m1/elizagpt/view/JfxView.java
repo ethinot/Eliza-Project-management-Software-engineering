@@ -1,3 +1,4 @@
+/*
 package fr.univ_lyon1.info.m1.elizagpt.view;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
@@ -20,9 +21,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+*/
 /**
  * Main class of the View (GUI) of the application.
- */
+ * <p>
+ * Create the main view of the application.
+ *//*
+
 public class JfxView {
     static final String BASE_STYLE = "-fx-padding: 8px; "
             + "-fx-margin: 5px; "
@@ -35,9 +40,11 @@ public class JfxView {
     private TextField searchText = null;
     private Label searchTextLabel = null;
 
-    /**
-     * Create the main view of the application.
-     */
+    */
+/**
+ * Create the main view of the application.
+ *//*
+
     public JfxView(final Stage stage, final int width, final int height) {
         stage.setTitle("Eliza GPT");
 
@@ -68,7 +75,7 @@ public class JfxView {
         MessageBox messageBox = new MessageBox(text, ELIZA_STYLE, Pos.BASELINE_RIGHT, dialog);
         dialog.getChildren().add(messageBox.createMessageContainer());
 
-        MessageController.sendUserMessage(text);
+        messageController.sendUserMessage(text);
     }
 
     private Pane createSearchWidget() {
@@ -136,3 +143,4 @@ public class JfxView {
         return input;
     }
 }
+*/

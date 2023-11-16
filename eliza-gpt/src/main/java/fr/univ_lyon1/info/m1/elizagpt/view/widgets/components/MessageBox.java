@@ -14,18 +14,17 @@ public class MessageBox implements Component {
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
-    private final VBox dialog;
+    private final MessageController messageController;
 
     /**
      * Creates a new instance of the MessageBox class.
      *
-     * @param message The Message object associated with the MessageBox.
-     * @param dialog  The VBox object representing the dialog that
-     *                the MessageBox will be displayed in.
+     * @param message           The Message object associated with the MessageBox.
+     * @param messageController the MessageBox will be displayed in.
      */
-    public MessageBox(final Message message, final VBox dialog) {
+    public MessageBox(final Message message, MessageController messageController) {
         this.message = message;
-        this.dialog = dialog;
+        this.messageController = messageController;
     }
 
     /**
@@ -42,8 +41,8 @@ public class MessageBox implements Component {
         return hBox;
     }
 
-    private void removeMessageBox(final HBox hBox) {
-        // TODO : appeler le controller pour supprimer le message
+    private void removeMessageBox() {
+        messageController.removeMessage(message);
     }
 
     private HBox createBoxComponent() {
