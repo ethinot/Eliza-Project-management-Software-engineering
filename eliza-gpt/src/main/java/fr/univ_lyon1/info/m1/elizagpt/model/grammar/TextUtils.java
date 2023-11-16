@@ -4,11 +4,17 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
 
+import java.io.IOException;
+
 /**
  * Operators for formatting Eliza's message.
  */
 public final class TextUtils {
-    private TextUtils() { }
+
+    private static VerbsRepository verbsRepository;
+    private TextUtils() throws IOException {
+        verbsRepository = new VerbsRepository("vocabulary/vocablulary.xml");
+    }
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
      *
@@ -31,8 +37,7 @@ public final class TextUtils {
      * @param text The 1st-person sentence.
      * @return The 2nd-person sentence.
      */
-    public static String firstToSecondPerson(final String text,
-                                             final VerbsRepository verbsRepository) {
+    public static String firstToSecondPerson(final String text) {
         String processedText = text
                 .replaceAll("[Jj]e ([a-z]*)e ", "vous $1ez ");
         for (Verb v : verbsRepository.getVerbs()) {
