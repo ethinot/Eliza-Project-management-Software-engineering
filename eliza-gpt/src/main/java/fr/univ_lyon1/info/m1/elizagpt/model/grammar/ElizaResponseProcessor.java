@@ -1,13 +1,11 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 
-import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 
 import java.io.IOException;
