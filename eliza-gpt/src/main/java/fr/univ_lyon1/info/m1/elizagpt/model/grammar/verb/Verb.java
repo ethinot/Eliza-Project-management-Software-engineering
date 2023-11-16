@@ -8,7 +8,7 @@ public class Verb {
     private final String firstSingular;
     private final String secondPlural;
 
-    Verb(final String firstSingular, final String secondPlural) {
+    public Verb(final String firstSingular, final String secondPlural) {
         this.firstSingular = firstSingular;
         this.secondPlural = secondPlural;
     }

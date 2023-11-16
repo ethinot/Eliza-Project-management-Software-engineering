@@ -30,4 +30,14 @@ public final class RandomUtils {
     public static boolean coinToss() {
         return MY_RANDOM.nextBoolean();
     }
+
+    /**
+     * Generates a random integer between 0 (inclusive) and the specified bound (exclusive).
+     *
+     * @param bound the upper bound (exclusive) for generating the random integer
+     * @return a random integer between 0 and bound-1
+     */
+    public static int nextInt(int bound) {
+        return MY_RANDOM.nextInt(bound);
+    }
 }

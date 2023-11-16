@@ -29,6 +29,8 @@ class VerbsRepositoryTest {
         } catch (IOException e) {
             e.printStackTrace();
             fail("Une exception s'est produite lors du chargement des verbes. " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -9,7 +9,7 @@ public class Model {
     public final MessageRepository messageRepository;
     public final ElizaResponseProcessor elizaResponseProcessor;
 
-    public Model() throws IOException {
+    public Model() {
         this.messageRepository = new MessageRepository();
         this.elizaResponseProcessor = new ElizaResponseProcessor(messageRepository);
     }

@@ -5,6 +5,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import javafx.collections.ObservableList;
+import org.jdom2.JDOMException;
 
 import java.io.IOException;
 
