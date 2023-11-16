@@ -25,7 +25,7 @@ public class VerbsRepository {
         try {
             InputStream xmlFile = getClass().getClassLoader().getResourceAsStream(xmlFilePath);
             if (xmlFile == null) {
-                throw new IOException("Fichier XML non trouvé");
+                throw new IOException("Fichier XML non trouve");
             }
             Document document = saxBuilder.build(xmlFile);
             Element rootElement = document.getRootElement();
