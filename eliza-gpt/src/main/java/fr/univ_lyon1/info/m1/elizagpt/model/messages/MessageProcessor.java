@@ -7,12 +7,12 @@ import java.util.Random;
 /**
  * Logic to process a message (and probably reply to it).
  */
-public class MessageProcessor {
+public final class MessageProcessor {
     /**
      * List of 3rd group verbs and their correspondance from 1st person signular
      * (Je) to 2nd person plural (Vous).
      */
-    protected static final List<Verb> VERBS = Arrays.asList(
+    private static final List<Verb> VERBS = Arrays.asList(
             new Verb("suis", "êtes"),
             new Verb("vais", "allez"),
             new Verb("dis", "dites"),
@@ -20,7 +20,10 @@ public class MessageProcessor {
             new Verb("fais", "faites"),
             new Verb("sais", "savez"),
             new Verb("dois", "devez"));
-    private final Random random = new Random();
+    private static final Random RANDOM = new Random();
+
+    private MessageProcessor() {
+    }
 
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
@@ -44,7 +47,7 @@ public class MessageProcessor {
      * @param text The 1st-person sentence.
      * @return The 2nd-person sentence.
      */
-    public String firstToSecondPerson(final String text) {
+    public static String firstToSecondPerson(final String text) {
         String processedText = text
                 .replaceAll("[Jj]e ([a-z]*)e ", "vous $1ez ");
         for (Verb v : VERBS) {
@@ -64,8 +67,8 @@ public class MessageProcessor {
     /**
      * Pick an element randomly in the array.
      */
-    public <T> T pickRandom(final T[] array) {
-        return array[random.nextInt(array.length)];
+    public static <T> T pickRandom(final T[] array) {
+        return array[RANDOM.nextInt(array.length)];
     }
 
     /**

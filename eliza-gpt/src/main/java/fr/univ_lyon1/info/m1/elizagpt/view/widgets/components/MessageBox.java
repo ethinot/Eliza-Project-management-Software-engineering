@@ -1,62 +1,85 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets.components;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 
-public class MessageBox {
-    private static final String BASE_STYLE = "-fx-padding: 8px; -fx-margin: 5px; -fx-background-radius: 5px; -fx-background-color: ";
-    private static final String USER_COLOR = "#A0E0A0";
-    private static final String ELIZA_COLOR = "#A0A0E0";
-    private static final String USER_STYLE = BASE_STYLE + USER_COLOR + ";";
-    private static final String ELIZA_STYLE = BASE_STYLE + ELIZA_COLOR + ";";
+/**
+ * Represents a message box that displays a message with specified style and alignment.
+ */
+public class MessageBox implements Component {
     private static final Pos USER_POS = Pos.CENTER_RIGHT;
     private static final Pos ELIZA_POS = Pos.CENTER_LEFT;
     private final Message message;
-    private final VBox dialog;
+    private final MessageController messageController;
 
-    public MessageBox(Message message, VBox dialog) {
+    /**
+     * Creates a new instance of the MessageBox class.
+     *
+     * @param message           The Message object associated with the MessageBox.
+     * @param messageController the MessageBox will be displayed in.
+     */
+    public MessageBox(final Message message, final MessageController messageController) {
         this.message = message;
-        this.dialog = dialog;
+        this.messageController = messageController;
     }
 
+    /**
+     * Creates a new HBox object to represent a MessageBox.
+     *
+     * @return The created HBox object.
+     */
+    @Override
     public HBox create() {
-        HBox hBox = createBoxComponent();
-
-        hBox.setOnMouseClicked(e -> removeMessageBox(hBox));
-
-        return hBox;
+        return createBoxComponent();
     }
 
-    private void removeMessageBox(HBox hBox) {
-        // TODO : appeler le controller pour supprimer le message
-        this.dialog.getChildren().remove(hBox);
+    private void removeMessageBox() {
+        messageController.removeMessage(message);
     }
 
     private HBox createBoxComponent() {
         HBox hBox = new HBox();
-        final Label label = createLabel();
+        final Label innerText = createLabel();
+        Label deleteIcon = createDeleteIcon();
 
-        hBox.getChildren().add(label);
+        // Ajoute la croix de suppression avant le message si c'est un message de l'utilisateur
+        if (message.isFromUser()) {
+            hBox.getChildren().addAll(deleteIcon, innerText);
+        } else {
+            hBox.getChildren().addAll(innerText, deleteIcon);
+        }
+
         hBox.setAlignment(getAlignment());
+        hBox.setSpacing(10);
 
         return hBox;
     }
 
+    private Label createDeleteIcon() {
+        Label deleteIcon = new Label("✕");
+        deleteIcon.getStyleClass().add("delete-icon");
+        deleteIcon.setOnMouseClicked(e -> removeMessageBox());
+
+        return deleteIcon;
+    }
+
     private Label createLabel() {
-        Label label = new Label(this.message.getText());
-        label.setStyle(getStyle());
+        Label label = new Label(message.getText());
+        addCSS(label);
         return label;
     }
 
-    private String getStyle() {
-        return this.message.isFromUser() ? USER_STYLE : ELIZA_STYLE;
+    private void addCSS(final Label label) {
+        label.getStyleClass().add("message-box");
+        label.getStyleClass().add(message.isFromUser()
+                ? "user-message-box" : "eliza-message-box");
     }
 
     private Pos getAlignment() {
-        return this.message.isFromUser() ? USER_POS : ELIZA_POS;
+        return message.isFromUser() ? USER_POS : ELIZA_POS;
     }
 }
