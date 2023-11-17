@@ -3,7 +3,6 @@ package fr.univ_lyon1.info.m1.elizagpt.model.utils;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 
 import java.util.List;
 
@@ -11,8 +10,11 @@ import java.util.List;
  * Operators for formatting Eliza's message.
  */
 public final class TextUtils {
+    private static final VerbsRepository VERBS_REPOSITORY =
+            new VerbsRepository("vocabulary/vocabulary.xml");
 
-    private static final VerbsRepository verbsRepository = new VerbsRepository("vocabulary/vocabulary.xml");
+    private TextUtils() {
+    }
 
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
@@ -39,7 +41,7 @@ public final class TextUtils {
     public static String firstToSecondPerson(final String text) {
         String processedText = text
                 .replaceAll("[Jj]e ([a-z]*)e ", "vous $1ez ");
-        for (Verb v : verbsRepository.getVerbs()) {
+        for (Verb v : VERBS_REPOSITORY.getVerbs()) {
             processedText = processedText.replaceAll(
                     "[Jj]e " + v.getFirstSingular(),
                     "vous " + v.getSecondPlural());
@@ -53,7 +55,14 @@ public final class TextUtils {
         return processedText;
     }
 
-    public static String getString(List<String> responses, String... args) {
+    /**
+     * Get a random string from a list of responses and format it with optional arguments.
+     *
+     * @param responses A list of response strings.
+     * @param args      Optional arguments to be formatted into the response string.
+     * @return A random response string with optional arguments formatted into it.
+     */
+    public static String getString(final List<String> responses, final String... args) {
         String response = responses.get(RandomUtils.nextInt(responses.size()));
 
         if (args.length == 2) {

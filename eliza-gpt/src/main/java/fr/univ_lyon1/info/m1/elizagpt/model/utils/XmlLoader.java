@@ -16,10 +16,9 @@ import java.util.stream.Collectors;
 /**
  * An XmlLoader is used for loading different types
  * of XML files and create associated list of objet.
- *
  */
 public final class XmlLoader {
-    private static final Map<String, Document> cache = new ConcurrentHashMap<>();
+    private static final Map<String, Document> CACHE = new ConcurrentHashMap<>();
 
     private XmlLoader() {
 
@@ -29,10 +28,10 @@ public final class XmlLoader {
      * Loads a list of objects from an XML file based on the specified element
      * name and mapping function.
      *
-     * @param <T> the type of objects to be loaded
+     * @param <T>         the type of objects to be loaded
      * @param xmlFilePath the path to the XML file to be loaded
      * @param elementName the name of the XML elements to be processed
-     * @param mapper a function that maps XML elements to objects of type T
+     * @param mapper      a function that maps XML elements to objects of type T
      * @return list of objects of type T loaded from the XML file
      * @throws NullPointerException if xmlFilePath or elementName is null
      */
@@ -40,7 +39,7 @@ public final class XmlLoader {
                                    final Function<Element, T> mapper) {
         SAXBuilder saxBuilder = new SAXBuilder();
 
-        Document document = cache.get(xmlFilePath);
+        Document document = CACHE.get(xmlFilePath);
         if (document == null) {
             InputStream xmlFile = XmlLoader.class.getClassLoader().getResourceAsStream(xmlFilePath);
             if (xmlFile == null) {
@@ -50,9 +49,10 @@ public final class XmlLoader {
 
             try {
                 document = saxBuilder.build(xmlFile);
-                cache.put(xmlFilePath, document); // Ajoute le document au cache
+                CACHE.put(xmlFilePath, document); // Ajoute le document au cache
             } catch (Exception e) {
-                Logger.getGlobal().severe("Can't parse XML file: " + xmlFilePath + " due to error: " + e.getMessage());
+                Logger.getGlobal().severe("Can't parse XML file: "
+                        + xmlFilePath + " due to error: " + e.getMessage());
                 return List.of();
             }
         }
@@ -67,14 +67,16 @@ public final class XmlLoader {
      *
      * @param xmlFilePath the path to the XML file to be loaded
      * @param elementName the name of the XML element to be processed
-     * @param mapper a function that maps XML elements to a Map<String, List<String>>
+     * @param mapper      a function that maps XML elements to a Map<String, List<String>>
      * @return a Map<String, List<String>> loaded from the XML file
      */
-    public static Map<String, List<String>> loadSingleResponse(final String xmlFilePath, final String elementName,
-                                                               final Function<Element, Map<String, List<String>>> mapper) {
+    public static Map<String, List<String>>
+    loadSingleResponse(final String xmlFilePath,
+                       final String elementName,
+                       final Function<Element, Map<String, List<String>>> mapper) {
         SAXBuilder saxBuilder = new SAXBuilder();
 
-        Document document = cache.get(xmlFilePath);
+        Document document = CACHE.get(xmlFilePath);
         if (document == null) {
             InputStream xmlFile = XmlLoader.class.getClassLoader().getResourceAsStream(xmlFilePath);
             if (xmlFile == null) {
@@ -84,9 +86,10 @@ public final class XmlLoader {
 
             try {
                 document = saxBuilder.build(xmlFile);
-                cache.put(xmlFilePath, document); // Ajoute le document au cache
+                CACHE.put(xmlFilePath, document); // Ajoute le document au cache
             } catch (Exception e) {
-                Logger.getGlobal().severe("Can't parse XML file: " + xmlFilePath + " due to error: " + e.getMessage());
+                Logger.getGlobal().severe("Can't parse XML file: "
+                        + xmlFilePath + " due to error: " + e.getMessage());
                 throw new RuntimeException("Can't parse XML file: " + xmlFilePath, e);
             }
         }

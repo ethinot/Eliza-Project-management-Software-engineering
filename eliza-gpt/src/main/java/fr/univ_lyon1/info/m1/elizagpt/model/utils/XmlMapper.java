@@ -43,6 +43,13 @@ public final class XmlMapper {
         return new AbstractMap.SimpleEntry<>(defaultResponse, withNameResponse);
     }
 
+    /**
+     * Function that maps an element from an XML file to a map of processor responses.
+     *
+     * @param element the element from the XML file containing responses
+     * @return a map with processor names as the keys and a list
+     * of corresponding responses as the values
+     */
     public static Map<String, List<String>> mapElementToProcessorResponses(final Element element) {
         Map<String, List<String>> responses = new HashMap<>();
         for (Element child : element.getChildren()) {
