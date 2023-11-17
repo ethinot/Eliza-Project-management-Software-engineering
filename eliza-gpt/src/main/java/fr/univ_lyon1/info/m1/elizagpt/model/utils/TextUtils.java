@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
+package fr.univ_lyon1.info.m1.elizagpt.model.utils;
 
 
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
