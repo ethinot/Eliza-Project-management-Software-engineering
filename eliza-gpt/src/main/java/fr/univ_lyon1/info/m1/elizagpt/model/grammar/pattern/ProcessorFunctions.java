@@ -15,63 +15,109 @@ import java.util.stream.Collectors;
 import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor.getFirstMatchedString;
 
 class MyNameIsProcessor implements UnaryOperator<String> {
+    static List<String> newNameResponses;
+    static List<String> alreadyKnownResponses;
+    static List<String> updatedResponses;
+
+    static {
+        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
+                "responses/processor_responses.xml", "MyNameIsResponse", XmlMapper::mapElementToProcessorResponses);
+        newNameResponses = responses.get("newName");
+        alreadyKnownResponses = responses.get("alreadyKnown");
+        updatedResponses = responses.get("updated");
+    }
+
     @Override
     public String apply(final String s) {
         final String newName = getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
+
         if (PatternProcessor.getName() == null) {
             PatternProcessor.setName(newName);
-            return "Bonjour " + newName + " !";
+            return TextUtils.getString(newNameResponses, newName);
         } else if (PatternProcessor.getName().equals(newName)) {
-            return "Je sais déjà que vous vous appelez " + newName + ".";
+            return TextUtils.getString(alreadyKnownResponses, newName);
         } else {
             String oldName = PatternProcessor.getName();
             PatternProcessor.setName(newName);
-            return "Je sais maintenant que vous vous appelez "
-                    + newName + " et non plus " + oldName + ".";
+            return TextUtils.getString(updatedResponses, oldName, newName);
         }
     }
 }
 
 class WhatIsMyNameProcessor implements UnaryOperator<String> {
+    static List<String> knownResponses;
+    static List<String> unknownResponses;
+
+    static {
+        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
+                "responses/processor_responses.xml", "WhatIsMyNameResponse", XmlMapper::mapElementToProcessorResponses);
+        knownResponses = responses.get("known");
+        unknownResponses = responses.get("unknown");
+    }
+
     @Override
     public String apply(final String s) {
         if (PatternProcessor.getName() != null) {
-            return "Votre nom est " + PatternProcessor.getName() + ".";
+            return TextUtils.getString(knownResponses, PatternProcessor.getName());
         } else {
-            return "Je ne connais pas votre nom.";
+            return TextUtils.getString(unknownResponses);
         }
     }
 }
 
 class WhoIsTheMostProcessor implements UnaryOperator<String> {
+    private static final List<String> responses;
+
+    static {
+        responses = XmlLoader.loadSingleResponse(
+                        "responses/processor_responses.xml",
+                        "WhoIsTheMostResponse",
+                        XmlMapper::mapElementToProcessorResponses)
+                .get("default");
+    }
+
     @Override
     public String apply(final String s) {
-        return "Le plus " + getFirstMatchedString(
-                PatternProcessor.WHO_IS_THE_MOST.getPattern(), s)
-                + " est bien sûr votre enseignant de MIF01 !";
+        final String adjective = getFirstMatchedString(PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
+        return TextUtils.getString(responses, adjective);
     }
 }
 
 class IProcessor implements UnaryOperator<String> {
+    private static final List<String> responses;
+
+    static {
+        responses = XmlLoader.loadSingleResponse(
+                        "responses/processor_responses.xml", "IProcessorResponse", XmlMapper::mapElementToProcessorResponses)
+                .get("default");
+    }
+
     @Override
     public String apply(final String s) {
-        final String startQuestion = RandomUtils.pickArrayRandom(
-                new String[]{"Pourquoi dites-vous que ",
-                        "Pourquoi pensez-vous que ",
-                        "Êtes-vous sûr que ",
-                });
+        String statement = TextUtils.firstToSecondPerson(
+                Objects.requireNonNull(getFirstMatchedString(PatternProcessor.I.getPattern(), s))
+        );
 
-        return startQuestion + TextUtils.firstToSecondPerson(Objects.requireNonNull(
-                getFirstMatchedString(PatternProcessor.I.getPattern(), s))).concat(" ?");
+        return TextUtils.getString(responses, statement);
     }
 }
+
 
 class IAskHereProcessor implements UnaryOperator<String> {
+    private static final List<String> responses;
+
+    static {
+        responses = XmlLoader.loadSingleResponse(
+                        "responses/processor_responses.xml", "IAskHereResponse", XmlMapper::mapElementToProcessorResponses)
+                .get("default");
+    }
+
     @Override
     public String apply(final String s) {
-        return "C'est mon terrain ici, c'est moi qui pose les questions.";
+        return TextUtils.getString(responses);
     }
 }
+
 
 class DefaultResponseProcessor implements UnaryOperator<String> {
     private static final ArrayList<String> DEFAULT_RESPONSES;
@@ -79,7 +125,7 @@ class DefaultResponseProcessor implements UnaryOperator<String> {
 
     static {
         List<Map.Entry<String, String>> responseEntries = XmlLoader.load(
-                "responses/default_responses.xml", "response", XmlMapper::mapElementToResponse
+                "responses/default_responses.xml", "response", XmlMapper::mapElementToDefaultResponse
         );
 
         Map<String, String> responsesMap = responseEntries.stream()

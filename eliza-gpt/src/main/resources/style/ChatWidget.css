@@ -18,6 +18,8 @@
 .eliza-message-box {
     -fx-background-color: #4CAF50;
     -fx-background-radius: 15px 15px 15px 0px;
-
 }
 
+.delete-icon {
+    -fx-cursor: hand;
+}
