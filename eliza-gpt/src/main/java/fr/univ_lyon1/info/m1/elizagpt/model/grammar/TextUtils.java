@@ -3,18 +3,17 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * Operators for formatting Eliza's message.
  */
 public final class TextUtils {
 
-    private static VerbsRepository verbsRepository;
-    private TextUtils() throws IOException {
-        verbsRepository = new VerbsRepository("vocabulary/vocablulary.xml");
-    }
+    private static final VerbsRepository verbsRepository = new VerbsRepository("vocabulary/vocabulary.xml");
+
     /**
      * Normalize the text: remove extra spaces, add a final dot if missing.
      *
@@ -53,4 +52,17 @@ public final class TextUtils {
                 .replace("moi", "vous");
         return processedText;
     }
+
+    public static String getString(List<String> responses, String... args) {
+        String response = responses.get(RandomUtils.nextInt(responses.size()));
+
+        if (args.length == 2) {
+            return String.format(response, args[0], args[1]);
+        } else if (args.length == 1) {
+            return String.format(response, args[0]);
+        }
+
+        return response;
+    }
+
 }

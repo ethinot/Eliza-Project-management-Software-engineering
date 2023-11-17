@@ -1,0 +1,69 @@
+<processorResponses>
+    <MyNameIsResponse>
+        <newName>
+            <response>Bonjour %s !</response>
+            <response>Ravi de vous rencontrer, %s.</response>
+            <response>Je suis heureux de faire votre connaissance, %s.</response>
+            <response>Enchanté, %s, je suis Eliza.</response>
+        </newName>
+        <alreadyKnown>
+            <response>Je sais déjà que vous vous appelez %s.</response>
+            <response>%s, nous nous sommes déjà rencontrés.</response>
+            <response>Je me souviens que vous vous appelez %s.</response>
+            <response>Je me souviens de vous, %s.</response>
+            <response>On a déjà fait connaissance, %s.</response>
+        </alreadyKnown>
+        <updated>
+            <response>Je sais maintenant que vous vous appelez %2$s et non plus %1$s.</response>
+            <response>Je me souviendrai que vous vous appelez %2$s et non plus %1$s.</response>
+            <response>Je vais mettre à jour mon carnet d'adresses, %2$s.</response>
+            <response>Je vous connaissais sous le nom de %1$s, mais je sais maintenant que vous vous appelez %2$s.
+            </response>
+        </updated>
+    </MyNameIsResponse>
+
+
+    <WhatIsMyNameResponse>
+        <known>
+            <response>Vous vous appelez %s.</response>
+            <response>D'après mes notes, vous vous appelez %s.</response>
+            <response>Je me souviens que vous vous appelez %s.</response>
+        </known>
+        <unknown>
+            <response>Je ne sais pas comment vous vous appelez.</response>
+            <response>Je ne me souviens pas de votre nom.</response>
+            <response>Je ne connais pas votre nom.</response>
+            <response>Nous ne nous sommes pas encore présentés.</response>
+            <response>J'aimerais bien savoir comment vous vous appelez.</response>
+        </unknown>
+    </WhatIsMyNameResponse>
+
+    <WhoIsTheMostResponse>
+        <default>
+            <response>Le plus %s est bien sûr votre enseignant de MIF01 !</response>
+            <response>Je ne sais pas qui est le plus %s, peut-être votre enseignant de MIF01 ?</response>
+            <response>Je ne sais pas qui est le plus %s, mais je suis sûr que ce n'est pas votre enseignant de MIF01 !
+            </response>
+            <response>D'après moi, le plus %s est votre enseignant de MIF01 !</response>
+        </default>
+    </WhoIsTheMostResponse>
+
+    <IProcessorResponse>
+        <default>
+            <response>Pourquoi dites-vous que %s ?</response>
+            <response>Vous pensez vraiment que %s ?</response>
+            <response>Mais pourquoi %s ?</response>
+            <response>Je ne suis pas sûr de comprendre pourquoi vous dites que %s.</response>
+            <response>Je ne suis pas sûr de comprendre ce que vous voulez dire par %s.</response>
+        </default>
+    </IProcessorResponse>
+
+    <IAskHereResponse>
+        <default>
+            <response>C'est mon terrain ici, c'est moi qui pose les questions.</response>
+            <response>Je suis le thérapeute, concentrez-vous sur vous-même.</response>
+            <response>Je ne peux pas répondre à cette question, c'est vous qui devriez me le dire.</response>
+            <response>Il est important que vous me parliez de vous, pas de moi.</response>
+        </default>
+    </IAskHereResponse>
+</processorResponses>
