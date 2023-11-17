@@ -1,6 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.grammar.TextUtils;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
