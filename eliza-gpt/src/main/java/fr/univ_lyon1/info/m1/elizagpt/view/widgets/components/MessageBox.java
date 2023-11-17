@@ -34,12 +34,7 @@ public class MessageBox implements Component {
      */
     @Override
     public HBox create() {
-        HBox hBox = createBoxComponent();
-        // Todo : ajouter la petite croix moche pour delete
-        // Todo : Changer la manière de remove (method remove... cannot be applied to given types)
-        //hBox.setOnMouseClicked(e -> removeMessageBox(hBox));
-
-        return hBox;
+        return createBoxComponent();
     }
 
     private void removeMessageBox() {
@@ -48,12 +43,28 @@ public class MessageBox implements Component {
 
     private HBox createBoxComponent() {
         HBox hBox = new HBox();
-        final Label label = createLabel();
+        final Label innerText = createLabel();
+        Label deleteIcon = createDeleteIcon();
 
-        hBox.getChildren().add(label);
+        // Ajoute la croix de suppression avant le message si c'est un message de l'utilisateur
+        if (message.isFromUser()) {
+            hBox.getChildren().addAll(deleteIcon, innerText);
+        } else {
+            hBox.getChildren().addAll(innerText, deleteIcon);
+        }
+
         hBox.setAlignment(getAlignment());
+        hBox.setSpacing(10);
 
         return hBox;
+    }
+
+    private Label createDeleteIcon() {
+        Label deleteIcon = new Label("✕");
+        deleteIcon.getStyleClass().add("delete-icon");
+        deleteIcon.setOnMouseClicked(e -> removeMessageBox());
+
+        return deleteIcon;
     }
 
     private Label createLabel() {
