@@ -1,8 +1,10 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.messages;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Responsible for storing messages.
@@ -17,6 +19,15 @@ public class MessageRepository {
 
     public static ObservableList<Message> getObservableList() {
         return MESSAGES;
+    }
+
+    /**
+     * Retrieves a list containing all messages in the chat.
+     *
+     * @return A list of all messages.
+     */
+    public static List<Message> getAllMessages() {
+        return new ArrayList<>(MESSAGES);
     }
 
     /**
@@ -37,6 +48,23 @@ public class MessageRepository {
      */
     public void removeMessage(final Message message) {
         MESSAGES.remove(message);
+    }
+
+
+    /**
+     * Clears all messages in the chat.
+     */
+    public static void clear() {
+        MESSAGES.clear();
+    }
+
+    /**
+     * Adds a collection of messages to the chat.
+     *
+     * @param messages The list of messages to be added.
+     */
+    public static void addACollectionOfMessages(final List<Message> messages) {
+        MESSAGES.addAll(messages);
     }
 
     /**
