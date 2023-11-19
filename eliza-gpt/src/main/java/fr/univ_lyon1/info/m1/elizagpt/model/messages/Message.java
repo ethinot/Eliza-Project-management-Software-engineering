@@ -8,6 +8,7 @@ import java.util.UUID;
  * The class is responsible for storing the text and the author of the message.
  * The author is an enum, so it can only be USER or ELIZA.
  * This class is extended by the UserMessage and ElizaMessage classes.
+ * Using the design pattern factory
  */
 public abstract class Message {
     private final String text;
