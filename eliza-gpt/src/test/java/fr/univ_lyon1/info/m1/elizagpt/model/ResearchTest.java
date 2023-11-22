@@ -16,14 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class ResearchTest {
     private MessageRepository messageRepository;
-
     /**
      * Set up the testing MessageRepository.
      *
      */
     @BeforeEach
     public void setUp() {
-        // Initialisez la base de messages avec quelques messages de test
         messageRepository = new MessageRepository();
         messageRepository.sendMessage(new ElizaMessage("Bonjour, comment ça va?"));
         messageRepository.sendMessage(new UserMessage("Je vais bien, merci!"));
@@ -40,27 +38,19 @@ public class ResearchTest {
     public void testRegexpResearch() {
         // Test de la recherche RegExp
         RegexpResearch regexpResearch = new RegexpResearch("Quel\\s+temps", messageRepository);
-        regexpResearch.search();
+        regexpResearch.search("Quel\\s+temps", messageRepository);
 
         // Vérifiez que le contenu du message correspond aux attentes
         assertEquals("Quel temps fait-il aujourd'hui?",
                 regexpResearch.getMessageRepositoryResult().get(0).getText());
         // Le résultat devrait contenir deux messages correspondant au motif RegExp
         assertEquals(1, regexpResearch.getMessageRepositoryResult().size());
+        regexpResearch.undoSearch();
+        assertEquals(4, messageRepository.getAllMessages().size());
 
-    }
-
-    /**
-     * Testing the substring research.
-     *
-     */
-    @Test
-    public void testSubstringResearch() {
-        // Test de la recherche par sous-chaîne
-        SubstringResearch substringResearch = new SubstringResearch("bien", messageRepository);
-        substringResearch.search();
-
-        // Le résultat devrait contenir deux messages contenant la sous-chaîne "bien"
-        assertEquals(2, substringResearch.getMessageRepositoryResult().size());
+        SubstringResearch substringResearch = new SubstringResearch("j'ai envie de crever",
+                messageRepository);
+        substringResearch.search("j'ai envie de crever", messageRepository);
+        assertEquals(1, substringResearch.getMessageRepositoryResult().size());
     }
 }
