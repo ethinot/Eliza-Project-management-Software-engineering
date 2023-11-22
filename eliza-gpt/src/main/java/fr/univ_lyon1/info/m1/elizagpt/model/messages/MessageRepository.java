@@ -26,7 +26,7 @@ public class MessageRepository {
      *
      * @return A list of all messages.
      */
-    public static List<Message> getAllMessages() {
+    public List<Message> getAllMessages() {
         return new ArrayList<>(MESSAGES);
     }
 
@@ -54,7 +54,7 @@ public class MessageRepository {
     /**
      * Clears all messages in the chat.
      */
-    public static void clear() {
+    public void clear() {
         MESSAGES.clear();
     }
 
@@ -63,7 +63,7 @@ public class MessageRepository {
      *
      * @param messages The list of messages to be added.
      */
-    public static void addACollectionOfMessages(final List<Message> messages) {
+    public void addACollectionOfMessages(final List<Message> messages) {
         MESSAGES.addAll(messages);
     }
 
