@@ -4,6 +4,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,24 +24,30 @@ public class RegexpResearch extends Research {
     }
 
     @Override
+    public String toString() {
+        return "Regexp";
+    }
+    @Override
     public SearchType getSearchType() {
         return SearchType.REGEXP;
     }
 
     @Override
-    public void search() {
+    public List<Message> search(final String searchedString,
+                                final MessageRepository messageRepository) {
         initMessageRepositoryResult();
+        setMessageRepositoryBackup(messageRepository.getAllMessages());
+        setSearchedString(searchedString);
 
         Pattern pattern = Pattern.compile(getSearchedString());
 
-        for (Message message : getMessageRepositoryBase()) {
+        for (Message message : messageRepository.getAllMessages()) {
             Matcher matcher = pattern.matcher(message.getText());
 
             if (matcher.find()) {
                 getMessageRepositoryResult().add(message);
             }
         }
-        getMessageRepository().clear();
-        getMessageRepository().addACollectionOfMessages(getMessageRepositoryResult());
+        return getMessageRepositoryResult();
     }
 }
