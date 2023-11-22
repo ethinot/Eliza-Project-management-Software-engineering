@@ -4,6 +4,10 @@ import fr.univ_lyon1.info.m1.elizagpt.model.Model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.RegexpResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.SubstringResearch;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
@@ -21,6 +25,7 @@ public class MessageController {
      */
     public MessageController() throws IOException {
         addDefaultMessages();
+        addResearchMethod();
     }
 
     private void addDefaultMessages() {
@@ -29,8 +34,19 @@ public class MessageController {
         model.getMessageRepository().sendMessage(new ElizaMessage("Comment allez-vous ?"));
     }
 
+    private void addResearchMethod() {
+        model.getResearchRepository().addResearchMethod(new
+                SubstringResearch(null, model.getMessageRepository()));
+        model.getResearchRepository().addResearchMethod(new
+                RegexpResearch(null, model.getMessageRepository()));
+    }
+
     public ObservableList<Message> getMessagesObservableList() {
         return MessageRepository.getObservableList();
+    }
+
+    public ObservableList<Research> getResearchObservableList() {
+        return ResearchRepository.getResearchMethods();
     }
 
     /**
@@ -49,5 +65,29 @@ public class MessageController {
      */
     public void removeMessage(final Message message) {
         model.getMessageRepository().removeMessage(message);
+    }
+
+    /**
+     * Apply search methode.
+     *
+     * @param searchedString the searched string
+     * @param researchClass the research class implementation
+     */
+    public void search(final String searchedString, final Research researchClass) {
+        model.getResearchRepository().applySearch(
+                searchedString,
+                researchClass,
+                model.getMessageRepository());
+    }
+
+    /**
+     * Undo search filter.
+     *
+     * @param researchClass the research class implementation
+     */
+    public void undoSearch(final Research researchClass) {
+        model.getResearchRepository().undoSearch(
+                researchClass,
+                model.getMessageRepository());
     }
 }
