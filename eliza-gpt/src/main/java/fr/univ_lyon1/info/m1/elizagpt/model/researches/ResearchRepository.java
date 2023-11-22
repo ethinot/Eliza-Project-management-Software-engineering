@@ -58,7 +58,7 @@ public class ResearchRepository {
     public void applySearch(final String searchedString,
                             final Research researchClass,
                             final MessageRepository messageRepository) {
-        if (isFilter == false) {
+        if (!isFilter) {
             List<Message> foundMessages = researchClass.search(searchedString, messageRepository);
             isFilter = true;
             if (!foundMessages.isEmpty()) {
