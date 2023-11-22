@@ -16,21 +16,18 @@ import java.util.List;
  */
 public abstract class Research {
     private String searchedString;
-
-    private final MessageRepository messageRepository;
-
     // The searching base. A reference to the app messageRepository.
-    private final List<Message> messageRepositoryBase;
+    private List<Message> messageRepositoryBackup;
 
     // The result of the research.
     private List<Message> messageRepositoryResult;
+
 
     private SearchType searchType;
 
     protected Research(final String text, final MessageRepository messageRepository) {
         this.searchedString = text;
-        this.messageRepository = messageRepository;
-        this.messageRepositoryBase = messageRepository.getAllMessages();
+        this.messageRepositoryBackup = messageRepository.getAllMessages();
         this.messageRepositoryResult = null;
     }
 
@@ -43,12 +40,21 @@ public abstract class Research {
         return searchedString;
     }
 
-    public MessageRepository getMessageRepository() {
-        return messageRepository;
+    /**
+     * Set the researched text.
+     *
+     * @param searchedString the searched text.
+     */
+    public void setSearchedString(final String searchedString) {
+        this.searchedString = searchedString;
     }
 
-    public List<Message> getMessageRepositoryBase() {
-        return messageRepositoryBase;
+    public List<Message> getMessageRepositoryBackup() {
+        return messageRepositoryBackup;
+    }
+
+    public void setMessageRepositoryBackup(final List<Message> messages) {
+        messageRepositoryBackup = messages;
     }
 
     public List<Message> getMessageRepositoryResult() {
@@ -70,24 +76,20 @@ public abstract class Research {
      */
     public abstract SearchType getSearchType();
 
+
     /**
      * Search method that is implemented in RegexpResearch class and
      * ResearchSubstring class.
      *
      */
-    public abstract void search();
+    public abstract List<Message> search(String searchedString,
+                                         MessageRepository messageRepository);
 
     /**
      * Method that undo the research filter.
      *
      */
-    public void undoSearch() {
-        this.messageRepository.clear();
-        this.messageRepository.addACollectionOfMessages(this.messageRepositoryBase);
-    }
-
-    @Override
-    public String toString() {
-        return "Research[type=" + getSearchType() + ", " +  getSearchedString() + "]";
+    public List<Message> undoSearch() {
+        return messageRepositoryBackup;
     }
 }
