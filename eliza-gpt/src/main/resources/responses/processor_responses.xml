@@ -38,6 +38,14 @@
         </unknown>
     </WhatIsMyNameResponse>
 
+    <ForgetMyNameResponse>
+        <default>
+            <response>Mais, qui êtes-vous ?</response>
+            <response>Je ne vous connais pas.</response>
+            <response>Très bien, je vois votre petit jeu.</response>
+        </default>
+    </ForgetMyNameResponse>
+
     <WhoIsTheMostResponse>
         <default>
             <response>Le plus %s est bien sûr votre enseignant de MIF01 !</response>
@@ -47,6 +55,22 @@
             <response>D'après moi, le plus %s est votre enseignant de MIF01 !</response>
         </default>
     </WhoIsTheMostResponse>
+
+    <ByeResponse>
+        <known>
+            <response>Au revoir %s, à bientôt !</response>
+            <response>Je suis contente d'avoir pu vous aider, %s. Au revoir !</response>
+            <response>Ravie d'avoir pu vous aider, %s. A bientôt !</response>
+            <response>C'était un plaisir de discuter avec vous, %s. A bientôt !</response>
+        </known>
+        <unknown>
+            <response>Peut-être que vous me direz votre nom la prochaine fois... Au revoir !</response>
+            <response>Au revoir, à bientôt !</response>
+            <response>Je suis contente d'avoir pu vous aider. Au revoir !</response>
+            <response>Ravie d'avoir pu vous aider. A bientôt !</response>
+            <response>C'était un plaisir de discuter avec vous. A bientôt !</response>
+        </unknown>
+    </ByeResponse>
 
     <IProcessorResponse>
         <default>

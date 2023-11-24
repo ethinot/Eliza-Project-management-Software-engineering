@@ -69,6 +69,24 @@ class WhatIsMyNameProcessor implements UnaryOperator<String> {
     }
 }
 
+class ForgetMyNameProcessor implements UnaryOperator<String> {
+    private static final List<String> RESPONSES;
+
+    static {
+        RESPONSES = XmlLoader.loadSingleResponse(
+                "responses/processor_responses.xml",
+                "ForgetMyNameResponse",
+                XmlMapper::mapElementToProcessorResponses)
+                .get("default");
+    }
+
+    @Override
+    public String apply(final String s) {
+        PatternProcessor.setName(null);
+        return TextUtils.getString(RESPONSES);
+    }
+}
+
 class WhoIsTheMostProcessor implements UnaryOperator<String> {
     private static final List<String> RESPONSES;
 
@@ -85,6 +103,29 @@ class WhoIsTheMostProcessor implements UnaryOperator<String> {
         final String adjective = getFirstMatchedString(
                 PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
         return TextUtils.getString(RESPONSES, adjective);
+    }
+}
+
+class ByeProcessor implements UnaryOperator<String> {
+    private static final List<String> KNOWN_RESPONSES;
+    private static final List<String> UNKNOWN_RESPONSES;
+
+    static {
+        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
+                "responses/processor_responses.xml",
+                "ByeResponse",
+                XmlMapper::mapElementToProcessorResponses);
+        KNOWN_RESPONSES = responses.get("known");
+        UNKNOWN_RESPONSES = responses.get("unknown");
+    }
+
+    @Override
+    public String apply(final String s) {
+        if (PatternProcessor.getName() == null) {
+            return TextUtils.getString(UNKNOWN_RESPONSES);
+        } else {
+            return TextUtils.getString(KNOWN_RESPONSES, PatternProcessor.getName());
+        }
     }
 }
 
