@@ -22,7 +22,6 @@
         </updated>
     </MyNameIsResponse>
 
-
     <WhatIsMyNameResponse>
         <known>
             <response>Vous vous appelez %s.</response>
@@ -72,7 +71,7 @@
         </unknown>
     </ByeResponse>
 
-    <IProcessorResponse>
+    <IResponse>
         <default>
             <response>Pourquoi dites-vous que %s ?</response>
             <response>Vous pensez vraiment que %s ?</response>
@@ -80,7 +79,7 @@
             <response>Je ne suis pas sûre de comprendre pourquoi vous dites que %s.</response>
             <response>Je ne suis pas sûre de comprendre ce que vous voulez dire par %s.</response>
         </default>
-    </IProcessorResponse>
+    </IResponse>
 
     <IAskHereResponse>
         <default>

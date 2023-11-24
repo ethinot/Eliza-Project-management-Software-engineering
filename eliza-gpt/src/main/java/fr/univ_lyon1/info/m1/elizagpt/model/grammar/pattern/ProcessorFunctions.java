@@ -5,139 +5,156 @@ import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor.getFirstMatchedString;
 
-class MyNameIsProcessor implements UnaryOperator<String> {
-    private static final List<String> NEW_NAME_RESPONSES;
-    private static final List<String> ALREADY_KNOWN_RESPONSES;
-    private static final List<String> UPDATED_RESPONSES;
+abstract class ProcessorBase implements UnaryOperator<String> {
+    protected Map<String, List<String>> responses;
+    protected List<String> defaultResponses;
 
-    static {
-        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
+    ProcessorBase(final String responseElementName) {
+        responses = XmlLoader.loadSingleResponse(
                 "responses/processor_responses.xml",
-                "MyNameIsResponse",
+                responseElementName,
                 XmlMapper::mapElementToProcessorResponses);
-        NEW_NAME_RESPONSES = responses.get("newName");
-        ALREADY_KNOWN_RESPONSES = responses.get("alreadyKnown");
-        UPDATED_RESPONSES = responses.get("updated");
+    }
+
+    protected String getResponse(String key) {
+        return this.responses.getOrDefault(key, Collections.emptyList()).toString();
+    }
+
+    protected List<String> getResponsesFor(String key) {
+        return this.responses.get(key);
+    }
+
+    protected void getDefaultResponses() {
+        this.defaultResponses = this.responses.get("default");
+    }
+}
+
+class MyNameIsProcessor extends ProcessorBase {
+    private final List<String> newNameResponses;
+    private final List<String> alreadyKnownResponses;
+    private final List<String> updatedResponses;
+
+    MyNameIsProcessor() {
+        super("MyNameIsResponse");
+        this.newNameResponses = super.getResponsesFor("newName");
+        this.alreadyKnownResponses = super.getResponsesFor("alreadyKnown");
+        this.updatedResponses = super.getResponsesFor("updated");
     }
 
     @Override
     public String apply(final String s) {
-        final String newName = getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
+        final String newName = extractName(s);
 
+        return processNameChange(newName);
+    }
+
+    private static String extractName(String s) {
+        return getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
+    }
+
+    private String processNameChange(String newName) {
         if (PatternProcessor.getName() == null) {
-            PatternProcessor.setName(newName);
-            return TextUtils.getString(NEW_NAME_RESPONSES, newName);
+            return processNewName(newName);
         } else if (PatternProcessor.getName().equals(newName)) {
-            return TextUtils.getString(ALREADY_KNOWN_RESPONSES, newName);
+            return processKnownName(newName);
         } else {
-            String oldName = PatternProcessor.getName();
-            PatternProcessor.setName(newName);
-            return TextUtils.getString(UPDATED_RESPONSES, oldName, newName);
+            return processUpdatedName(newName);
         }
+    }
+
+    private String processUpdatedName(String newName) {
+        String oldName = PatternProcessor.getName();
+        PatternProcessor.setName(newName);
+        return TextUtils.getString(updatedResponses, oldName, newName);
+    }
+
+    private String processKnownName(String newName) {
+        return TextUtils.getString(alreadyKnownResponses, newName);
+    }
+
+    private String processNewName(String newName) {
+        PatternProcessor.setName(newName);
+        return TextUtils.getString(newNameResponses, newName);
     }
 }
 
-class WhatIsMyNameProcessor implements UnaryOperator<String> {
-    private static final List<String> KNOWN_RESPONSES;
-    private static final List<String> UNKNOWN_RESPONSES;
+class WhatIsMyNameProcessor extends ProcessorBase {
+    private final List<String> knownResponses;
+    private final List<String> unknownResponses;
 
-    static {
-        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
-                "responses/processor_responses.xml",
-                "WhatIsMyNameResponse",
-                XmlMapper::mapElementToProcessorResponses);
-        KNOWN_RESPONSES = responses.get("known");
-        UNKNOWN_RESPONSES = responses.get("unknown");
+    WhatIsMyNameProcessor() {
+        super("WhatIsMyNameResponse");
+        knownResponses = super.getResponsesFor("known");
+        unknownResponses = super.getResponsesFor("unknown");
     }
 
     @Override
     public String apply(final String s) {
         if (PatternProcessor.getName() != null) {
-            return TextUtils.getString(KNOWN_RESPONSES, PatternProcessor.getName());
+            return TextUtils.getString(knownResponses, PatternProcessor.getName());
         } else {
-            return TextUtils.getString(UNKNOWN_RESPONSES);
+            return TextUtils.getString(unknownResponses);
         }
     }
 }
 
-class ForgetMyNameProcessor implements UnaryOperator<String> {
-    private static final List<String> RESPONSES;
-
-    static {
-        RESPONSES = XmlLoader.loadSingleResponse(
-                "responses/processor_responses.xml",
-                "ForgetMyNameResponse",
-                XmlMapper::mapElementToProcessorResponses)
-                .get("default");
+class ForgetMyNameProcessor extends ProcessorBase {
+    ForgetMyNameProcessor() {
+        super("ForgetMyNameResponse");
+        super.getDefaultResponses();
     }
 
     @Override
     public String apply(final String s) {
         PatternProcessor.setName(null);
-        return TextUtils.getString(RESPONSES);
+        return TextUtils.getString(defaultResponses);
     }
 }
 
-class WhoIsTheMostProcessor implements UnaryOperator<String> {
-    private static final List<String> RESPONSES;
-
-    static {
-        RESPONSES = XmlLoader.loadSingleResponse(
-                        "responses/processor_responses.xml",
-                        "WhoIsTheMostResponse",
-                        XmlMapper::mapElementToProcessorResponses)
-                .get("default");
+class WhoIsTheMostProcessor extends ProcessorBase {
+    WhoIsTheMostProcessor() {
+        super("WhoIsTheMostResponse");
+        super.getDefaultResponses();
     }
 
     @Override
     public String apply(final String s) {
         final String adjective = getFirstMatchedString(
                 PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
-        return TextUtils.getString(RESPONSES, adjective);
+        return TextUtils.getString(defaultResponses, adjective);
     }
 }
 
-class ByeProcessor implements UnaryOperator<String> {
-    private static final List<String> KNOWN_RESPONSES;
-    private static final List<String> UNKNOWN_RESPONSES;
+class ByeProcessor extends ProcessorBase {
+    private final List<String> knowResponses;
+    private final List<String> unknownResponses;
 
-    static {
-        Map<String, List<String>> responses = XmlLoader.loadSingleResponse(
-                "responses/processor_responses.xml",
-                "ByeResponse",
-                XmlMapper::mapElementToProcessorResponses);
-        KNOWN_RESPONSES = responses.get("known");
-        UNKNOWN_RESPONSES = responses.get("unknown");
+    ByeProcessor() {
+        super("ByeResponse");
+        knowResponses = super.getResponsesFor("known");
+        unknownResponses = super.getResponsesFor("unknown");
     }
 
     @Override
     public String apply(final String s) {
         if (PatternProcessor.getName() == null) {
-            return TextUtils.getString(UNKNOWN_RESPONSES);
+            return TextUtils.getString(unknownResponses);
         } else {
-            return TextUtils.getString(KNOWN_RESPONSES, PatternProcessor.getName());
+            return TextUtils.getString(knowResponses, PatternProcessor.getName());
         }
     }
 }
 
-class IProcessor implements UnaryOperator<String> {
-    private static final List<String> RESPONSES;
-
-    static {
-        RESPONSES = XmlLoader.loadSingleResponse(
-                        "responses/processor_responses.xml",
-                        "IProcessorResponse",
-                        XmlMapper::mapElementToProcessorResponses)
-                .get("default");
+class IProcessor extends ProcessorBase {
+    IProcessor() {
+        super("IResponse");
+        super.getDefaultResponses();
     }
 
     @Override
@@ -146,28 +163,21 @@ class IProcessor implements UnaryOperator<String> {
                 Objects.requireNonNull(getFirstMatchedString(PatternProcessor.I.getPattern(), s))
         );
 
-        return TextUtils.getString(RESPONSES, statement);
+        return TextUtils.getString(defaultResponses, statement);
     }
 }
 
-
-class IAskHereProcessor implements UnaryOperator<String> {
-    private static final List<String> RESPONSES;
-
-    static {
-        RESPONSES = XmlLoader.loadSingleResponse(
-                        "responses/processor_responses.xml",
-                        "IAskHereResponse",
-                        XmlMapper::mapElementToProcessorResponses)
-                .get("default");
+class IAskHereProcessor extends ProcessorBase {
+    IAskHereProcessor() {
+        super("IAskHereResponse");
+        super.getDefaultResponses();
     }
 
     @Override
     public String apply(final String s) {
-        return TextUtils.getString(RESPONSES);
+        return TextUtils.getString(defaultResponses);
     }
 }
-
 
 class DefaultResponseProcessor implements UnaryOperator<String> {
     private static final ArrayList<String> DEFAULT_RESPONSES;
