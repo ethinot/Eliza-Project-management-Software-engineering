@@ -5,15 +5,17 @@ import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import static fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor.getFirstMatchedString;
 
 abstract class ProcessorBase implements UnaryOperator<String> {
-    protected Map<String, List<String>> responses;
-    protected List<String> defaultResponses;
+    private final Map<String, List<String>> responses;
 
     ProcessorBase(final String responseElementName) {
         responses = XmlLoader.loadSingleResponse(
@@ -22,16 +24,12 @@ abstract class ProcessorBase implements UnaryOperator<String> {
                 XmlMapper::mapElementToProcessorResponses);
     }
 
-    protected String getResponse(String key) {
-        return this.responses.getOrDefault(key, Collections.emptyList()).toString();
-    }
-
-    protected List<String> getResponsesFor(String key) {
+    protected List<String> getResponsesFor(final String key) {
         return this.responses.get(key);
     }
 
-    protected void getDefaultResponses() {
-        this.defaultResponses = this.responses.get("default");
+    protected List<String> getDefaultResponses() {
+        return this.getResponsesFor("default");
     }
 }
 
@@ -54,11 +52,11 @@ class MyNameIsProcessor extends ProcessorBase {
         return processNameChange(newName);
     }
 
-    private static String extractName(String s) {
+    private static String extractName(final String s) {
         return getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
     }
 
-    private String processNameChange(String newName) {
+    private String processNameChange(final String newName) {
         if (PatternProcessor.getName() == null) {
             return processNewName(newName);
         } else if (PatternProcessor.getName().equals(newName)) {
@@ -68,17 +66,17 @@ class MyNameIsProcessor extends ProcessorBase {
         }
     }
 
-    private String processUpdatedName(String newName) {
+    private String processUpdatedName(final String newName) {
         String oldName = PatternProcessor.getName();
         PatternProcessor.setName(newName);
         return TextUtils.getString(updatedResponses, oldName, newName);
     }
 
-    private String processKnownName(String newName) {
+    private String processKnownName(final String newName) {
         return TextUtils.getString(alreadyKnownResponses, newName);
     }
 
-    private String processNewName(String newName) {
+    private String processNewName(final String newName) {
         PatternProcessor.setName(newName);
         return TextUtils.getString(newNameResponses, newName);
     }
@@ -107,13 +105,12 @@ class WhatIsMyNameProcessor extends ProcessorBase {
 class ForgetMyNameProcessor extends ProcessorBase {
     ForgetMyNameProcessor() {
         super("ForgetMyNameResponse");
-        super.getDefaultResponses();
     }
 
     @Override
     public String apply(final String s) {
         PatternProcessor.setName(null);
-        return TextUtils.getString(defaultResponses);
+        return TextUtils.getString(getDefaultResponses());
     }
 }
 
@@ -127,7 +124,7 @@ class WhoIsTheMostProcessor extends ProcessorBase {
     public String apply(final String s) {
         final String adjective = getFirstMatchedString(
                 PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
-        return TextUtils.getString(defaultResponses, adjective);
+        return TextUtils.getString(getDefaultResponses(), adjective);
     }
 }
 
@@ -163,7 +160,7 @@ class IProcessor extends ProcessorBase {
                 Objects.requireNonNull(getFirstMatchedString(PatternProcessor.I.getPattern(), s))
         );
 
-        return TextUtils.getString(defaultResponses, statement);
+        return TextUtils.getString(getDefaultResponses(), statement);
     }
 }
 
@@ -175,7 +172,7 @@ class IAskHereProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        return TextUtils.getString(defaultResponses);
+        return TextUtils.getString(getDefaultResponses());
     }
 }
 
