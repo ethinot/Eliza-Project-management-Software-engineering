@@ -3,8 +3,8 @@ package fr.univ_lyon1.info.m1.elizagpt.model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.RegexpResearch;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.SubstringResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

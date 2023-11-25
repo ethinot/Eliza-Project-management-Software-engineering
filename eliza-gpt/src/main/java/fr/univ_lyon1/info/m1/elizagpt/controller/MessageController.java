@@ -4,10 +4,10 @@ import fr.univ_lyon1.info.m1.elizagpt.model.Model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.RegexpResearch;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.SubstringResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;

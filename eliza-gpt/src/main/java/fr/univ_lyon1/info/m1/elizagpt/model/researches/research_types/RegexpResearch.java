@@ -1,33 +1,35 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.researches;
+package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
+
 
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * A class representing a research methode using substring.
+ * A class representing a research methode using regexp.
  * It extends the Research class.
  */
-public class SubstringResearch extends Research {
+public class RegexpResearch extends Research {
 
     /**
-     * Construct a SubstringResearch class by using Research one.
-     *
-     * @param searchString the searched string (user input)
-     * @param messageRepository the app messageRepository
+     * Constructs a new RegexpResearch object with the specified search text.
+     * @param searchString the search text
+     * @param messageRepository the message repository
      */
-    public SubstringResearch(final String searchString, final MessageRepository messageRepository) {
+    public RegexpResearch(final String searchString, final MessageRepository messageRepository) {
         super(searchString, messageRepository);
     }
 
     @Override
     public String toString() {
-        return "Substring";
+        return "Regexp";
     }
     @Override
-    public SearchType getSearchType() {
-        return SearchType.SUBSTRING;
+    public ResearchType getSearchType() {
+        return ResearchType.REGEXP;
     }
 
     @Override
@@ -37,8 +39,12 @@ public class SubstringResearch extends Research {
         setMessageRepositoryBackup(messageRepository.getAllMessages());
         setSearchedString(searchedString);
 
+        Pattern pattern = Pattern.compile(getSearchedString());
+
         for (Message message : messageRepository.getAllMessages()) {
-            if (message.getText().contains(this.getSearchedString())) {
+            Matcher matcher = pattern.matcher(message.getText());
+
+            if (matcher.find()) {
                 getMessageRepositoryResult().add(message);
             }
         }

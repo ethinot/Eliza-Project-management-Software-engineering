@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.researches;
+package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
@@ -23,7 +23,7 @@ public abstract class Research {
     private List<Message> messageRepositoryResult;
 
 
-    private SearchType searchType;
+    private ResearchType searchType;
 
     protected Research(final String text, final MessageRepository messageRepository) {
         this.searchedString = text;
@@ -63,7 +63,6 @@ public abstract class Research {
 
     /**
      * Init the MessageRepositoryResult with an empty ArrayList.
-     *
      */
     public void initMessageRepositoryResult() {
         this.messageRepositoryResult = new ArrayList<>();
@@ -72,22 +71,20 @@ public abstract class Research {
     /**
      * Get the search type method.
      *
-     * @return  the type of the searching method.
+     * @return the type of the searching method.
      */
-    public abstract SearchType getSearchType();
+    public abstract ResearchType getSearchType();
 
 
     /**
      * Search method that is implemented in RegexpResearch class and
      * ResearchSubstring class.
-     *
      */
     public abstract List<Message> search(String searchedString,
                                          MessageRepository messageRepository);
 
     /**
      * Method that undo the research filter.
-     *
      */
     public List<Message> undoSearch() {
         return messageRepositoryBackup;

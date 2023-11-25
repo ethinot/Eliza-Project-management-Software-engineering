@@ -2,6 +2,10 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

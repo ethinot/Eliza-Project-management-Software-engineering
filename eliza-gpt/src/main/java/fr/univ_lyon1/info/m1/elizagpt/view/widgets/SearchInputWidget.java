@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
