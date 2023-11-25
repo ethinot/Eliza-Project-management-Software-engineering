@@ -38,25 +38,4 @@ public class MessageRepository {
     public void removeMessage(final Message message) {
         MESSAGES.remove(message);
     }
-
-    /**
-     * Function that return the last message of the message repository.
-     *
-     * @param messageType The type of the last messages among ElizaMessage and UserMessage
-     * @param <T> final the of message
-     * @return The type of the last messages among ElizaMessage and UserMessage
-     */
-    public static <T extends Message> T getLastMessage(final Class<T> messageType) {
-        if (MESSAGES.isEmpty()) {
-            return null;
-        }
-
-        T lastMessage = null;
-        for (Message message : MESSAGES) {
-            if (messageType.isInstance(message)) {
-                lastMessage = messageType.cast(message);
-            }
-        }
-        return lastMessage;
-    }
 }

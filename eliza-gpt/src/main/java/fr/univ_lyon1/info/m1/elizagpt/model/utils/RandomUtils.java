@@ -12,26 +12,6 @@ public final class RandomUtils {
     }
 
     /**
-     * A fonction that return a random element from an array.
-     *
-     * @param array input array
-     * @param <T>   type of the elements in the array
-     * @return a random element from the array
-     */
-    public static <T> T pickArrayRandom(final T[] array) {
-        return array[MY_RANDOM.nextInt(array.length)];
-    }
-
-    /**
-     * Fonction that acts as a coin toss.
-     *
-     * @return true or false randomly
-     */
-    public static boolean coinToss() {
-        return MY_RANDOM.nextBoolean();
-    }
-
-    /**
      * Generates a random integer between 0 (inclusive) and the specified bound (exclusive).
      *
      * @param bound the upper bound (exclusive) for generating the random integer

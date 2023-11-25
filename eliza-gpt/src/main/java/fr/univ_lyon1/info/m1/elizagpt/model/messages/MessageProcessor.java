@@ -2,14 +2,13 @@ package fr.univ_lyon1.info.m1.elizagpt.model.messages;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Logic to process a message (and probably reply to it).
  */
 public final class MessageProcessor {
     /**
-     * List of 3rd group verbs and their correspondance from 1st person signular
+     * List of 3rd group verbs and their correspondance from 1st person singular
      * (Je) to 2nd person plural (Vous).
      */
     private static final List<Verb> VERBS = Arrays.asList(
@@ -20,22 +19,8 @@ public final class MessageProcessor {
             new Verb("fais", "faites"),
             new Verb("sais", "savez"),
             new Verb("dois", "devez"));
-    private static final Random RANDOM = new Random();
 
     private MessageProcessor() {
-    }
-
-    /**
-     * Normalize the text: remove extra spaces, add a final dot if missing.
-     *
-     * @param text text to normalize.
-     * @return normalized text.
-     */
-    public static String normalize(final String text) {
-        return text.replaceAll("\\s+", " ")
-                .replaceAll("^\\s+", "")
-                .replaceAll("\\s+$", "")
-                .replaceAll("[^\\.!?:]$", "$0.");
     }
 
     /**
@@ -62,13 +47,6 @@ public final class MessageProcessor {
                 .replace("mes ", "vos ")
                 .replace("moi", "vous");
         return processedText;
-    }
-
-    /**
-     * Pick an element randomly in the array.
-     */
-    public static <T> T pickRandom(final T[] array) {
-        return array[RANDOM.nextInt(array.length)];
     }
 
     /**

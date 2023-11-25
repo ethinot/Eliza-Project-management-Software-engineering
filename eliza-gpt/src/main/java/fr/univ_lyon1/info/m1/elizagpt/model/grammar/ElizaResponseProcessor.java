@@ -3,9 +3,9 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 
 /**
  * Main class for build and store Eliza responses.
@@ -31,7 +31,7 @@ public class ElizaResponseProcessor {
         UserMessage userMessage = new UserMessage(input);
         messageRepository.sendMessage(userMessage);
 
-        String normalizedInput = MessageProcessor.normalize(input);
+        String normalizedInput = TextUtils.normalize(input);
 
         String response = PatternProcessor.process(normalizedInput);
 
