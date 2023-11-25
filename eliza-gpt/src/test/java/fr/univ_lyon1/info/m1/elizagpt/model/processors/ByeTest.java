@@ -25,7 +25,8 @@ class ByeTest {
 
         // Then
         assertThat(response, anyOf(
-                containsString("Peut-être que vous me direz votre nom la prochaine fois... Au revoir !"),
+                containsString("Peut-être que vous me direz votre"
+                        + " nom la prochaine fois... Au revoir !"),
                 containsString("Au revoir, à bientôt !"),
                 containsString("Je suis contente d'avoir pu vous aider. Au revoir !"),
                 containsString("Ravie d'avoir pu vous aider. A bientôt !"),

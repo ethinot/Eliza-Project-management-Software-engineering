@@ -21,8 +21,10 @@ class ITest {
                 containsString("Pourquoi dites-vous que vous êtes un étudiant en informatique ?"),
                 containsString("Vous pensez vraiment que vous êtes un étudiant en informatique ?"),
                 containsString("Mais pourquoi vous êtes un étudiant en informatique ?"),
-                containsString("Je ne suis pas sûre de comprendre pourquoi vous dites que vous êtes un étudiant en informatique."),
-                containsString("Je ne suis pas sûre de comprendre ce que vous voulez dire par vous êtes un étudiant en informatique.")
+                containsString("Je ne suis pas sûre de comprendre pourquoi vous dites que vous êtes"
+                        + " un étudiant en informatique."),
+                containsString("Je ne suis pas sûre de comprendre ce que vous voulez dire"
+                        + " par vous êtes un étudiant en informatique.")
         ));
     }
 }

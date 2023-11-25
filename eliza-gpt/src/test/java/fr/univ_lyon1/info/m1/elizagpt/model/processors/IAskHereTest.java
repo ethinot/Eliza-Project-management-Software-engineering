@@ -20,7 +20,8 @@ class IAskHereTest {
         assertThat(response, anyOf(
                 containsString("C'est mon terrain ici, c'est moi qui pose les questions."),
                 containsString("Je suis la thérapeute, concentrez-vous sur vous-même."),
-                containsString("Je ne peux pas répondre à cette question, c'est vous qui devriez me le dire."),
+                containsString("Je ne peux pas répondre à cette question,"
+                        + " c'est vous qui devriez me le dire."),
                 containsString("Il est important que vous me parliez de vous, pas de moi.")
         ));
     }

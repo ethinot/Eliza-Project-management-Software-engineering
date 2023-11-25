@@ -27,7 +27,8 @@ class DefaultTest {
         assertThat(response, anyOf(
                 containsString("Il fait beau aujourd'hui, vous ne trouvez pas ?"),
                 containsString("Je ne comprends pas."),
-                containsString("Parfois, il est préférable de prendre du recul pour mieux avancer."),
+                containsString("Parfois, il est préférable de prendre"
+                        + " du recul pour mieux avancer."),
                 containsString("La vie est pleine de surprises, n'est-ce pas ?"),
                 containsString("Ça semble être une situation complexe."),
                 containsString("Intéressant, pouvez-vous en dire plus ?"),
@@ -55,7 +56,8 @@ class DefaultTest {
         assertThat(response, anyOf(
                 containsString("Il fait beau aujourd'hui, Jerome, vous ne trouvez pas ?"),
                 containsString("Je ne comprends pas, Jerome."),
-                containsString("Parfois, Jerome, il est préférable de prendre du recul pour mieux avancer."),
+                containsString("Parfois, Jerome, il est préférable"
+                        + " de prendre du recul pour mieux avancer."),
                 containsString("La vie est pleine de surprises, n'est-ce pas, Jerome ?"),
                 containsString("Ça semble être une situation complexe, Jerome."),
                 containsString("Intéressant, Jerome, pouvez-vous en dire plus ?"),

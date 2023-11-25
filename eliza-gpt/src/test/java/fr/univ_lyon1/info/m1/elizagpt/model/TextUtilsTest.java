@@ -57,7 +57,8 @@ class TextUtilsTest {
     @Test
     void testGetStringWithOneArg() {
         // Given
-        List<String> responses = Arrays.asList("Bonjour %s !", "Comment ça va, %s ?", "Ravi de te revoir, %s !");
+        List<String> responses = Arrays.asList("Bonjour %s !", "Comment ça va, %s ?",
+                "Ravi de te revoir, %s !");
         String name = "Jerome";
 
         // When

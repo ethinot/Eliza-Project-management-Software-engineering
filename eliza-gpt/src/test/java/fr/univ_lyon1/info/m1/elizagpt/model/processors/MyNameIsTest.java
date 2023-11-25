@@ -44,10 +44,12 @@ class MyNameIsTest {
 
         // Then
         assertThat(response, anyOf(
-                containsString("Je sais maintenant que vous vous appelez Hervé et non plus Jerome."),
+                containsString("Je sais maintenant que vous vous appelez"
+                        + " Hervé et non plus Jerome."),
                 containsString("Je me souviendrai que vous vous appelez Hervé et non plus Jerome."),
                 containsString("Je vais mettre à jour mon carnet d'adresses, Hervé."),
-                containsString("Je vous connaissais sous le nom de Jerome, mais je sais maintenant que vous vous appelez Hervé.")
+                containsString("Je vous connaissais sous le nom de Jerome,"
+                        + " mais je sais maintenant que vous vous appelez Hervé.")
         ));
     }
 

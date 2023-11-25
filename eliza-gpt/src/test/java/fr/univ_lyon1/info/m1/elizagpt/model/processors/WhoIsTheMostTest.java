@@ -19,8 +19,10 @@ class WhoIsTheMostTest {
         // Then
         assertThat(response, anyOf(
                 containsString("Le plus grand est bien sûr votre enseignant de MIF01 !"),
-                containsString("Je ne sais pas qui est le plus grand, peut-être votre enseignant de MIF01 ?"),
-                containsString("Je ne sais pas qui est le plus grand, mais je suis sûr que ce n'est pas votre enseignant de MIF01 !"),
+                containsString("Je ne sais pas qui est le plus grand, peut-être votre"
+                        + " enseignant de MIF01 ?"),
+                containsString("Je ne sais pas qui est le plus grand, mais je suis sûr"
+                        + " que ce n'est pas votre enseignant de MIF01 !"),
                 containsString("D'après moi, le plus grand est votre enseignant de MIF01 !")
         ));
     }
