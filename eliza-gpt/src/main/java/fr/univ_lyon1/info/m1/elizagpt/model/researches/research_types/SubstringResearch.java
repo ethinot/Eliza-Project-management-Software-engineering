@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class SubstringResearch extends Research {
         setSearchedString(searchedString);
 
         for (Message message : messageRepository.getAllMessages()) {
-            if (message.getText().contains(this.getSearchedString())) {
+            if (TextUtils.isMatch(this.getSearchedString(), message.getText())) {
                 getMessageRepositoryResult().add(message);
             }
         }
