@@ -49,11 +49,9 @@ public class ChatInputWidget implements Widget {
     private void listenToFilterChange() {
         messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                // Afficher le message de recherche en cours et masquer le champ de saisie et le bouton
                 inputBox.getChildren().clear();
                 inputBox.getChildren().add(searchingLabel);
             } else {
-                // Afficher le champ de saisie et le bouton et masquer le message de recherche en cours
                 inputBox.getChildren().clear();
                 inputBox.getChildren().addAll(messageField, sendButton);
             }
