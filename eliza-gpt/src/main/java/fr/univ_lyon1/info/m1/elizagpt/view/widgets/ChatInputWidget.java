@@ -4,6 +4,7 @@ import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -16,6 +17,7 @@ public class ChatInputWidget implements Widget {
     private final HBox inputBox;
     private final TextField messageField;
     private final Button sendButton;
+    private final Label searchingLabel;
     private final MessageController messageController;
 
     /**
@@ -31,10 +33,13 @@ public class ChatInputWidget implements Widget {
         messageField.setOnKeyPressed(onEnterKeyPressed());
         sendButton = new Button("Envoyer");
         sendButton.setOnAction(e -> sendMessage());
+        searchingLabel = new Label("Recherche en cours...");
+
 
         inputBox.getStyleClass().add("chat-input-box");
         messageField.getStyleClass().add("chat-input-field");
         sendButton.getStyleClass().add("chat-input-button");
+        searchingLabel.getStyleClass().add("searching-label");
 
         addComponents();
 
@@ -43,8 +48,15 @@ public class ChatInputWidget implements Widget {
 
     private void listenToFilterChange() {
         messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
-            messageField.setVisible(!newValue);
-            sendButton.setVisible(!newValue);
+            if (newValue) {
+                // Afficher le message de recherche en cours et masquer le champ de saisie et le bouton
+                inputBox.getChildren().clear();
+                inputBox.getChildren().add(searchingLabel);
+            } else {
+                // Afficher le champ de saisie et le bouton et masquer le message de recherche en cours
+                inputBox.getChildren().clear();
+                inputBox.getChildren().addAll(messageField, sendButton);
+            }
         });
     }
 
