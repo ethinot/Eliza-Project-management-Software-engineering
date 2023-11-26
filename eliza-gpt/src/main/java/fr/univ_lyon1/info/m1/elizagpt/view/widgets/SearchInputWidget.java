@@ -37,6 +37,7 @@ public class SearchInputWidget implements Widget {
         searchField.setPromptText("Rechercher un message");
         comboBox = new ComboBox<>();
         comboBox.setItems(messageController.getResearchObservableList());
+        comboBox.getSelectionModel().selectFirst();
         searchButton = new Button("Appliquer");
         searchButton.setOnAction(event -> onSearchButtonClicked());
         cancelButton = new Button("Annuler");
