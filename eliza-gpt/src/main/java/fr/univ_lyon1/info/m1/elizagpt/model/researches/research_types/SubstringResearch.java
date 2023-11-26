@@ -34,9 +34,8 @@ public class SubstringResearch extends Research {
     @Override
     public List<Message> search(final String searchedString,
                                 final MessageRepository messageRepository) {
-        initMessageRepositoryResult();
-        setMessageRepositoryBackup(messageRepository.getAllMessages());
-        setSearchedString(searchedString);
+
+        initResult(messageRepository, searchedString);
 
         for (Message message : messageRepository.getAllMessages()) {
             if (TextUtils.isMatch(this.getSearchedString(), message.getText())) {

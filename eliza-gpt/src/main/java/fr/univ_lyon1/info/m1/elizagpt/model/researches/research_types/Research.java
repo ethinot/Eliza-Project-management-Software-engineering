@@ -63,9 +63,13 @@ public abstract class Research {
 
     /**
      * Init the MessageRepositoryResult with an empty ArrayList.
+     * Update the backup of messages repository and researched string.
      */
-    public void initMessageRepositoryResult() {
+    public void initResult(final MessageRepository messageRepository, final String searchedString) {
         this.messageRepositoryResult = new ArrayList<>();
+        setMessageRepositoryBackup(messageRepository.getAllMessages());
+        setSearchedString(searchedString);
+
     }
 
     /**

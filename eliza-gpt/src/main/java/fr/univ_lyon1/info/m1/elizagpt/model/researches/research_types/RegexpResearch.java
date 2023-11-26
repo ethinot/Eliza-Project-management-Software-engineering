@@ -35,9 +35,8 @@ public class RegexpResearch extends Research {
     @Override
     public List<Message> search(final String searchedString,
                                 final MessageRepository messageRepository) {
-        initMessageRepositoryResult();
-        setMessageRepositoryBackup(messageRepository.getAllMessages());
-        setSearchedString(searchedString);
+
+        initResult(messageRepository, searchedString);
 
         Pattern pattern = Pattern.compile(getSearchedString());
 
