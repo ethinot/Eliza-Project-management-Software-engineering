@@ -61,10 +61,8 @@ public class ResearchRepository {
         if (!isFilter.get()) {
             List<Message> foundMessages = researchClass.search(searchedString, messageRepository);
             isFilter.set(true);
-            if (!foundMessages.isEmpty()) {
-                messageRepository.clear();
-                messageRepository.addACollectionOfMessages(foundMessages);
-            }
+            messageRepository.clear();
+            messageRepository.addACollectionOfMessages(foundMessages);
         }
     }
 
