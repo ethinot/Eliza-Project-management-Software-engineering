@@ -33,10 +33,6 @@ public abstract class View {
 
     protected abstract void loadCSS(Scene scene);
 
-    protected Pane getRootContainer() {
-        return rootContainer;
-    }
-
     abstract String getName();
 
     abstract void addWidgets();

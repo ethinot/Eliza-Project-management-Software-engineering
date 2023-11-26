@@ -38,10 +38,6 @@ public abstract class Message {
         return getAuthor() == Author.USER;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
     @Override
     public int hashCode() {
         return uuid.hashCode();

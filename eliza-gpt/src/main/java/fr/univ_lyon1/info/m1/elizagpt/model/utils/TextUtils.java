@@ -23,10 +23,10 @@ public final class TextUtils {
      * @return normalized text.
      */
     public static String normalize(final String text) {
-        return text.replaceAll("\\s+", " ")
-                .replaceAll("^\\s+", "")
-                .replaceAll("\\s+$", "")
-                .replaceAll("[^\\.!?:]$", "$0.");
+        return text.replaceAll("\\s+", " ") // remove extra spaces
+                .replaceAll("^\\s+", "") // remove leading spaces
+                .replaceAll("\\s+$", "") // remove trailing spaces
+                .replaceAll("[^.!?:]$", "$0."); // add a final dot if missing
     }
 
     /**

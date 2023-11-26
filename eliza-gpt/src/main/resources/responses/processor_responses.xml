@@ -2,9 +2,9 @@
     <MyNameIsResponse>
         <newName>
             <response>Bonjour %s !</response>
-            <response>Ravi de vous rencontrer, %s.</response>
-            <response>Je suis heureux de faire votre connaissance, %s.</response>
-            <response>Enchanté, %s, je suis Eliza.</response>
+            <response>Ravie de vous rencontrer, %s.</response>
+            <response>Je suis heureuse de faire votre connaissance, %s.</response>
+            <response>Enchantée, %s, je suis Eliza.</response>
         </newName>
         <alreadyKnown>
             <response>Je sais déjà que vous vous appelez %s.</response>
@@ -22,7 +22,6 @@
         </updated>
     </MyNameIsResponse>
 
-
     <WhatIsMyNameResponse>
         <known>
             <response>Vous vous appelez %s.</response>
@@ -38,6 +37,14 @@
         </unknown>
     </WhatIsMyNameResponse>
 
+    <ForgetMyNameResponse>
+        <default>
+            <response>Mais, qui êtes-vous ?</response>
+            <response>Je ne vous connais pas.</response>
+            <response>Très bien, je vois votre petit jeu.</response>
+        </default>
+    </ForgetMyNameResponse>
+
     <WhoIsTheMostResponse>
         <default>
             <response>Le plus %s est bien sûr votre enseignant de MIF01 !</response>
@@ -48,20 +55,36 @@
         </default>
     </WhoIsTheMostResponse>
 
-    <IProcessorResponse>
+    <ByeResponse>
+        <known>
+            <response>Au revoir %s, à bientôt !</response>
+            <response>Je suis contente d'avoir pu vous aider, %s. Au revoir !</response>
+            <response>Ravie d'avoir pu vous aider, %s. A bientôt !</response>
+            <response>C'était un plaisir de discuter avec vous, %s. A bientôt !</response>
+        </known>
+        <unknown>
+            <response>Peut-être que vous me direz votre nom la prochaine fois... Au revoir !</response>
+            <response>Au revoir, à bientôt !</response>
+            <response>Je suis contente d'avoir pu vous aider. Au revoir !</response>
+            <response>Ravie d'avoir pu vous aider. A bientôt !</response>
+            <response>C'était un plaisir de discuter avec vous. A bientôt !</response>
+        </unknown>
+    </ByeResponse>
+
+    <IResponse>
         <default>
             <response>Pourquoi dites-vous que %s ?</response>
             <response>Vous pensez vraiment que %s ?</response>
             <response>Mais pourquoi %s ?</response>
-            <response>Je ne suis pas sûr de comprendre pourquoi vous dites que %s.</response>
-            <response>Je ne suis pas sûr de comprendre ce que vous voulez dire par %s.</response>
+            <response>Je ne suis pas sûre de comprendre pourquoi vous dites que %s.</response>
+            <response>Je ne suis pas sûre de comprendre ce que vous voulez dire par %s.</response>
         </default>
-    </IProcessorResponse>
+    </IResponse>
 
     <IAskHereResponse>
         <default>
             <response>C'est mon terrain ici, c'est moi qui pose les questions.</response>
-            <response>Je suis le thérapeute, concentrez-vous sur vous-même.</response>
+            <response>Je suis la thérapeute, concentrez-vous sur vous-même.</response>
             <response>Je ne peux pas répondre à cette question, c'est vous qui devriez me le dire.</response>
             <response>Il est important que vous me parliez de vous, pas de moi.</response>
         </default>

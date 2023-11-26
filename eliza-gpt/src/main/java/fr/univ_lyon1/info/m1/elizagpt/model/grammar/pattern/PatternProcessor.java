@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 public enum PatternProcessor {
     MY_NAME_IS(".*Je m'appelle (.*)\\.", new MyNameIsProcessor()),
     WHAT_IS_MY_NAME(".*Quel est mon nom \\?", new WhatIsMyNameProcessor()),
+    FORGET_MY_NAME(".*Oublie mon nom.*", new ForgetMyNameProcessor()),
     WHO_IS_THE_MOST(".*Qui est le plus (.*) \\?", new WhoIsTheMostProcessor()),
+    BYE(".*Au revoir.*", new ByeProcessor()),
     I("(Je .*)\\.", new IProcessor()),
     I_ASK_HERE(".*\\?", new IAskHereProcessor()),
     DEFAULT_RESPONSE(".*", new DefaultResponseProcessor());
