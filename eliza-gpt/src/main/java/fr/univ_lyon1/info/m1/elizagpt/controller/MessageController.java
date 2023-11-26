@@ -4,10 +4,11 @@ import fr.univ_lyon1.info.m1.elizagpt.model.Model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
@@ -47,6 +48,10 @@ public class MessageController {
 
     public ObservableList<Research> getResearchObservableList() {
         return ResearchRepository.getResearchMethods();
+    }
+
+    public SimpleBooleanProperty getIsFilterObservable() {
+        return ResearchRepository.getFilterStatus();
     }
 
     /**
