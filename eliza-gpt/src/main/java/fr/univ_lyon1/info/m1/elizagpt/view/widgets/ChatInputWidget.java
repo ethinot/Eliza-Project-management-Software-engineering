@@ -37,6 +37,15 @@ public class ChatInputWidget implements Widget {
         sendButton.getStyleClass().add("chat-input-button");
 
         addComponents();
+
+        listenToFilterChange();
+    }
+
+    private void listenToFilterChange() {
+        messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
+            messageField.setVisible(!newValue);
+            sendButton.setVisible(!newValue);
+        });
     }
 
     @Override
