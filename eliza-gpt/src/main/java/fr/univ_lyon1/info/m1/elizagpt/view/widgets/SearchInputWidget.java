@@ -50,6 +50,8 @@ public class SearchInputWidget implements Widget {
         cancelButton.getStyleClass().add("cancel-input-button");
 
         addComponents();
+
+        listenToFilterChange();
     }
 
     @Override
@@ -62,6 +64,18 @@ public class SearchInputWidget implements Widget {
         inputBox.getChildren().addAll(searchLabel, searchField, comboBox, searchButton);
     }
 
+    private void listenToFilterChange() {
+        messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                inputBox.getChildren().remove(searchButton);
+                inputBox.getChildren().add(cancelButton);
+            } else {
+                inputBox.getChildren().remove(cancelButton);
+                inputBox.getChildren().add(searchButton);
+            }
+        });
+    }
+
     @Override
     public Node getWidget() {
         return inputBox;
@@ -69,8 +83,6 @@ public class SearchInputWidget implements Widget {
 
     private void onSearchButtonClicked() {
         if (comboBox.getValue() != null && searchField.getText() != null) {
-            inputBox.getChildren().remove(searchButton);
-            inputBox.getChildren().add(cancelButton);
             comboBox.getValue().setSearchedString(searchField.getText());
             messageController.search(searchField.getText(), comboBox.getValue());
         }
@@ -78,8 +90,6 @@ public class SearchInputWidget implements Widget {
 
     private void onCancelButtonClicked() {
         if (comboBox.getValue() != null) {
-            inputBox.getChildren().remove(cancelButton);
-            inputBox.getChildren().add(searchButton);
             messageController.undoSearch(comboBox.getValue());
         }
     }
