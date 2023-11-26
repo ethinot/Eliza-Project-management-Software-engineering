@@ -48,6 +48,14 @@ public class ResearchRepository {
         RESEARCH.add(researchMethod);
     }
 
+    private Boolean getIsFilterStatus() {
+        return isFilter.get();
+    }
+
+    private void setIsFilterStatus(final Boolean newValue) {
+        isFilter.set(newValue);
+    }
+
     /**
      * Apply a specific search method on the current message repository.
      *
@@ -58,9 +66,9 @@ public class ResearchRepository {
     public void applySearch(final String searchedString,
                             final Research researchClass,
                             final MessageRepository messageRepository) {
-        if (!isFilter.get()) {
+        if (!getIsFilterStatus()) {
             List<Message> foundMessages = researchClass.search(searchedString, messageRepository);
-            isFilter.set(true);
+            setIsFilterStatus(true);
             messageRepository.clear();
             messageRepository.addACollectionOfMessages(foundMessages);
         }
