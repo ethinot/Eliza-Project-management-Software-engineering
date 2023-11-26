@@ -74,4 +74,15 @@ public final class TextUtils {
         return response;
     }
 
+    /**
+     * Compare deux chaînes de manière insensible à la casse et avec une correspondance partielle.
+     *
+     * @param subString La sous-chaîne à rechercher
+     * @param message   Le message dans lequel effectuer la recherche
+     * @return true si la sous-chaîne est une correspondance partielle du message, false sinon
+     */
+    public static boolean isMatch(final String subString, final String message) {
+        return message.toLowerCase().contains(subString.toLowerCase());
+    }
+
 }

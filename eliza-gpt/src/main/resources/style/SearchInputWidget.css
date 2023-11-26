@@ -48,3 +48,8 @@
     -fx-background-color: #c12020;
     -fx-text-fill: #fff;
 }
+
+.searching-label {
+    -fx-text-fill: #333;
+    -fx-font-size: 16px;
+}

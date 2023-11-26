@@ -47,7 +47,7 @@ public class ChatView extends View {
 
     @Override
     public void addWidgets() {
-        SearchInputWidget searchWidget = new SearchInputWidget();
+        SearchInputWidget searchWidget = new SearchInputWidget(messageController);
         VBox.setMargin(searchWidget.getWidget(), new Insets(10, 10, 10, 10));
         addWidget(searchWidget.getWidget());
 

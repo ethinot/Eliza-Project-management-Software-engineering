@@ -1,9 +1,12 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
+import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -16,19 +19,25 @@ public class SearchInputWidget implements Widget {
     private final HBox inputBox;
     private final Label searchLabel;
     private final TextField searchField;
+    private final ComboBox<Research> comboBox;
     private final Button searchButton;
     private final Button cancelButton;
+    private final MessageController messageController;
 
     /**
      * Creates a new instance of the SearchInputWidget class.
      * Initializes the inputBox HBox and its components.
      * Calls the addComponents method to add components to the SearchInputWidget.
      */
-    public SearchInputWidget() {
+    public SearchInputWidget(final MessageController messageController) {
+        this.messageController = messageController;
         inputBox = new HBox(10);
         searchLabel = new Label("Rechercher");
         searchField = new TextField();
         searchField.setPromptText("Rechercher un message");
+        comboBox = new ComboBox<>();
+        comboBox.setItems(messageController.getResearchObservableList());
+        comboBox.getSelectionModel().selectFirst();
         searchButton = new Button("Appliquer");
         searchButton.setOnAction(event -> onSearchButtonClicked());
         cancelButton = new Button("Annuler");
@@ -41,6 +50,8 @@ public class SearchInputWidget implements Widget {
         cancelButton.getStyleClass().add("cancel-input-button");
 
         addComponents();
+
+        listenToFilterChange();
     }
 
     @Override
@@ -50,7 +61,19 @@ public class SearchInputWidget implements Widget {
         inputBox.setPadding(new Insets(5, 5, 5, 5));
 
 
-        inputBox.getChildren().addAll(searchLabel, searchField, searchButton, cancelButton);
+        inputBox.getChildren().addAll(searchLabel, searchField, comboBox, searchButton);
+    }
+
+    private void listenToFilterChange() {
+        messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                inputBox.getChildren().remove(searchButton);
+                inputBox.getChildren().add(cancelButton);
+            } else {
+                inputBox.getChildren().remove(cancelButton);
+                inputBox.getChildren().add(searchButton);
+            }
+        });
     }
 
     @Override
@@ -59,11 +82,15 @@ public class SearchInputWidget implements Widget {
     }
 
     private void onSearchButtonClicked() {
-        // TODO: appeler le controller pour appliquer la recherche
+        if (comboBox.getValue() != null && searchField.getText() != null) {
+            comboBox.getValue().setSearchedString(searchField.getText());
+            messageController.search(searchField.getText(), comboBox.getValue());
+        }
     }
 
     private void onCancelButtonClicked() {
-        // TODO: appeler le controller pour annuler la recherche
-        searchField.clear();
+        if (comboBox.getValue() != null) {
+            messageController.undoSearch(comboBox.getValue());
+        }
     }
 }
