@@ -32,6 +32,7 @@ public abstract class View {
     }
 
     protected abstract void loadCSS(Scene scene);
+
     abstract String getName();
 
     abstract void addWidgets();
