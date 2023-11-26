@@ -5,7 +5,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
-import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,9 +22,9 @@ public class ResearchRepository {
      * @see Research
      */
     private static final ObservableList<Research> RESEARCH = FXCollections.observableArrayList();
+    private static SimpleBooleanProperty isFilter;
     private final SubstringResearch substringResearch;
     private final RegexpResearch regexpResearch;
-    private Boolean isFilter;
 
     /**
      * Constructor of the research repository.
@@ -35,11 +35,7 @@ public class ResearchRepository {
     public ResearchRepository(final MessageRepository messageRepository) {
         this.substringResearch = new SubstringResearch(null, messageRepository);
         this.regexpResearch = new RegexpResearch(null, messageRepository);
-        isFilter = false;
-    }
-
-    private Boolean getFilterStatus() {
-        return isFilter;
+        isFilter = new SimpleBooleanProperty(false);
     }
 
     /**
@@ -62,9 +58,9 @@ public class ResearchRepository {
     public void applySearch(final String searchedString,
                             final Research researchClass,
                             final MessageRepository messageRepository) {
-        if (!isFilter) {
+        if (!isFilter.get()) {
             List<Message> foundMessages = researchClass.search(searchedString, messageRepository);
-            isFilter = true;
+            isFilter.set(true);
             if (!foundMessages.isEmpty()) {
                 messageRepository.clear();
                 messageRepository.addACollectionOfMessages(foundMessages);
@@ -81,10 +77,13 @@ public class ResearchRepository {
         List<Message> precedentMessages = researchClass.undoSearch();
         messageRepository.clear();
         messageRepository.addACollectionOfMessages(precedentMessages);
-        isFilter = false;
+        isFilter.set(false);
     }
 
     public static ObservableList<Research> getResearchMethods() {
         return RESEARCH;
+    }
+    public static SimpleBooleanProperty getFilterStatus() {
+        return isFilter;
     }
 }
