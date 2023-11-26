@@ -83,6 +83,7 @@ public class ChatWidget implements Widget {
 
     @Override
     public void addComponents() {
+        // nothing
     }
 
     @Override

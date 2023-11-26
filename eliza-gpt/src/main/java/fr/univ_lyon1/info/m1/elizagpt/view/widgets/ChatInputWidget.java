@@ -45,24 +45,6 @@ public class ChatInputWidget implements Widget {
         HBox.setHgrow(messageField, Priority.ALWAYS);
     }
 
-    /**
-     * Get the message field for user input.
-     *
-     * @return The message field.
-     */
-    public TextField getMessageField() {
-        return messageField;
-    }
-
-    /**
-     * Get the send button to submit messages.
-     *
-     * @return The send button.
-     */
-    public Button getSendButton() {
-        return sendButton;
-    }
-
     @Override
     public Node getWidget() {
         return inputBox;
