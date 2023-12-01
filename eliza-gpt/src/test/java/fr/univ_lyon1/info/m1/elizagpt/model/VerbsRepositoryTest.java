@@ -14,7 +14,7 @@ class VerbsRepositoryTest {
     @Test
     void testVerbsRepositoryContainsVerbs() {
         try {
-            VerbsRepository verbsRepository = new VerbsRepository("vocabulary/vocabulary.xml");
+            VerbsRepository verbsRepository = new VerbsRepository("conjugation/vocabulary.xml");
 
             List<Verb> loadedVerbs = verbsRepository.getVerbs();
 

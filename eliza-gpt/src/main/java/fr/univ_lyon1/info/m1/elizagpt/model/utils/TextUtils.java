@@ -11,7 +11,7 @@ import java.util.List;
  */
 public final class TextUtils {
     private static final VerbsRepository VERBS_REPOSITORY =
-            new VerbsRepository("vocabulary/vocabulary.xml");
+            new VerbsRepository("conjugation/vocabulary.xml");
 
     private TextUtils() {
     }

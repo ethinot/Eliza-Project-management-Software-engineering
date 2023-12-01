@@ -18,7 +18,7 @@ public class ElizaResponseProcessor {
      *
      */
     public ElizaResponseProcessor(final MessageRepository messageRepository) {
-        new VerbsRepository("vocabulary/vocabulary.xml");
+        new VerbsRepository("conjugation/vocabulary.xml");
         this.messageRepository = messageRepository;
     }
 
