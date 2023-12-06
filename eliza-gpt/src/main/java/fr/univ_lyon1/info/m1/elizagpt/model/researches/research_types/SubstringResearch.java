@@ -15,33 +15,27 @@ public class SubstringResearch extends Research {
     /**
      * Construct a SubstringResearch class by using Research one.
      *
-     * @param searchString the searched string (user input)
      * @param messageRepository the app messageRepository
      */
-    public SubstringResearch(final String searchString, final MessageRepository messageRepository) {
-        super(searchString, messageRepository);
+    public SubstringResearch(final MessageRepository messageRepository) {
+        super(messageRepository);
     }
 
     @Override
     public String toString() {
         return "Substring";
     }
-    @Override
-    public ResearchType getSearchType() {
-        return ResearchType.SUBSTRING;
-    }
 
     @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
+    public List<Message> search(final String searchedString) {
 
-        initResult(messageRepository, searchedString);
+        initSearch(searchedString);
 
-        for (Message message : messageRepository.getAllMessages()) {
-            if (TextUtils.isMatch(this.getSearchedString(), message.getText())) {
-                getMessageRepositoryResult().add(message);
+        for (Message message : getMessageRepository().getAllMessages()) {
+            if (TextUtils.isMatch(this.getSearchedQuery(), message.getText())) {
+                getSearchResult().add(message);
             }
         }
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }

@@ -15,20 +15,30 @@ import java.util.List;
  * This class is extended by the RegexpResearch and SubstringResearch classes.
  */
 public abstract class Research {
-    private String searchedString;
+    private String searchedQuery = "";
     // The searching base. A reference to the app messageRepository.
-    private List<Message> messageRepositoryBackup;
 
-    // The result of the research.
-    private List<Message> messageRepositoryResult;
+    /**
+     * This variable represents a backup of the message repository.
+     * The backup is stored in order to restore the repository to its original state
+     * after applying certain research filters.
+     */
+    private List<Message> originalMessages;
+    private final MessageRepository messageRepository;
 
+    /**
+     * This private variable represents the result of a message repository search.
+     */
+    private List<Message> searchResult;
 
-    private ResearchType searchType;
+    protected Research(final MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+        this.originalMessages = fetchAllMessages();
+        this.searchResult = null;
+    }
 
-    protected Research(final String text, final MessageRepository messageRepository) {
-        this.searchedString = text;
-        this.messageRepositoryBackup = messageRepository.getAllMessages();
-        this.messageRepositoryResult = null;
+    private List<Message> fetchAllMessages() {
+        return getMessageRepository().getAllMessages();
     }
 
     /**
@@ -36,8 +46,8 @@ public abstract class Research {
      *
      * @return the search text.
      */
-    public String getSearchedString() {
-        return searchedString;
+    protected String getSearchedQuery() {
+        return searchedQuery;
     }
 
     /**
@@ -45,51 +55,42 @@ public abstract class Research {
      *
      * @param searchedString the searched text.
      */
-    public void setSearchedString(final String searchedString) {
-        this.searchedString = searchedString;
+    public void setSearchQuery(final String searchedString) {
+        this.searchedQuery = searchedString;
     }
 
-    public List<Message> getMessageRepositoryBackup() {
-        return messageRepositoryBackup;
+    private void saveOriginalMessages(final List<Message> messages) {
+        originalMessages = messages;
     }
 
-    public void setMessageRepositoryBackup(final List<Message> messages) {
-        messageRepositoryBackup = messages;
-    }
-
-    public List<Message> getMessageRepositoryResult() {
-        return messageRepositoryResult;
+    public List<Message> getSearchResult() {
+        return searchResult;
     }
 
     /**
      * Init the MessageRepositoryResult with an empty ArrayList.
      * Update the backup of messages repository and researched string.
      */
-    public void initResult(final MessageRepository messageRepository, final String searchedString) {
-        this.messageRepositoryResult = new ArrayList<>();
-        setMessageRepositoryBackup(messageRepository.getAllMessages());
-        setSearchedString(searchedString);
+    protected void initSearch(final String searchedString) {
+        this.searchResult = new ArrayList<>();
+        saveOriginalMessages(fetchAllMessages());
+        setSearchQuery(searchedString);
     }
-
-    /**
-     * Get the search type method.
-     *
-     * @return the type of the searching method.
-     */
-    public abstract ResearchType getSearchType();
-
 
     /**
      * Search method that is implemented in RegexpResearch class and
      * ResearchSubstring class.
      */
-    public abstract List<Message> search(String searchedString,
-                                         MessageRepository messageRepository);
+    public abstract List<Message> search(String searchedString);
 
     /**
      * Method that undo the research filter.
      */
-    public List<Message> undoSearch() {
-        return messageRepositoryBackup;
+    public List<Message> getOriginalMessages() {
+        return originalMessages;
+    }
+
+    public MessageRepository getMessageRepository() {
+        return this.messageRepository;
     }
 }

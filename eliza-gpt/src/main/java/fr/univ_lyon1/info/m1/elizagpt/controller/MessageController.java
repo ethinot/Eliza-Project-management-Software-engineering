@@ -3,16 +3,9 @@ package fr.univ_lyon1.info.m1.elizagpt.controller;
 import fr.univ_lyon1.info.m1.elizagpt.model.Model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.WordResearch;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
-
-import java.io.IOException;
 
 /**
  * This class is responsible for sending messages to the model.
@@ -22,12 +15,9 @@ public class MessageController {
 
     /**
      * Constructor of the MessageController class.
-     *
-     * @throws IOException if
      */
-    public MessageController() throws IOException {
+    public MessageController() {
         addDefaultMessages();
-        addResearchMethod();
     }
 
     private void addDefaultMessages() {
@@ -36,25 +26,17 @@ public class MessageController {
         model.getMessageRepository().sendMessage(new ElizaMessage("Comment allez-vous ?"));
     }
 
-    private void addResearchMethod() {
-        model.getResearchRepository().addResearchMethod(new
-                SubstringResearch(null, model.getMessageRepository()));
-        model.getResearchRepository().addResearchMethod(new
-                RegexpResearch(null, model.getMessageRepository()));
-        model.getResearchRepository().addResearchMethod(new
-                WordResearch(null, model.getMessageRepository()));
-    }
 
     public ObservableList<Message> getMessagesObservableList() {
-        return MessageRepository.getObservableList();
+        return model.getMessageRepository().getObservableList();
     }
 
     public ObservableList<Research> getResearchObservableList() {
-        return ResearchRepository.getResearchMethods();
+        return model.getResearchRepository().getResearchMethods();
     }
 
     public SimpleBooleanProperty getIsFilterObservable() {
-        return ResearchRepository.getFilterStatus();
+        return model.getResearchRepository().getFilterStatus();
     }
 
     /**
@@ -79,7 +61,7 @@ public class MessageController {
      * Apply search methode.
      *
      * @param searchedString the searched string
-     * @param researchClass the research class implementation
+     * @param researchClass  the research class implementation
      */
     public void search(final String searchedString, final Research researchClass) {
         model.getResearchRepository().applySearch(

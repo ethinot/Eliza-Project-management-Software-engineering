@@ -15,11 +15,10 @@ public class WordResearch extends Research {
     /**
      * Construct a FullStringResearch class by using Research one.
      *
-     * @param searchString the searched word string (user input)
      * @param messageRepository the app messageRepository
      */
-    public WordResearch(final String searchString, final MessageRepository messageRepository) {
-        super(searchString, messageRepository);
+    public WordResearch(final MessageRepository messageRepository) {
+        super(messageRepository);
     }
 
     @Override
@@ -27,24 +26,15 @@ public class WordResearch extends Research {
         return "Word";
     }
 
-
     @Override
-    public ResearchType getSearchType() {
-        return ResearchType.WORD;
-    }
+    public List<Message> search(final String searchedString) {
+        initSearch(searchedString);
 
-
-    @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
-
-        initResult(messageRepository, searchedString);
-
-        for (Message message : messageRepository.getAllMessages()) {
-            if (TextUtils.containsWholeWord(this.getSearchedString(), message.getText())) {
-                getMessageRepositoryResult().add(message);
+        for (Message message : getMessageRepository().getAllMessages()) {
+            if (TextUtils.containsWholeWord(this.getSearchedQuery(), message.getText())) {
+                getSearchResult().add(message);
             }
         }
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }

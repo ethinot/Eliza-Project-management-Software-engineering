@@ -83,7 +83,7 @@ public class SearchInputWidget implements Widget {
 
     private void onSearchButtonClicked() {
         if (comboBox.getValue() != null && searchField.getText() != null) {
-            comboBox.getValue().setSearchedString(searchField.getText());
+            comboBox.getValue().setSearchQuery(searchField.getText());
             messageController.search(searchField.getText(), comboBox.getValue());
         }
     }
