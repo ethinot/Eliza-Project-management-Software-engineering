@@ -4,7 +4,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchBuilder;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchFactory;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
@@ -19,14 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ResearchTest {
     private MessageRepository messageRepository;
-    private ResearchBuilder researchBuilder;
 
     /**
      * Set up the testing MessageRepository.
      */
     @BeforeEach
     public void setUp() {
-        researchBuilder = new ResearchBuilder();
         messageRepository = new MessageRepository();
         messageRepository.clear();
         messageRepository.sendMessage(new ElizaMessage("Bonjour, comment ça va?"));
@@ -41,9 +39,8 @@ class ResearchTest {
      */
     @Test
     void testRegexpResearch() {
-        Research regexpResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.REGEXP);
+        Research regexpResearch = ResearchFactory.createResearch(ResearchType.REGEXP,
+                messageRepository);
 
         regexpResearch.search("Quel\\s+temps");
 
@@ -60,9 +57,8 @@ class ResearchTest {
      */
     @Test
     void testSubstringResearch() {
-        Research substringResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.SUBSTRING);
+        Research substringResearch = ResearchFactory.createResearch(ResearchType.SUBSTRING,
+                messageRepository);
 
         substringResearch.search("j'ai ENVIE de creVer");
 
@@ -81,9 +77,8 @@ class ResearchTest {
      */
     @Test
     void testWordResearch() {
-        Research wordResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.WORD);
+        Research wordResearch = ResearchFactory.createResearch(ResearchType.WORD,
+                messageRepository);
 
         wordResearch.search("envie");
 

@@ -3,7 +3,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchBuilder;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchFactory;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -38,9 +38,7 @@ public class ResearchRepository {
 
     private void addResearchMethod(final MessageRepository messageRepository,
                                    final ResearchType researchType) {
-        Research researchStrategy = new ResearchBuilder()
-                .setMessageRepository(messageRepository)
-                .createResearch(researchType);
+        Research researchStrategy = ResearchFactory.createResearch(researchType, messageRepository);
         researchMethods.add(researchStrategy);
     }
 
