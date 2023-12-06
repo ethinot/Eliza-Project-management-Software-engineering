@@ -27,16 +27,14 @@ public class WordResearch extends Research {
     }
 
     @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
+    public List<Message> search(final String searchedString) {
+        initSearch(searchedString);
 
-        initResult(messageRepository, searchedString);
-
-        for (Message message : messageRepository.getAllMessages()) {
-            if (TextUtils.containsWholeWord(this.getSearchedString(), message.getText())) {
-                getMessageRepositoryResult().add(message);
+        for (Message message : getMessageRepository().getAllMessages()) {
+            if (TextUtils.containsWholeWord(this.getSearchedQuery(), message.getText())) {
+                getSearchResult().add(message);
             }
         }
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }

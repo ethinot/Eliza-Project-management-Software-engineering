@@ -17,6 +17,7 @@ public class RegexpResearch extends Research {
 
     /**
      * Constructs a new RegexpResearch object with the specified search text.
+     *
      * @param messageRepository the message repository
      */
     public RegexpResearch(final MessageRepository messageRepository) {
@@ -29,25 +30,20 @@ public class RegexpResearch extends Research {
     }
 
     @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
-
-        initResult(messageRepository, searchedString);
+    public List<Message> search(final String searchedString) {
+        initSearch(searchedString);
 
         try {
-            Pattern pattern = Pattern.compile(getSearchedString());
+        Pattern pattern = Pattern.compile(getSearchedQuery());
+        for (Message message : getMessageRepository().getAllMessages()) {
+            Matcher matcher = pattern.matcher(message.getText());
 
-            for (Message message : messageRepository.getAllMessages()) {
-                Matcher matcher = pattern.matcher(message.getText());
-
-                if (matcher.find()) {
-                    getMessageRepositoryResult().add(message);
-                }
+            if (matcher.find()) {
+                getSearchResult().add(message);
             }
         } catch (PatternSyntaxException e) {
             System.err.println("Erreur dans le regexp : " + e.getMessage());
         }
-
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }

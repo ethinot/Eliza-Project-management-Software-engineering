@@ -27,16 +27,15 @@ public class SubstringResearch extends Research {
     }
 
     @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
+    public List<Message> search(final String searchedString) {
 
-        initResult(messageRepository, searchedString);
+        initSearch(searchedString);
 
-        for (Message message : messageRepository.getAllMessages()) {
-            if (TextUtils.isMatch(this.getSearchedString(), message.getText())) {
-                getMessageRepositoryResult().add(message);
+        for (Message message : getMessageRepository().getAllMessages()) {
+            if (TextUtils.isMatch(this.getSearchedQuery(), message.getText())) {
+                getSearchResult().add(message);
             }
         }
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }
