@@ -3,8 +3,6 @@ package fr.univ_lyon1.info.m1.elizagpt.controller;
 import fr.univ_lyon1.info.m1.elizagpt.model.Model;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
@@ -30,15 +28,15 @@ public class MessageController {
 
 
     public ObservableList<Message> getMessagesObservableList() {
-        return MessageRepository.getObservableList();
+        return model.getMessageRepository().getObservableList();
     }
 
     public ObservableList<Research> getResearchObservableList() {
-        return ResearchRepository.getResearchMethods();
+        return model.getResearchRepository().getResearchMethods();
     }
 
     public SimpleBooleanProperty getIsFilterObservable() {
-        return ResearchRepository.getFilterStatus();
+        return model.getResearchRepository().getFilterStatus();
     }
 
     /**
