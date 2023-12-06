@@ -1,6 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.ElizaResponseProcessor;
+import fr.univ_lyon1.info.m1.elizagpt.model.messages.NameState;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
@@ -8,8 +9,8 @@ import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlMapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,10 @@ class MyNameIsProcessor extends ProcessorBase {
         this.updatedResponses = super.getResponsesFor("updated");
     }
 
+    private static String extractName(final String s) {
+        return getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
+    }
+
     @Override
     public String apply(final String s) {
         final String newName = extractName(s);
@@ -53,14 +58,10 @@ class MyNameIsProcessor extends ProcessorBase {
         return processNameChange(newName);
     }
 
-    private static String extractName(final String s) {
-        return getFirstMatchedString(PatternProcessor.MY_NAME_IS.getPattern(), s);
-    }
-
     private String processNameChange(final String newName) {
-        if (PatternProcessor.getName() == null) {
+        if (NameState.getName() == null) {
             return processNewName(newName);
-        } else if (PatternProcessor.getName().equals(newName)) {
+        } else if (NameState.getName().equals(newName)) {
             return processKnownName(newName);
         } else {
             return processUpdatedName(newName);
@@ -68,8 +69,8 @@ class MyNameIsProcessor extends ProcessorBase {
     }
 
     private String processUpdatedName(final String newName) {
-        String oldName = PatternProcessor.getName();
-        PatternProcessor.setName(newName);
+        String oldName = NameState.getName();
+        NameState.setName(newName);
         return TextUtils.getString(updatedResponses, oldName, newName);
     }
 
@@ -78,7 +79,7 @@ class MyNameIsProcessor extends ProcessorBase {
     }
 
     private String processNewName(final String newName) {
-        PatternProcessor.setName(newName);
+        NameState.setName(newName);
         return TextUtils.getString(newNameResponses, newName);
     }
 }
@@ -95,8 +96,8 @@ class WhatIsMyNameProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        if (PatternProcessor.getName() != null) {
-            return TextUtils.getString(knownResponses, PatternProcessor.getName());
+        if (NameState.getName() != null) {
+            return TextUtils.getString(knownResponses, NameState.getName());
         } else {
             return TextUtils.getString(unknownResponses);
         }
@@ -110,7 +111,7 @@ class ForgetMyNameProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        PatternProcessor.setName(null);
+        NameState.setName(null);
         return TextUtils.getString(getDefaultResponses());
     }
 }
@@ -124,7 +125,7 @@ class WhoIsTheMostProcessor extends ProcessorBase {
     @Override
     public String apply(final String s) {
         final String adjective = getFirstMatchedString(
-                PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
+        PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
         return TextUtils.getString(getDefaultResponses(), adjective);
     }
 }
@@ -141,10 +142,10 @@ class ByeProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        if (PatternProcessor.getName() == null) {
+        if (NameState.getName() == null) {
             return TextUtils.getString(unknownResponses);
         } else {
-            return TextUtils.getString(knowResponses, PatternProcessor.getName());
+            return TextUtils.getString(knowResponses, NameState.getName());
         }
     }
 }
@@ -197,7 +198,7 @@ class DefaultResponseProcessor implements UnaryOperator<String> {
 
     @Override
     public String apply(final String s) {
-        String name = PatternProcessor.getName();
+        String name = NameState.getName();
         if (name != null) {
             return getRandomResponseWithName(name);
         } else {
