@@ -21,8 +21,8 @@ public class ResearchRepository {
      *
      * @see Research
      */
-    private static final ObservableList<Research> RESEARCH = FXCollections.observableArrayList();
-    private static final SimpleBooleanProperty IS_FILTER = new SimpleBooleanProperty(false);
+    private final ObservableList<Research> researchMethods = FXCollections.observableArrayList();
+    private final SimpleBooleanProperty isFilterActive = new SimpleBooleanProperty(false);
 
     /**
      * Constructor of the research repository.
@@ -31,38 +31,33 @@ public class ResearchRepository {
      * @param messageRepository a reference to the message repository
      */
     public ResearchRepository(final MessageRepository messageRepository) {
-        ResearchBuilder researchBuilder = new ResearchBuilder();
-        Research substring = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.SUBSTRING);
-
-        Research regex = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.REGEXP);
-
-        Research word = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.WORD);
-
-        RESEARCH.add(substring);
-        RESEARCH.add(regex);
-        RESEARCH.add(word);
+        addResearchMethod(messageRepository, ResearchType.SUBSTRING);
+        addResearchMethod(messageRepository, ResearchType.REGEXP);
+        addResearchMethod(messageRepository, ResearchType.WORD);
     }
 
-    public static ObservableList<Research> getResearchMethods() {
-        return RESEARCH;
+    private void addResearchMethod(final MessageRepository messageRepository,
+                                   final ResearchType researchType) {
+        Research substring = new ResearchBuilder()
+                .setMessageRepository(messageRepository)
+                .createResearch(researchType);
+        researchMethods.add(substring);
     }
 
-    public static SimpleBooleanProperty getFilterStatus() {
-        return IS_FILTER;
+    public ObservableList<Research> getResearchMethods() {
+        return researchMethods;
+    }
+
+    public SimpleBooleanProperty getFilterStatus() {
+        return isFilterActive;
     }
 
     private Boolean getIsFilterStatus() {
-        return IS_FILTER.get();
+        return isFilterActive.get();
     }
 
     private void setIsFilterStatus(final Boolean newValue) {
-        IS_FILTER.set(newValue);
+        isFilterActive.set(newValue);
     }
 
     /**

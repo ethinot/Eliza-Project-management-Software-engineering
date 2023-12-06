@@ -15,10 +15,10 @@ public class MessageRepository {
      *
      * @see Message
      */
-    private static final ObservableList<Message> MESSAGES = FXCollections.observableArrayList();
+    private final ObservableList<Message> messages = FXCollections.observableArrayList();
 
-    public static ObservableList<Message> getObservableList() {
-        return MESSAGES;
+    public ObservableList<Message> getObservableList() {
+        return messages;
     }
 
     /**
@@ -27,7 +27,7 @@ public class MessageRepository {
      * @return A list of all messages.
      */
     public List<Message> getAllMessages() {
-        return new ArrayList<>(MESSAGES);
+        return new ArrayList<>(messages);
     }
 
     /**
@@ -37,7 +37,7 @@ public class MessageRepository {
      * @param message the message to be sent
      */
     public void sendMessage(final Message message) {
-        MESSAGES.add(message);
+        messages.add(message);
     }
 
     /**
@@ -47,7 +47,7 @@ public class MessageRepository {
      * @param message the message to be removed
      */
     public void removeMessage(final Message message) {
-        MESSAGES.remove(message);
+        messages.remove(message);
     }
 
 
@@ -55,7 +55,7 @@ public class MessageRepository {
      * Clears all messages in the chat.
      */
     public void clear() {
-        MESSAGES.clear();
+        messages.clear();
     }
 
     /**
@@ -64,7 +64,7 @@ public class MessageRepository {
      * @param messages The list of messages to be added.
      */
     public void addACollectionOfMessages(final List<Message> messages) {
-        MESSAGES.addAll(messages);
+        this.messages.addAll(messages);
     }
 
     /**
@@ -74,13 +74,13 @@ public class MessageRepository {
      * @param <T> final the of message
      * @return The type of the last messages among ElizaMessage and UserMessage
      */
-    public static <T extends Message> T getLastMessage(final Class<T> messageType) {
-        if (MESSAGES.isEmpty()) {
+    public <T extends Message> T getLastMessage(final Class<T> messageType) {
+        if (messages.isEmpty()) {
             return null;
         }
 
         T lastMessage = null;
-        for (Message message : MESSAGES) {
+        for (Message message : messages) {
             if (messageType.isInstance(message)) {
                 lastMessage = messageType.cast(message);
             }
