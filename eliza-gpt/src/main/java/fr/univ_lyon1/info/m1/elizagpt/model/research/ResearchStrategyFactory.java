@@ -15,13 +15,12 @@ public final class ResearchStrategyFactory {
     }
 
     /**
-     * Creates a new Research object based on the given research type.
+     * Creates a new instance of a ResearchStrategy based on the provided ResearchStrategyType.
      *
-     * @param type              The type of research to create.
-     *                          It should be one of the values defined in the ResearchType enum.
-     * @param messageRepository The message repository to be used for creating the research.
-     * @return A Research object of the specified type.
-     * Returns null if an invalid research type is provided.
+     * @param type                the type of the research strategy
+     * @param messageRepository   the message repository
+     * @return the created ResearchStrategy instance
+     * @throws IllegalArgumentException if the provided research type is invalid
      */
     public static ResearchStrategy createResearch(final ResearchStrategyType type,
                                                   final MessageRepository messageRepository) {
@@ -33,7 +32,7 @@ public final class ResearchStrategyFactory {
             case WORD:
                 return new WordResearch(messageRepository);
             default:
-                return null;
+                throw new IllegalArgumentException("Invalid research type");
         }
     }
 }

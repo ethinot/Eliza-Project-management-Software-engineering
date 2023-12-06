@@ -3,9 +3,10 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.UserMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 
 /**
@@ -30,7 +31,7 @@ public class ElizaResponseProcessor {
      * @param input the input to be processed
      */
     public void process(final String input) {
-        UserMessage userMessage = new UserMessage(input);
+        Message userMessage = MessageFactory.createMessage(input, Author.USER);
         messageRepository.sendMessage(userMessage);
 
         String response = generateResponse(input);
@@ -46,7 +47,7 @@ public class ElizaResponseProcessor {
     }
 
     private void replyToUser(final String s) {
-        ElizaMessage elizaMessage = new ElizaMessage(s);
+        Message elizaMessage = MessageFactory.createMessage(s, Author.ELIZA);
         messageRepository.sendMessage(elizaMessage);
     }
 

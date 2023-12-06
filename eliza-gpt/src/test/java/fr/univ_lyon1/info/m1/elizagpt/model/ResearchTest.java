@@ -1,8 +1,8 @@
 package fr.univ_lyon1.info.m1.elizagpt.model;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.UserMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategyFactory;
 import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.ResearchStrategyType;
@@ -27,11 +27,14 @@ class ResearchTest {
     public void setUp() {
         messageRepository = new MessageRepository();
         messageRepository.clear();
-        messageRepository.sendMessage(new ElizaMessage("Bonjour, comment ça va?"));
-        messageRepository.sendMessage(new UserMessage("Je vais bien, merci!"));
-        messageRepository.sendMessage(new ElizaMessage("Quel temps fait-il aujourd'hui?"));
-        messageRepository.sendMessage(new UserMessage(
-                "Il ne fait pas beau, j'ai envie de crever!"));
+        messageRepository.sendMessage(MessageFactory
+                .createMessage("Bonjour, comment ça va?", Author.ELIZA));
+        messageRepository.sendMessage(MessageFactory
+                .createMessage("Je vais bien, merci.", Author.USER));
+        messageRepository.sendMessage(MessageFactory
+                .createMessage("Quel temps fait-il aujourd'hui?", Author.ELIZA));
+        messageRepository.sendMessage(MessageFactory
+                .createMessage("Il ne fait pas beau, j'ai envie de crever!", Author.USER));
     }
 
     /**
@@ -41,7 +44,7 @@ class ResearchTest {
     void testRegexpResearch() {
         ResearchStrategy regexpResearch = ResearchStrategyFactory
                 .createResearch(ResearchStrategyType.REGEXP,
-                messageRepository);
+                        messageRepository);
 
         regexpResearch.search("Quel\\s+temps");
 
@@ -49,7 +52,6 @@ class ResearchTest {
                 regexpResearch.getSearchResult().get(0).getText());
         assertEquals(1, regexpResearch.getSearchResult().size());
 
-        regexpResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
     }
 
@@ -60,14 +62,13 @@ class ResearchTest {
     void testSubstringResearch() {
         ResearchStrategy substringResearch = ResearchStrategyFactory
                 .createResearch(ResearchStrategyType.SUBSTRING,
-                messageRepository);
+                        messageRepository);
 
         substringResearch.search("j'ai ENVIE de creVer");
 
         assertEquals("Il ne fait pas beau, j'ai envie de crever!",
                 substringResearch.getSearchResult().get(0).getText());
 
-        substringResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         substringResearch.search("je ne match avec personne (snif)");
@@ -81,7 +82,7 @@ class ResearchTest {
     void testWordResearch() {
         ResearchStrategy wordResearch = ResearchStrategyFactory
                 .createResearch(ResearchStrategyType.WORD,
-                messageRepository);
+                        messageRepository);
 
         wordResearch.search("envie");
 

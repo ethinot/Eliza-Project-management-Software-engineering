@@ -1,7 +1,8 @@
 package fr.univ_lyon1.info.m1.elizagpt.controller;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.Model;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,9 +22,10 @@ public class MessageController {
     }
 
     private void addDefaultMessages() {
-        model.getMessageRepository().sendMessage(new ElizaMessage(
-                "Bonjour, je suis Eliza, votre thérapeute virtuelle."));
-        model.getMessageRepository().sendMessage(new ElizaMessage("Comment allez-vous ?"));
+        model.getMessageRepository().sendMessage(MessageFactory.createMessage(
+                "Bonjour, je suis Eliza, votre thérapeute virtuelle.", Author.ELIZA));
+        model.getMessageRepository().sendMessage(MessageFactory
+                .createMessage("Comment allez-vous ?", Author.ELIZA));
     }
 
 
