@@ -86,7 +86,7 @@ public abstract class Research {
     /**
      * Method that undo the research filter.
      */
-    public List<Message> undoSearch() {
+    public List<Message> getOriginalMessages() {
         return originalMessages;
     }
 

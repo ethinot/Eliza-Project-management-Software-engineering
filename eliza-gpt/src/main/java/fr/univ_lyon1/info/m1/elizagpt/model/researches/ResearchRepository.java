@@ -38,10 +38,10 @@ public class ResearchRepository {
 
     private void addResearchMethod(final MessageRepository messageRepository,
                                    final ResearchType researchType) {
-        Research substring = new ResearchBuilder()
+        Research researchStrategy = new ResearchBuilder()
                 .setMessageRepository(messageRepository)
                 .createResearch(researchType);
-        researchMethods.add(substring);
+        researchMethods.add(researchStrategy);
     }
 
     public ObservableList<Research> getResearchMethods() {
@@ -83,9 +83,8 @@ public class ResearchRepository {
      */
     public void undoSearch(final Research researchClass,
                            final MessageRepository messageRepository) {
-        List<Message> precedentMessages = researchClass.undoSearch();
         messageRepository.clear();
-        messageRepository.addACollectionOfMessages(precedentMessages);
+        messageRepository.addACollectionOfMessages(researchClass.getOriginalMessages());
         setIsFilterStatus(false);
     }
 }
