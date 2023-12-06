@@ -49,6 +49,14 @@ public class ResearchRepository {
         RESEARCH.add(word);
     }
 
+    public static ObservableList<Research> getResearchMethods() {
+        return RESEARCH;
+    }
+
+    public static SimpleBooleanProperty getFilterStatus() {
+        return IS_FILTER;
+    }
+
     private Boolean getIsFilterStatus() {
         return IS_FILTER.get();
     }
@@ -60,15 +68,15 @@ public class ResearchRepository {
     /**
      * Apply a specific search method on the current message repository.
      *
-     * @param searchedString expression we look up
-     * @param researchClass the implementation of research method
+     * @param searchedString    expression we look up
+     * @param researchClass     the implementation of research method
      * @param messageRepository the actual message repository
      */
     public void applySearch(final String searchedString,
                             final Research researchClass,
                             final MessageRepository messageRepository) {
         if (Boolean.FALSE.equals(getIsFilterStatus())) {
-            List<Message> foundMessages = researchClass.search(searchedString, messageRepository);
+            List<Message> foundMessages = researchClass.search(searchedString);
             setIsFilterStatus(true);
             messageRepository.clear();
             messageRepository.addACollectionOfMessages(foundMessages);
@@ -77,7 +85,6 @@ public class ResearchRepository {
 
     /**
      * Undo a precedent search filter.
-     *
      */
     public void undoSearch(final Research researchClass,
                            final MessageRepository messageRepository) {
@@ -85,12 +92,5 @@ public class ResearchRepository {
         messageRepository.clear();
         messageRepository.addACollectionOfMessages(precedentMessages);
         setIsFilterStatus(false);
-    }
-
-    public static ObservableList<Research> getResearchMethods() {
-        return RESEARCH;
-    }
-    public static SimpleBooleanProperty getFilterStatus() {
-        return IS_FILTER;
     }
 }

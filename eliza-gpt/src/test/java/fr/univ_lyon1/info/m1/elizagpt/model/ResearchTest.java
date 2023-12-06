@@ -45,11 +45,11 @@ class ResearchTest {
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.REGEXP);
 
-        regexpResearch.search("Quel\\s+temps", messageRepository);
+        regexpResearch.search("Quel\\s+temps");
 
         assertEquals("Quel temps fait-il aujourd'hui?",
-                regexpResearch.getMessageRepositoryResult().get(0).getText());
-        assertEquals(1, regexpResearch.getMessageRepositoryResult().size());
+                regexpResearch.getSearchResult().get(0).getText());
+        assertEquals(1, regexpResearch.getSearchResult().size());
 
         regexpResearch.undoSearch();
         assertEquals(4, messageRepository.getAllMessages().size());
@@ -64,16 +64,16 @@ class ResearchTest {
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.SUBSTRING);
 
-        substringResearch.search("j'ai ENVIE de creVer", messageRepository);
+        substringResearch.search("j'ai ENVIE de creVer");
 
         assertEquals("Il ne fait pas beau, j'ai envie de crever!",
-                substringResearch.getMessageRepositoryResult().get(0).getText());
+                substringResearch.getSearchResult().get(0).getText());
 
         substringResearch.undoSearch();
         assertEquals(4, messageRepository.getAllMessages().size());
 
-        substringResearch.search("je ne match avec personne (snif)", messageRepository);
-        assertEquals(0, substringResearch.getMessageRepositoryResult().size());
+        substringResearch.search("je ne match avec personne (snif)");
+        assertEquals(0, substringResearch.getSearchResult().size());
     }
 
     /**
@@ -85,16 +85,16 @@ class ResearchTest {
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.WORD);
 
-        wordResearch.search("envie", messageRepository);
+        wordResearch.search("envie");
 
         assertEquals("Il ne fait pas beau, j'ai envie de crever!",
-                wordResearch.getMessageRepositoryResult().get(0).getText());
-        assertEquals(1, wordResearch.getMessageRepositoryResult().size());
+                wordResearch.getSearchResult().get(0).getText());
+        assertEquals(1, wordResearch.getSearchResult().size());
 
         wordResearch.undoSearch();
         assertEquals(4, messageRepository.getAllMessages().size());
 
-        wordResearch.search("envi", messageRepository);
-        assertEquals(0, wordResearch.getMessageRepositoryResult().size());
+        wordResearch.search("envi");
+        assertEquals(0, wordResearch.getSearchResult().size());
     }
 }

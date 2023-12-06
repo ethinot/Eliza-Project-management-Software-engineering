@@ -16,6 +16,7 @@ public class RegexpResearch extends Research {
 
     /**
      * Constructs a new RegexpResearch object with the specified search text.
+     *
      * @param messageRepository the message repository
      */
     public RegexpResearch(final MessageRepository messageRepository) {
@@ -28,20 +29,18 @@ public class RegexpResearch extends Research {
     }
 
     @Override
-    public List<Message> search(final String searchedString,
-                                final MessageRepository messageRepository) {
+    public List<Message> search(final String searchedString) {
+        initSearch(searchedString);
 
-        initResult(messageRepository, searchedString);
+        Pattern pattern = Pattern.compile(getSearchedQuery());
 
-        Pattern pattern = Pattern.compile(getSearchedString());
-
-        for (Message message : messageRepository.getAllMessages()) {
+        for (Message message : getMessageRepository().getAllMessages()) {
             Matcher matcher = pattern.matcher(message.getText());
 
             if (matcher.find()) {
-                getMessageRepositoryResult().add(message);
+                getSearchResult().add(message);
             }
         }
-        return getMessageRepositoryResult();
+        return getSearchResult();
     }
 }
