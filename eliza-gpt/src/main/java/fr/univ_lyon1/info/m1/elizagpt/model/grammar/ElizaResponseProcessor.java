@@ -33,13 +33,16 @@ public class ElizaResponseProcessor {
         UserMessage userMessage = new UserMessage(input);
         messageRepository.sendMessage(userMessage);
 
-        String normalizedInput = TextUtils.normalize(input);
-
-        String response = PatternProcessor.process(normalizedInput);
+        String response = generateResponse(input);
 
         if (response != null) {
             replyToUser(response);
         }
+    }
+
+    private static String generateResponse(final String input) {
+        String normalizedInput = TextUtils.normalize(input);
+        return PatternProcessor.process(normalizedInput);
     }
 
     private void replyToUser(final String s) {
@@ -48,29 +51,34 @@ public class ElizaResponseProcessor {
     }
 
     /**
-     * Turn a 1st-person sentence (Je ...) into a plural 2nd person (Vous ...).
-     * The result is not capitalized to allow forming a new sentence.
-     * <p>
-     * TODO: does not deal with all 3rd group verbs.
      *
-     * @param text The 1st-person sentence.
-     * @return The 2nd-person sentence.
+     * Transforms the given text from first person to second person.
+     * This method first transforms the verbs in the text and then transforms possessive adjectives.
+     *
+     * @param text the text to be transformed
+     * @return the transformed text in second person
      */
     public static String firstToSecondPerson(final String text) {
-        String processedText = text
+        String transformedVerbText = transformVerbs(text);
+        return transformPossesiveAdj(transformedVerbText);
+    }
+
+    private static String transformVerbs(final String text) {
+        String transformedText = text
                 .replaceAll("[Jj]e ([a-z]*)e ", "vous $1ez ");
         for (Verb v : VERBS_REPOSITORY.getVerbs()) {
-            processedText = processedText.replaceAll(
+            transformedText = transformedText.replaceAll(
                     "[Jj]e " + v.getFirstSingular(),
                     "vous " + v.getSecondPlural());
         }
+        return transformedText
+                .replaceAll("[Jj]e ([a-z]*)s ", "vous $1ssez ");
+    }
 
-        processedText = processedText
-                .replaceAll("[Jj]e ([a-z]*)s ", "vous $1ssez ")
-                .replace("mon ", "votre ")
+    private static String transformPossesiveAdj(final String text) {
+        return text.replace("mon ", "votre ")
                 .replace("ma ", "votre ")
                 .replace("mes ", "vos ")
                 .replace("moi", "vous");
-        return processedText;
     }
 }
