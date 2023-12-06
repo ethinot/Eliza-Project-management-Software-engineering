@@ -17,13 +17,19 @@ import java.util.List;
 public abstract class Research {
     private String searchedString;
     // The searching base. A reference to the app messageRepository.
+
+    /**
+     * This variable represents a backup of the message repository.
+     * <p>
+     * The backup is stored in order to restore the repository to its original state
+     * after applying certain research filters.
+     */
     private List<Message> messageRepositoryBackup;
 
-    // The result of the research.
+    /**
+     * This private variable represents the result of a message repository search.
+     */
     private List<Message> messageRepositoryResult;
-
-
-    private ResearchType searchType;
 
     protected Research(final String text, final MessageRepository messageRepository) {
         this.searchedString = text;
@@ -49,10 +55,6 @@ public abstract class Research {
         this.searchedString = searchedString;
     }
 
-    public List<Message> getMessageRepositoryBackup() {
-        return messageRepositoryBackup;
-    }
-
     public void setMessageRepositoryBackup(final List<Message> messages) {
         messageRepositoryBackup = messages;
     }
@@ -70,14 +72,6 @@ public abstract class Research {
         setMessageRepositoryBackup(messageRepository.getAllMessages());
         setSearchedString(searchedString);
     }
-
-    /**
-     * Get the search type method.
-     *
-     * @return the type of the searching method.
-     */
-    public abstract ResearchType getSearchType();
-
 
     /**
      * Search method that is implemented in RegexpResearch class and

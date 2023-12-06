@@ -27,10 +27,6 @@ public class RegexpResearch extends Research {
     public String toString() {
         return "Regexp";
     }
-    @Override
-    public ResearchType getSearchType() {
-        return ResearchType.REGEXP;
-    }
 
     @Override
     public List<Message> search(final String searchedString,

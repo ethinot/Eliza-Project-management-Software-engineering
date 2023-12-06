@@ -22,7 +22,7 @@ public class Model {
     public Model() {
         this.messageRepository = new MessageRepository();
         this.elizaResponseProcessor = new ElizaResponseProcessor(messageRepository);
-        this.researchRepository = new ResearchRepository();
+        this.researchRepository = new ResearchRepository(messageRepository);
     }
     public MessageRepository getMessageRepository() {
         return messageRepository;
