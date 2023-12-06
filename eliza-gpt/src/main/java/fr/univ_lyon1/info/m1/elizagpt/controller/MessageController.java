@@ -8,6 +8,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.researches.ResearchRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.WordResearch;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 
@@ -40,6 +41,8 @@ public class MessageController {
                 SubstringResearch(null, model.getMessageRepository()));
         model.getResearchRepository().addResearchMethod(new
                 RegexpResearch(null, model.getMessageRepository()));
+        model.getResearchRepository().addResearchMethod(new
+                WordResearch(null, model.getMessageRepository()));
     }
 
     public ObservableList<Message> getMessagesObservableList() {
