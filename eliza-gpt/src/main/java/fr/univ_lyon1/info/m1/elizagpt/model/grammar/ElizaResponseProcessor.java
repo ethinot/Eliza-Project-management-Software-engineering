@@ -40,7 +40,7 @@ public class ElizaResponseProcessor {
         return PatternProcessor.process(normalizedInput);
     }
 
-    private void addMessage(final String text, Author author) {
+    private void addMessage(final String text, final Author author) {
         Message message = MessageFactory.createMessage(text, author);
         messageRepository.addMessage(message);
     }
