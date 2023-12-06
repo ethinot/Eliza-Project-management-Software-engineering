@@ -5,6 +5,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
  */
 public enum ResearchType {
     SUBSTRING,
-    REGEXP
+    REGEXP,
+    WORD
 
 }
