@@ -18,7 +18,6 @@ public enum PatternProcessor {
     I_ASK_HERE(".*\\?", new IAskHereProcessor()),
     DEFAULT_RESPONSE(".*", new DefaultResponseProcessor());
 
-    private static String name = null;
     private final Pattern pattern;
 
     private final Function<String, String> processor;
@@ -41,14 +40,6 @@ public enum PatternProcessor {
             }
         }
         return null;
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    static void setName(final String name) {
-        PatternProcessor.name = name;
     }
 
     static String getFirstMatchedString(final Pattern pattern, final String input) {
