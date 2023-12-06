@@ -51,7 +51,7 @@ class ResearchTest {
                 regexpResearch.getSearchResult().get(0).getText());
         assertEquals(1, regexpResearch.getSearchResult().size());
 
-        regexpResearch.undoSearch();
+        regexpResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
     }
 
@@ -69,7 +69,7 @@ class ResearchTest {
         assertEquals("Il ne fait pas beau, j'ai envie de crever!",
                 substringResearch.getSearchResult().get(0).getText());
 
-        substringResearch.undoSearch();
+        substringResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         substringResearch.search("je ne match avec personne (snif)");
@@ -91,7 +91,7 @@ class ResearchTest {
                 wordResearch.getSearchResult().get(0).getText());
         assertEquals(1, wordResearch.getSearchResult().size());
 
-        wordResearch.undoSearch();
+        wordResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         wordResearch.search("envi");
