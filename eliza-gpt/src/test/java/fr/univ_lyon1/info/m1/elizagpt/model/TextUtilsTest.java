@@ -8,6 +8,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for MessageProcessor.
@@ -49,5 +51,13 @@ class TextUtilsTest {
         assertThat(result, either(is("Bonjour Jerome !"))
                 .or(is("Comment ça va, Jerome ?"))
                 .or(is("Ravi de te revoir, Jerome !")));
+    }
+
+    @Test
+    void testIsMatch() {
+        assertTrue(TextUtils.isMatch("test", "Testing match function"));
+        assertFalse(TextUtils.isMatch("xyz", "Testing match function"));
+        assertTrue(TextUtils.isMatch("MATCH", "Testing match function"));
+        assertFalse(TextUtils.isMatch("NOT", "Testing match function"));
     }
 }

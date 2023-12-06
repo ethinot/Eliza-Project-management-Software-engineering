@@ -52,5 +52,4 @@ public final class TextUtils {
     public static boolean isMatch(final String subString, final String message) {
         return message.toLowerCase().contains(subString.toLowerCase());
     }
-
 }
