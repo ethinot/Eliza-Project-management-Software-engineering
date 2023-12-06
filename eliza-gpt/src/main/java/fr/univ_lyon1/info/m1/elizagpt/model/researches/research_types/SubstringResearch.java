@@ -26,10 +26,6 @@ public class SubstringResearch extends Research {
     public String toString() {
         return "Substring";
     }
-    @Override
-    public ResearchType getSearchType() {
-        return ResearchType.SUBSTRING;
-    }
 
     @Override
     public List<Message> search(final String searchedString,

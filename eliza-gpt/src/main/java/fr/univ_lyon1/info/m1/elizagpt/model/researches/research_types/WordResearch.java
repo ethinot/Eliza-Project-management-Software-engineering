@@ -27,13 +27,6 @@ public class WordResearch extends Research {
         return "Word";
     }
 
-
-    @Override
-    public ResearchType getSearchType() {
-        return ResearchType.WORD;
-    }
-
-
     @Override
     public List<Message> search(final String searchedString,
                                 final MessageRepository messageRepository) {
