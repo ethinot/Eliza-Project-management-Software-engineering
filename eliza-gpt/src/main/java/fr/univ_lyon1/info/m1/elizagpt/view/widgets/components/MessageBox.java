@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets.components;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

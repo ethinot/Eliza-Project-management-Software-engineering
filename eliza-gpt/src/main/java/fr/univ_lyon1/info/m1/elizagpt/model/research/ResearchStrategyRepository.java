@@ -1,10 +1,8 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.researches;
+package fr.univ_lyon1.info.m1.elizagpt.model.research;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchFactory;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchType;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.ResearchStrategyType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +12,15 @@ import java.util.List;
 /**
  * Responsible for storing research methods.
  */
-public class ResearchRepository {
+public class ResearchStrategyRepository {
 
     /**
      * The list of research methods.
      *
-     * @see Research
+     * @see ResearchStrategy
      */
-    private final ObservableList<Research> researchMethods = FXCollections.observableArrayList();
+    private final ObservableList<ResearchStrategy> researchMethods =
+            FXCollections.observableArrayList();
     private final SimpleBooleanProperty isFilterActive = new SimpleBooleanProperty(false);
 
     /**
@@ -30,19 +29,20 @@ public class ResearchRepository {
      *
      * @param messageRepository a reference to the message repository
      */
-    public ResearchRepository(final MessageRepository messageRepository) {
-        addResearchMethod(messageRepository, ResearchType.SUBSTRING);
-        addResearchMethod(messageRepository, ResearchType.REGEXP);
-        addResearchMethod(messageRepository, ResearchType.WORD);
+    public ResearchStrategyRepository(final MessageRepository messageRepository) {
+        addResearchMethod(messageRepository, ResearchStrategyType.SUBSTRING);
+        addResearchMethod(messageRepository, ResearchStrategyType.REGEXP);
+        addResearchMethod(messageRepository, ResearchStrategyType.WORD);
     }
 
     private void addResearchMethod(final MessageRepository messageRepository,
-                                   final ResearchType researchType) {
-        Research researchStrategy = ResearchFactory.createResearch(researchType, messageRepository);
+                                   final ResearchStrategyType researchType) {
+        ResearchStrategy researchStrategy = ResearchStrategyFactory
+                .createResearch(researchType, messageRepository);
         researchMethods.add(researchStrategy);
     }
 
-    public ObservableList<Research> getResearchMethods() {
+    public ObservableList<ResearchStrategy> getResearchMethods() {
         return researchMethods;
     }
 
@@ -66,7 +66,7 @@ public class ResearchRepository {
      * @param messageRepository the actual message repository
      */
     public void applySearch(final String searchedString,
-                            final Research researchClass,
+                            final ResearchStrategy researchClass,
                             final MessageRepository messageRepository) {
         if (Boolean.FALSE.equals(getIsFilterStatus())) {
             List<Message> foundMessages = researchClass.search(searchedString);
@@ -79,7 +79,7 @@ public class ResearchRepository {
     /**
      * Undo a precedent search filter.
      */
-    public void undoSearch(final Research researchClass,
+    public void undoSearch(final ResearchStrategy researchClass,
                            final MessageRepository messageRepository) {
         messageRepository.clear();
         messageRepository.addACollectionOfMessages(researchClass.getOriginalMessages());

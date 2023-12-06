@@ -1,4 +1,6 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.messages;
+package fr.univ_lyon1.info.m1.elizagpt.model.message.message_types;
+
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 
 /**
  * A class representing a message from the Eliza chatbot.

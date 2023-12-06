@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import fr.univ_lyon1.info.m1.elizagpt.view.widgets.components.MessageBox;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;

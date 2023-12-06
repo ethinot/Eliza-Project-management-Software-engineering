@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.messages;
+package fr.univ_lyon1.info.m1.elizagpt.model.message;
 
 /**
  * This class represents the state of the user's name.

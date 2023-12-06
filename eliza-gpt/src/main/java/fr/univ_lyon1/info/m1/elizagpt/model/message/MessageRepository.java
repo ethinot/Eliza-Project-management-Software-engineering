@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.messages;
+package fr.univ_lyon1.info.m1.elizagpt.model.message;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

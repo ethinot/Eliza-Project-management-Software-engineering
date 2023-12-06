@@ -1,13 +1,17 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
+package fr.univ_lyon1.info.m1.elizagpt.model.research;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.RegexpResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.ResearchStrategyType;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.SubstringResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.WordResearch;
 
 /**
  * The ResearchFactory class is responsible for creating instances
  * of Research subclasses based on the provided research type.
  */
-public final class ResearchFactory {
-    private ResearchFactory() {
+public final class ResearchStrategyFactory {
+    private ResearchStrategyFactory() {
     }
 
     /**
@@ -19,8 +23,8 @@ public final class ResearchFactory {
      * @return A Research object of the specified type.
      * Returns null if an invalid research type is provided.
      */
-    public static Research createResearch(final ResearchType type,
-                                          final MessageRepository messageRepository) {
+    public static ResearchStrategy createResearch(final ResearchStrategyType type,
+                                                  final MessageRepository messageRepository) {
         switch (type) {
             case SUBSTRING:
                 return new SubstringResearch(messageRepository);

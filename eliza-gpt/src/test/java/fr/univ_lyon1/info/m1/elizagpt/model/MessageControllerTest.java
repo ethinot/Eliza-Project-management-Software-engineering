@@ -1,8 +1,8 @@
 package fr.univ_lyon1.info.m1.elizagpt.model;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

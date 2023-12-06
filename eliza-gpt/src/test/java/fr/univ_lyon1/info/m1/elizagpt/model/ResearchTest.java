@@ -1,11 +1,11 @@
 package fr.univ_lyon1.info.m1.elizagpt.model;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchFactory;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchType;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.UserMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategyFactory;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.ResearchStrategyType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,8 @@ class ResearchTest {
      */
     @Test
     void testRegexpResearch() {
-        Research regexpResearch = ResearchFactory.createResearch(ResearchType.REGEXP,
+        ResearchStrategy regexpResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.REGEXP,
                 messageRepository);
 
         regexpResearch.search("Quel\\s+temps");
@@ -57,7 +58,8 @@ class ResearchTest {
      */
     @Test
     void testSubstringResearch() {
-        Research substringResearch = ResearchFactory.createResearch(ResearchType.SUBSTRING,
+        ResearchStrategy substringResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.SUBSTRING,
                 messageRepository);
 
         substringResearch.search("j'ai ENVIE de creVer");
@@ -77,7 +79,8 @@ class ResearchTest {
      */
     @Test
     void testWordResearch() {
-        Research wordResearch = ResearchFactory.createResearch(ResearchType.WORD,
+        ResearchStrategy wordResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.WORD,
                 messageRepository);
 
         wordResearch.search("envie");
@@ -86,7 +89,6 @@ class ResearchTest {
                 wordResearch.getSearchResult().get(0).getText());
         assertEquals(1, wordResearch.getSearchResult().size());
 
-        wordResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         wordResearch.search("envi");

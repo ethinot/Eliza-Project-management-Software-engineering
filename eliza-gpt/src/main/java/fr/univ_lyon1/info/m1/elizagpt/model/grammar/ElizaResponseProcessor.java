@@ -3,9 +3,9 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.Verb;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.verb.VerbsRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.UserMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 
 /**

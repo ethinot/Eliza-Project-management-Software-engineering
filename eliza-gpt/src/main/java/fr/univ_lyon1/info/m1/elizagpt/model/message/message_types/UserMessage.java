@@ -1,4 +1,6 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.messages;
+package fr.univ_lyon1.info.m1.elizagpt.model.message.message_types;
+
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 
 /**
  * Represents a user message.
@@ -20,7 +22,7 @@ public class UserMessage extends Message {
      * @return the author of the message
      */
     @Override
-    Author getAuthor() {
+    public Author getAuthor() {
         return Author.USER;
     }
 }

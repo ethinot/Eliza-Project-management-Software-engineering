@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,7 +19,7 @@ public class SearchInputWidget implements Widget {
     private final HBox inputBox;
     private final Label searchLabel;
     private final TextField searchField;
-    private final ComboBox<Research> comboBox;
+    private final ComboBox<ResearchStrategy> comboBox;
     private final Button searchButton;
     private final Button cancelButton;
     private final MessageController messageController;

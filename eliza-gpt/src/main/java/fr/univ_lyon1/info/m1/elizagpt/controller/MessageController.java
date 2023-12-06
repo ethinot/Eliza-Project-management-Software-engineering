@@ -1,9 +1,9 @@
 package fr.univ_lyon1.info.m1.elizagpt.controller;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.Model;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 
@@ -31,7 +31,7 @@ public class MessageController {
         return model.getMessageRepository().getObservableList();
     }
 
-    public ObservableList<Research> getResearchObservableList() {
+    public ObservableList<ResearchStrategy> getResearchObservableList() {
         return model.getResearchRepository().getResearchMethods();
     }
 
@@ -63,7 +63,7 @@ public class MessageController {
      * @param searchedString the searched string
      * @param researchClass  the research class implementation
      */
-    public void search(final String searchedString, final Research researchClass) {
+    public void search(final String searchedString, final ResearchStrategy researchClass) {
         model.getResearchRepository().applySearch(
                 searchedString,
                 researchClass,
@@ -75,7 +75,7 @@ public class MessageController {
      *
      * @param researchClass the research class implementation
      */
-    public void undoSearch(final Research researchClass) {
+    public void undoSearch(final ResearchStrategy researchClass) {
         model.getResearchRepository().undoSearch(
                 researchClass,
                 model.getMessageRepository());
