@@ -1,6 +1,5 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.grammar.ElizaResponseProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.NameState;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
@@ -158,7 +157,7 @@ class IProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        String statement = ElizaResponseProcessor.firstToSecondPerson(
+        String statement = TextUtils.firstToSecondPerson(
                 Objects.requireNonNull(getFirstMatchedString(PatternProcessor.I.getPattern(), s))
         );
 
