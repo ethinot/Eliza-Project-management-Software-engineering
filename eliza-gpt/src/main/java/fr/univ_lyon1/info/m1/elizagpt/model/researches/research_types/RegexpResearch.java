@@ -43,7 +43,8 @@ public class RegexpResearch extends Research {
                 }
             }
         } catch (PatternSyntaxException e) {
-            Logger.getLogger(RegexpResearch.class.getName()).severe("Erreur dans le regexp : " + e.getMessage());
+            Logger.getLogger(RegexpResearch.class.getName())
+                    .severe("Erreur dans le regexp : " + e.getMessage());
         }
         return getSearchResult();
     }
