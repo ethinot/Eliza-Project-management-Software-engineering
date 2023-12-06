@@ -15,7 +15,7 @@ import java.util.List;
  * This class is extended by the RegexpResearch and SubstringResearch classes.
  */
 public abstract class Research {
-    private String searchedString;
+    private String searchedString = "";
     // The searching base. A reference to the app messageRepository.
 
     /**
@@ -31,8 +31,7 @@ public abstract class Research {
      */
     private List<Message> messageRepositoryResult;
 
-    protected Research(final String text, final MessageRepository messageRepository) {
-        this.searchedString = text;
+    protected Research(final MessageRepository messageRepository) {
         this.messageRepositoryBackup = messageRepository.getAllMessages();
         this.messageRepositoryResult = null;
     }

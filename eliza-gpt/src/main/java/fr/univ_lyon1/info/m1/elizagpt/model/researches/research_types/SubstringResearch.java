@@ -15,11 +15,10 @@ public class SubstringResearch extends Research {
     /**
      * Construct a SubstringResearch class by using Research one.
      *
-     * @param searchString the searched string (user input)
      * @param messageRepository the app messageRepository
      */
-    public SubstringResearch(final String searchString, final MessageRepository messageRepository) {
-        super(searchString, messageRepository);
+    public SubstringResearch(final MessageRepository messageRepository) {
+        super(messageRepository);
     }
 
     @Override

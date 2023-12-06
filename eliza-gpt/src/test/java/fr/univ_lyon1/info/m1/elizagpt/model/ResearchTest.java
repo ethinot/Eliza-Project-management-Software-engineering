@@ -42,7 +42,6 @@ class ResearchTest {
     @Test
     void testRegexpResearch() {
         Research regexpResearch = researchBuilder
-                .setText("Quel\\s+temps")
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.REGEXP);
 
@@ -62,7 +61,6 @@ class ResearchTest {
     @Test
     void testSubstringResearch() {
         Research substringResearch = researchBuilder
-                .setText("j'ai ENVIE de creVer")
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.SUBSTRING);
 
@@ -84,7 +82,6 @@ class ResearchTest {
     @Test
     void testWordResearch() {
         Research wordResearch = researchBuilder
-                .setText("envie")
                 .setMessageRepository(messageRepository)
                 .createResearch(ResearchType.WORD);
 

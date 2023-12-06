@@ -15,11 +15,10 @@ public class WordResearch extends Research {
     /**
      * Construct a FullStringResearch class by using Research one.
      *
-     * @param searchString the searched word string (user input)
      * @param messageRepository the app messageRepository
      */
-    public WordResearch(final String searchString, final MessageRepository messageRepository) {
-        super(searchString, messageRepository);
+    public WordResearch(final MessageRepository messageRepository) {
+        super(messageRepository);
     }
 
     @Override

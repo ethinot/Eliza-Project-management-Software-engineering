@@ -7,19 +7,8 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
  * of Research subclasses based on the provided research type.
  */
 public class ResearchBuilder {
-    private String text;
     private MessageRepository messageRepository;
 
-    /**
-     * Sets the text to be used for research.
-     *
-     * @param text The text to be set for research.
-     * @return The ResearchBuilder instance with the updated text.
-     */
-    public ResearchBuilder setText(final String text) {
-        this.text = text;
-        return this;
-    }
 
     /**
      * Sets the message repository for the ResearchBuilder instance.
@@ -43,11 +32,11 @@ public class ResearchBuilder {
     public Research createResearch(final ResearchType type) {
         switch (type) {
             case SUBSTRING:
-                return new SubstringResearch(text, messageRepository);
+                return new SubstringResearch(messageRepository);
             case REGEXP:
-                return new RegexpResearch(text, messageRepository);
+                return new RegexpResearch(messageRepository);
             case WORD:
-                return new WordResearch(text, messageRepository);
+                return new WordResearch(messageRepository);
             default:
                 return null;
         }
