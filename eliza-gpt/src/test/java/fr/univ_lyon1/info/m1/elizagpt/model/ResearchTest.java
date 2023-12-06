@@ -5,6 +5,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
+import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.WordResearch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -66,5 +67,24 @@ public class ResearchTest {
 
         substringResearch.search("je ne match avec personne (snif)", messageRepository);
         assertEquals(0, substringResearch.getMessageRepositoryResult().size());
+    }
+
+    /**
+     * Testing the word research.
+     */
+    @Test
+    public void testWordResearch() {
+        WordResearch wordResearch = new WordResearch("envie", messageRepository);
+        wordResearch.search("envie", messageRepository);
+
+        assertEquals("Il ne fait pas beau, j'ai envie de crever!",
+                wordResearch.getMessageRepositoryResult().get(0).getText());
+        assertEquals(1, wordResearch.getMessageRepositoryResult().size());
+
+        wordResearch.undoSearch();
+        assertEquals(4, messageRepository.getAllMessages().size());
+
+        wordResearch.search("envi", messageRepository);
+        assertEquals(0, wordResearch.getMessageRepositoryResult().size());
     }
 }

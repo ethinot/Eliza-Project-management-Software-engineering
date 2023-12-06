@@ -2,9 +2,7 @@ package fr.univ_lyon1.info.m1.elizagpt.model.researches;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.RegexpResearch;
 import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.SubstringResearch;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,18 +21,13 @@ public class ResearchRepository {
      */
     private static final ObservableList<Research> RESEARCH = FXCollections.observableArrayList();
     private static SimpleBooleanProperty isFilter;
-    private final SubstringResearch substringResearch;
-    private final RegexpResearch regexpResearch;
 
     /**
      * Constructor of the research repository.
      * It passes the reference of the message repository to the research methods.
      *
-     * @param messageRepository a reference to the message repository
      */
-    public ResearchRepository(final MessageRepository messageRepository) {
-        this.substringResearch = new SubstringResearch(null, messageRepository);
-        this.regexpResearch = new RegexpResearch(null, messageRepository);
+    public ResearchRepository() {
         isFilter = new SimpleBooleanProperty(false);
     }
 

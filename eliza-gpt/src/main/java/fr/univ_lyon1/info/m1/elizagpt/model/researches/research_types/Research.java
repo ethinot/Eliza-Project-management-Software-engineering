@@ -69,7 +69,6 @@ public abstract class Research {
         this.messageRepositoryResult = new ArrayList<>();
         setMessageRepositoryBackup(messageRepository.getAllMessages());
         setSearchedString(searchedString);
-
     }
 
     /**
