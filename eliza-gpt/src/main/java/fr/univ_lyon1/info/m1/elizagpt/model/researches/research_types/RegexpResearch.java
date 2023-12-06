@@ -16,11 +16,10 @@ public class RegexpResearch extends Research {
 
     /**
      * Constructs a new RegexpResearch object with the specified search text.
-     * @param searchString the search text
      * @param messageRepository the message repository
      */
-    public RegexpResearch(final String searchString, final MessageRepository messageRepository) {
-        super(searchString, messageRepository);
+    public RegexpResearch(final MessageRepository messageRepository) {
+        super(messageRepository);
     }
 
     @Override
