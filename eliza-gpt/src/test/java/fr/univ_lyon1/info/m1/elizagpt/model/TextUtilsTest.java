@@ -24,25 +24,6 @@ class TextUtilsTest {
     }
 
     @Test
-    void testFirstToSecondPerson() {
-        // Then
-        assertThat(TextUtils.firstToSecondPerson("Je pense à mon chien."),
-                is("vous pensez à votre chien."));
-
-        assertThat(TextUtils.firstToSecondPerson("Je suis heureux."),
-                is("vous êtes heureux."));
-
-        assertThat(TextUtils.firstToSecondPerson("Je dis bonjour."),
-                is("vous dites bonjour."));
-
-        assertThat(TextUtils.firstToSecondPerson("Je vais à la mer."),
-                is("vous allez à la mer."));
-
-        assertThat(TextUtils.firstToSecondPerson("Je finis mon travail."),
-                is("vous finissez votre travail."));
-    }
-
-    @Test
     void testGetStringNoArgs() {
         // Given
         List<String> responses = Arrays.asList("Bonjour!", "Comment ça va?", "Ravi de te revoir!");

@@ -10,8 +10,9 @@ awk -F, 'BEGIN {
 }
 
 NR > 1 {
+    if ($6 == "" || $10 == "") next;
+
     print "    <verb>";
-    print "        <infinitive>" $1 "</infinitive>";
     print "        <firstSingular>" $6 "</firstSingular>";
     print "        <secondPlural>" $10 "</secondPlural>";
     print "    </verb>";
