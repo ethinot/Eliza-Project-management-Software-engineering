@@ -7,6 +7,7 @@ import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * A class representing a research methode using regexp.
@@ -38,15 +39,20 @@ public class RegexpResearch extends Research {
 
         initResult(messageRepository, searchedString);
 
-        Pattern pattern = Pattern.compile(getSearchedString());
+        try {
+            Pattern pattern = Pattern.compile(getSearchedString());
 
-        for (Message message : messageRepository.getAllMessages()) {
-            Matcher matcher = pattern.matcher(message.getText());
+            for (Message message : messageRepository.getAllMessages()) {
+                Matcher matcher = pattern.matcher(message.getText());
 
-            if (matcher.find()) {
-                getMessageRepositoryResult().add(message);
+                if (matcher.find()) {
+                    getMessageRepositoryResult().add(message);
+                }
             }
+        } catch (PatternSyntaxException e) {
+            System.err.println("Erreur dans le regexp : " + e.getMessage());
         }
+
         return getMessageRepositoryResult();
     }
 }
