@@ -72,7 +72,7 @@ public class ResearchStrategyRepository {
             List<Message> foundMessages = researchClass.search(searchedString);
             setIsFilterStatus(true);
             messageRepository.clear();
-            messageRepository.addACollectionOfMessages(foundMessages);
+            messageRepository.addMessages(foundMessages);
         }
     }
 
@@ -82,7 +82,7 @@ public class ResearchStrategyRepository {
     public void undoSearch(final ResearchStrategy researchClass,
                            final MessageRepository messageRepository) {
         messageRepository.clear();
-        messageRepository.addACollectionOfMessages(researchClass.getOriginalMessages());
+        messageRepository.addMessages(researchClass.getOriginalMessages());
         setIsFilterStatus(false);
     }
 }

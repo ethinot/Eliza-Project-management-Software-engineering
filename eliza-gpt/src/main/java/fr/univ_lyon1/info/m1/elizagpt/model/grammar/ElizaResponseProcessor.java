@@ -32,7 +32,7 @@ public class ElizaResponseProcessor {
      */
     public void process(final String input) {
         Message userMessage = MessageFactory.createMessage(input, Author.USER);
-        messageRepository.sendMessage(userMessage);
+        messageRepository.addMessage(userMessage);
 
         String response = generateResponse(input);
 
@@ -48,7 +48,7 @@ public class ElizaResponseProcessor {
 
     private void replyToUser(final String s) {
         Message elizaMessage = MessageFactory.createMessage(s, Author.ELIZA);
-        messageRepository.sendMessage(elizaMessage);
+        messageRepository.addMessage(elizaMessage);
     }
 
     /**

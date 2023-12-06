@@ -22,15 +22,15 @@ public class MessageController {
     }
 
     private void addDefaultMessages() {
-        model.getMessageRepository().sendMessage(MessageFactory.createMessage(
+        model.getMessageRepository().addMessage(MessageFactory.createMessage(
                 "Bonjour, je suis Eliza, votre thérapeute virtuelle.", Author.ELIZA));
-        model.getMessageRepository().sendMessage(MessageFactory
+        model.getMessageRepository().addMessage(MessageFactory
                 .createMessage("Comment allez-vous ?", Author.ELIZA));
     }
 
 
     public ObservableList<Message> getMessagesObservableList() {
-        return model.getMessageRepository().getObservableList();
+        return model.getMessageRepository().getMessages();
     }
 
     public ObservableList<ResearchStrategy> getResearchObservableList() {
@@ -56,7 +56,7 @@ public class MessageController {
      * @param message the message to be sent
      */
     public void removeMessage(final Message message) {
-        model.getMessageRepository().removeMessage(message);
+        model.getMessageRepository().deleteMessage(message);
     }
 
     /**

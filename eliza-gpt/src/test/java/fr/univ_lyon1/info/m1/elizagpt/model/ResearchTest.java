@@ -27,13 +27,13 @@ class ResearchTest {
     public void setUp() {
         messageRepository = new MessageRepository();
         messageRepository.clear();
-        messageRepository.sendMessage(MessageFactory
+        messageRepository.addMessage(MessageFactory
                 .createMessage("Bonjour, comment ça va?", Author.ELIZA));
-        messageRepository.sendMessage(MessageFactory
+        messageRepository.addMessage(MessageFactory
                 .createMessage("Je vais bien, merci.", Author.USER));
-        messageRepository.sendMessage(MessageFactory
+        messageRepository.addMessage(MessageFactory
                 .createMessage("Quel temps fait-il aujourd'hui?", Author.ELIZA));
-        messageRepository.sendMessage(MessageFactory
+        messageRepository.addMessage(MessageFactory
                 .createMessage("Il ne fait pas beau, j'ai envie de crever!", Author.USER));
     }
 

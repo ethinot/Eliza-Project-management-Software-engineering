@@ -17,7 +17,7 @@ public class MessageRepository {
      */
     private final ObservableList<Message> messages = FXCollections.observableArrayList();
 
-    public ObservableList<Message> getObservableList() {
+    public ObservableList<Message> getMessages() {
         return messages;
     }
 
@@ -36,7 +36,7 @@ public class MessageRepository {
      *
      * @param message the message to be sent
      */
-    public void sendMessage(final Message message) {
+    public void addMessage(final Message message) {
         messages.add(message);
     }
 
@@ -46,7 +46,7 @@ public class MessageRepository {
      *
      * @param message the message to be removed
      */
-    public void removeMessage(final Message message) {
+    public void deleteMessage(final Message message) {
         messages.remove(message);
     }
 
@@ -63,28 +63,7 @@ public class MessageRepository {
      *
      * @param messages The list of messages to be added.
      */
-    public void addACollectionOfMessages(final List<Message> messages) {
+    public void addMessages(final List<Message> messages) {
         this.messages.addAll(messages);
-    }
-
-    /**
-     * Function that return the last message of the message repository.
-     *
-     * @param messageType The type of the last messages among ElizaMessage and UserMessage
-     * @param <T> final the of message
-     * @return The type of the last messages among ElizaMessage and UserMessage
-     */
-    public <T extends Message> T getLastMessage(final Class<T> messageType) {
-        if (messages.isEmpty()) {
-            return null;
-        }
-
-        T lastMessage = null;
-        for (Message message : messages) {
-            if (messageType.isInstance(message)) {
-                lastMessage = messageType.cast(message);
-            }
-        }
-        return lastMessage;
     }
 }
