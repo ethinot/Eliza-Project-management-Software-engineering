@@ -27,7 +27,7 @@ public final class TextUtils {
      * Get a random string from a list of responses and format it with optional arguments.
      *
      * @param responses A list of response strings.
-     * @param args      Optional arguments to be formatted into the response string.
+     * @param args Optional arguments to be formatted into the response string.
      * @return A random response string with optional arguments formatted into it.
      */
     public static String getString(final List<String> responses, final String... args) {
@@ -43,14 +43,31 @@ public final class TextUtils {
     }
 
     /**
-     * Compare deux chaînes de manière insensible à la casse et avec une correspondance partielle.
+     * Compare two strings.
      *
-     * @param subString La sous-chaîne à rechercher
-     * @param message   Le message dans lequel effectuer la recherche
-     * @return true si la sous-chaîne est une correspondance partielle du message, false sinon
+     * @param subString the researched substring
+     * @param message   the string message
+     * @return true if the substring match the message, false else
      */
     public static boolean isMatch(final String subString, final String message) {
         return message.toLowerCase().contains(subString.toLowerCase());
     }
 
+    /**
+     * Check if the message text contains the whole word.
+     *
+     * @param word the word to search for
+     * @param message the message text to search in
+     * @return true if the whole word is found, false otherwise
+     */
+    public static boolean containsWholeWord(final String word, final String message) {
+        String[] words = message.split("\\s+");
+
+        for (String w : words) {
+            if (w.equalsIgnoreCase(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
