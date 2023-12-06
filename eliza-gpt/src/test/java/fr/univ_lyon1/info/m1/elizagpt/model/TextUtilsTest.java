@@ -50,4 +50,23 @@ class TextUtilsTest {
                 .or(is("Comment ça va, Jerome ?"))
                 .or(is("Ravi de te revoir, Jerome !")));
     }
+
+    @Test
+    void testContainsWholeWord() {
+        // Given
+        String word = "heureux";
+        String message1 = "Je suis heureux";
+        String message2 = "L'heurisitude est important - Victor Hugo";
+        String message3 = "A Lyon 1, heureusement que mathieu Moy fait partie de nos professeurs !";
+
+        // When
+        boolean result1 = TextUtils.containsWholeWord(word, message1);
+        boolean result2 = TextUtils.containsWholeWord(word, message2);
+        boolean result3 = TextUtils.containsWholeWord(word, message3);
+
+        // Then
+        assertThat(result1, is(true));
+        assertThat(result2, is(false));
+        assertThat(result3, is(false));
+    }
 }
