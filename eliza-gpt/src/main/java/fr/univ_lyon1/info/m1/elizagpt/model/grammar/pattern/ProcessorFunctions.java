@@ -1,7 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.grammar.ElizaResponseProcessor;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.NameState;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.NameState;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.RandomUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.XmlLoader;
@@ -125,7 +124,7 @@ class WhoIsTheMostProcessor extends ProcessorBase {
     @Override
     public String apply(final String s) {
         final String adjective = getFirstMatchedString(
-        PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
+                PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
         return TextUtils.getString(getDefaultResponses(), adjective);
     }
 }
@@ -158,7 +157,7 @@ class IProcessor extends ProcessorBase {
 
     @Override
     public String apply(final String s) {
-        String statement = ElizaResponseProcessor.firstToSecondPerson(
+        String statement = TextUtils.firstToSecondPerson(
                 Objects.requireNonNull(getFirstMatchedString(PatternProcessor.I.getPattern(), s))
         );
 

@@ -1,7 +1,6 @@
 package fr.univ_lyon1.info.m1.elizagpt.view.widgets;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +13,7 @@ import javafx.scene.layout.Priority;
  * Represents a chat input widget that allows users to enter messages.
  */
 public class ChatInputWidget implements Widget {
+    public static final int HBOX_SPACING = 10;
     private final HBox inputBox;
     private final TextField messageField;
     private final Button sendButton;
@@ -28,34 +28,49 @@ public class ChatInputWidget implements Widget {
     public ChatInputWidget(final MessageController messageController) {
         this.messageController = messageController;
 
-        inputBox = new HBox(10);
+        inputBox = new HBox(HBOX_SPACING);
         messageField = new TextField();
-        messageField.setOnKeyPressed(onEnterKeyPressed());
         sendButton = new Button("Envoyer");
-        sendButton.setOnAction(e -> sendMessage());
         searchingLabel = new Label("Recherche en cours...");
 
+        setEventListeners();
+        setStyleClasses();
+        addComponents();
+        listenToFilterChange();
+    }
 
+
+    private void setStyleClasses() {
         inputBox.getStyleClass().add("chat-input-box");
         messageField.getStyleClass().add("chat-input-field");
         sendButton.getStyleClass().add("chat-input-button");
         searchingLabel.getStyleClass().add("searching-label");
-
-        addComponents();
-
-        listenToFilterChange();
     }
 
     private void listenToFilterChange() {
-        messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                inputBox.getChildren().clear();
+        messageController.getFilterStatusProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        updateUIState(Boolean.TRUE.equals(newValue)
+                                ? InputState.SEARCHING : InputState.MESSAGE_INPUT));
+    }
+
+    private void setEventListeners() {
+        messageField.setOnKeyPressed(this::onEnterKeyPressed);
+        sendButton.setOnAction(e -> sendMessage());
+    }
+
+    private void updateUIState(final InputState newState) {
+        inputBox.getChildren().clear();
+        switch (newState) {
+            case SEARCHING:
                 inputBox.getChildren().add(searchingLabel);
-            } else {
-                inputBox.getChildren().clear();
+                break;
+            case MESSAGE_INPUT:
                 inputBox.getChildren().addAll(messageField, sendButton);
-            }
-        });
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown state");
+        }
     }
 
     @Override
@@ -69,16 +84,18 @@ public class ChatInputWidget implements Widget {
         return inputBox;
     }
 
-    private EventHandler<KeyEvent> onEnterKeyPressed() {
-        return e -> {
-            if (e.getCode().toString().equals("ENTER")) {
-                sendMessage();
-            }
-        };
+    private void onEnterKeyPressed(final KeyEvent e) {
+        if (e.getCode().toString().equals("ENTER")) {
+            sendMessage();
+        }
     }
 
     private void sendMessage() {
         messageController.sendUserMessage(messageField.getText());
         messageField.clear();
+    }
+
+    private enum InputState {
+        SEARCHING, MESSAGE_INPUT
     }
 }

@@ -1,7 +1,8 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types;
+package fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.Message;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -13,7 +14,7 @@ import java.util.regex.PatternSyntaxException;
  * A class representing a research methode using regexp.
  * It extends the Research class.
  */
-public class RegexpResearch extends Research {
+public class RegexpResearch extends ResearchStrategy {
 
     /**
      * Constructs a new RegexpResearch object with the specified search text.

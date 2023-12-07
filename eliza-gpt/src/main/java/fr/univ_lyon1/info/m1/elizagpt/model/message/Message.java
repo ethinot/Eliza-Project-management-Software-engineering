@@ -1,4 +1,6 @@
-package fr.univ_lyon1.info.m1.elizagpt.model.messages;
+package fr.univ_lyon1.info.m1.elizagpt.model.message;
+
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 
 import java.util.UUID;
 
@@ -27,7 +29,12 @@ public abstract class Message {
         return text;
     }
 
-    abstract Author getAuthor();
+    /**
+     * Get the author of the message.
+     *
+     * @return the author of the message.
+     */
+    public abstract Author getAuthor();
 
     /**
      * Check if the message is from the user.

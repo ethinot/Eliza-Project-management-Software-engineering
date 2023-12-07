@@ -1,11 +1,11 @@
 package fr.univ_lyon1.info.m1.elizagpt.model;
 
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.ElizaMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.MessageRepository;
-import fr.univ_lyon1.info.m1.elizagpt.model.messages.UserMessage;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.Research;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchBuilder;
-import fr.univ_lyon1.info.m1.elizagpt.model.researches.research_types.ResearchType;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategyFactory;
+import fr.univ_lyon1.info.m1.elizagpt.model.research.research_strategies.ResearchStrategyType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -19,21 +19,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ResearchTest {
     private MessageRepository messageRepository;
-    private ResearchBuilder researchBuilder;
 
     /**
      * Set up the testing MessageRepository.
      */
     @BeforeEach
     public void setUp() {
-        researchBuilder = new ResearchBuilder();
         messageRepository = new MessageRepository();
         messageRepository.clear();
-        messageRepository.sendMessage(new ElizaMessage("Bonjour, comment ça va?"));
-        messageRepository.sendMessage(new UserMessage("Je vais bien, merci!"));
-        messageRepository.sendMessage(new ElizaMessage("Quel temps fait-il aujourd'hui?"));
-        messageRepository.sendMessage(new UserMessage(
-                "Il ne fait pas beau, j'ai envie de crever!"));
+        messageRepository.addMessage(MessageFactory
+                .createMessage(Author.ELIZA, "Bonjour, comment ça va?"));
+        messageRepository.addMessage(MessageFactory
+                .createMessage(Author.USER, "Je vais bien, merci."));
+        messageRepository.addMessage(MessageFactory
+                .createMessage(Author.ELIZA, "Quel temps fait-il aujourd'hui?"));
+        messageRepository.addMessage(MessageFactory
+                .createMessage(Author.USER, "Il ne fait pas beau, j'ai envie de crever!"));
     }
 
     /**
@@ -41,9 +42,9 @@ class ResearchTest {
      */
     @Test
     void testRegexpResearch() {
-        Research regexpResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.REGEXP);
+        ResearchStrategy regexpResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.REGEXP,
+                        messageRepository);
 
         regexpResearch.search("Quel\\s+temps");
 
@@ -51,7 +52,6 @@ class ResearchTest {
                 regexpResearch.getSearchResult().get(0).getText());
         assertEquals(1, regexpResearch.getSearchResult().size());
 
-        regexpResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
     }
 
@@ -60,16 +60,15 @@ class ResearchTest {
      */
     @Test
     void testSubstringResearch() {
-        Research substringResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.SUBSTRING);
+        ResearchStrategy substringResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.SUBSTRING,
+                        messageRepository);
 
         substringResearch.search("j'ai ENVIE de creVer");
 
         assertEquals("Il ne fait pas beau, j'ai envie de crever!",
                 substringResearch.getSearchResult().get(0).getText());
 
-        substringResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         substringResearch.search("je ne match avec personne (snif)");
@@ -81,9 +80,9 @@ class ResearchTest {
      */
     @Test
     void testWordResearch() {
-        Research wordResearch = researchBuilder
-                .setMessageRepository(messageRepository)
-                .createResearch(ResearchType.WORD);
+        ResearchStrategy wordResearch = ResearchStrategyFactory
+                .createResearch(ResearchStrategyType.WORD,
+                        messageRepository);
 
         wordResearch.search("envie");
 
@@ -91,7 +90,6 @@ class ResearchTest {
                 wordResearch.getSearchResult().get(0).getText());
         assertEquals(1, wordResearch.getSearchResult().size());
 
-        wordResearch.getOriginalMessages();
         assertEquals(4, messageRepository.getAllMessages().size());
 
         wordResearch.search("envi");
