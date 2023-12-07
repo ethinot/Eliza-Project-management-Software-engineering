@@ -33,6 +33,14 @@ public class ChatView extends View {
         addWidgets();
     }
 
+    private static void applyChatLayout(final SearchInputWidget searchWidget,
+                                        final ChatWidget chatWidget,
+                                        final ChatInputWidget inputWidget) {
+        VBox.setMargin(searchWidget.getWidget(), new Insets(10, 10, 10, 10));
+        VBox.setVgrow(chatWidget.getWidget(), Priority.ALWAYS); // Occupe tout l'espace vertical
+        VBox.setMargin(inputWidget.getWidget(), new Insets(10, 10, 10, 10));
+    }
+
     @Override
     protected void loadCSS(final Scene scene) {
         CssLoader.CHAT_WIDGET.load(scene);
@@ -56,11 +64,5 @@ public class ChatView extends View {
         addWidget(searchWidget.getWidget());
         addWidget(chatWidget.getWidget());
         addWidget(inputWidget.getWidget());
-    }
-
-    private static void applyChatLayout(SearchInputWidget searchWidget, ChatWidget chatWidget, ChatInputWidget inputWidget) {
-        VBox.setMargin(searchWidget.getWidget(), new Insets(10, 10, 10, 10));
-        VBox.setVgrow(chatWidget.getWidget(), Priority.ALWAYS); // Occupe tout l'espace vertical
-        VBox.setMargin(inputWidget.getWidget(), new Insets(10, 10, 10, 10));
     }
 }

@@ -33,7 +33,7 @@ public final class TextUtils {
      * Get a random string from a list of responses and format it with optional arguments.
      *
      * @param responses A list of response strings.
-     * @param args Optional arguments to be formatted into the response string.
+     * @param args      Optional arguments to be formatted into the response string.
      * @return A random response string with optional arguments formatted into it.
      */
     public static String getString(final List<String> responses, final String... args) {
@@ -62,7 +62,7 @@ public final class TextUtils {
     /**
      * Check if the message text contains the whole word.
      *
-     * @param word the word to search for
+     * @param word    the word to search for
      * @param message the message text to search in
      * @return true if the whole word is found, false otherwise
      */
@@ -78,7 +78,6 @@ public final class TextUtils {
     }
 
     /**
-     *
      * Transforms the given text from first person to second person.
      * This method first transforms the verbs in the text and then transforms possessive adjectives.
      *

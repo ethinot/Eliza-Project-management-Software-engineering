@@ -17,8 +17,8 @@ public final class ResearchStrategyFactory {
     /**
      * Creates a new instance of a ResearchStrategy based on the provided ResearchStrategyType.
      *
-     * @param type                the type of the research strategy
-     * @param messageRepository   the message repository
+     * @param type              the type of the research strategy
+     * @param messageRepository the message repository
      * @return the created ResearchStrategy instance
      * @throws IllegalArgumentException if the provided research type is invalid
      */

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 /**
  * An XmlMapper that parsing different types of values and create the associated object.
- *
  */
 public final class XmlMapper {
 

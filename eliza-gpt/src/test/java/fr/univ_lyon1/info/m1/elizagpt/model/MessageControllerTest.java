@@ -1,22 +1,21 @@
 package fr.univ_lyon1.info.m1.elizagpt.model;
 
 import fr.univ_lyon1.info.m1.elizagpt.controller.MessageController;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.ElizaMessage;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MessageControllerTest {
     private MessageController messageController;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp()  {
         messageController = new MessageController();
     }
 
@@ -27,7 +26,7 @@ class MessageControllerTest {
     void testAddDefaultMessages() {
         ObservableList<Message> messages = messageController.getMessages();
         assertTrue(messages.size() >= 2);
-        assertTrue(messages.get(0) instanceof ElizaMessage);
+        assertInstanceOf(ElizaMessage.class, messages.get(0));
     }
 
     @Test

@@ -3,8 +3,8 @@ package fr.univ_lyon1.info.m1.elizagpt.model.grammar;
 import fr.univ_lyon1.info.m1.elizagpt.model.grammar.pattern.PatternProcessor;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageRepository;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
 import fr.univ_lyon1.info.m1.elizagpt.model.utils.TextUtils;
 
 /**
@@ -15,10 +15,14 @@ public class ElizaResponseProcessor {
 
     /**
      * Build instances required by the class.
-     *
      */
     public ElizaResponseProcessor(final MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
+    }
+
+    private static String generateResponse(final String input) {
+        String normalizedInput = TextUtils.normalize(input);
+        return PatternProcessor.process(normalizedInput);
     }
 
     /**
@@ -33,11 +37,6 @@ public class ElizaResponseProcessor {
         if (response != null) {
             addMessage(response, Author.ELIZA);
         }
-    }
-
-    private static String generateResponse(final String input) {
-        String normalizedInput = TextUtils.normalize(input);
-        return PatternProcessor.process(normalizedInput);
     }
 
     private void addMessage(final String text, final Author author) {

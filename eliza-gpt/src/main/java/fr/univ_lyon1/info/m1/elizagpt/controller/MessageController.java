@@ -1,9 +1,9 @@
 package fr.univ_lyon1.info.m1.elizagpt.controller;
 
 import fr.univ_lyon1.info.m1.elizagpt.model.Model;
+import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.MessageFactory;
 import fr.univ_lyon1.info.m1.elizagpt.model.message.message_types.Author;
-import fr.univ_lyon1.info.m1.elizagpt.model.message.Message;
 import fr.univ_lyon1.info.m1.elizagpt.model.research.ResearchStrategy;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;

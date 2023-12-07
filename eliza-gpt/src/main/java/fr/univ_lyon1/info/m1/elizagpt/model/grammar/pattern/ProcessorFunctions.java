@@ -124,7 +124,7 @@ class WhoIsTheMostProcessor extends ProcessorBase {
     @Override
     public String apply(final String s) {
         final String adjective = getFirstMatchedString(
-        PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
+                PatternProcessor.WHO_IS_THE_MOST.getPattern(), s);
         return TextUtils.getString(getDefaultResponses(), adjective);
     }
 }

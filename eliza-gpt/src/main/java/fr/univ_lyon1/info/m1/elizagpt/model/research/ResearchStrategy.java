@@ -15,17 +15,15 @@ import java.util.List;
  * This class is extended by the RegexpResearch and SubstringResearch classes.
  */
 public abstract class ResearchStrategy {
-    private String searchedQuery = "";
+    private final MessageRepository messageRepository;
     // The searching base. A reference to the app messageRepository.
-
+    private String searchedQuery = "";
     /**
      * This variable represents a backup of the message repository.
      * The backup is stored in order to restore the repository to its original state
      * after applying certain research filters.
      */
     private List<Message> originalMessages;
-    private final MessageRepository messageRepository;
-
     /**
      * This private variable represents the result of a message repository search.
      */
