@@ -21,7 +21,7 @@ public final class MessageFactory {
      * @return a Message object with the specified text and author
      * @throws IllegalArgumentException if the author is not valid (neither USER nor ELIZA)
      */
-    public static Message createMessage(final String message, final Author author) {
+    public static Message createMessage(final Author author, final String message) {
         switch (author) {
             case USER:
                 return new UserMessage(message);

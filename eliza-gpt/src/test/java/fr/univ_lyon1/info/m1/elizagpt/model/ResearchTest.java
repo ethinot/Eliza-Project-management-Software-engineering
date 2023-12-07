@@ -28,13 +28,13 @@ class ResearchTest {
         messageRepository = new MessageRepository();
         messageRepository.clear();
         messageRepository.addMessage(MessageFactory
-                .createMessage("Bonjour, comment ça va?", Author.ELIZA));
+                .createMessage(Author.ELIZA, "Bonjour, comment ça va?"));
         messageRepository.addMessage(MessageFactory
-                .createMessage("Je vais bien, merci.", Author.USER));
+                .createMessage(Author.USER, "Je vais bien, merci."));
         messageRepository.addMessage(MessageFactory
-                .createMessage("Quel temps fait-il aujourd'hui?", Author.ELIZA));
+                .createMessage(Author.ELIZA, "Quel temps fait-il aujourd'hui?"));
         messageRepository.addMessage(MessageFactory
-                .createMessage("Il ne fait pas beau, j'ai envie de crever!", Author.USER));
+                .createMessage(Author.USER, "Il ne fait pas beau, j'ai envie de crever!"));
     }
 
     /**

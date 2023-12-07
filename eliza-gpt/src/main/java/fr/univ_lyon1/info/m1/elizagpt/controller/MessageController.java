@@ -28,7 +28,7 @@ public class MessageController {
 
     private void addElizaMessage(final String message) {
         model.getMessageRepository().addMessage(MessageFactory.createMessage(
-                message, Author.ELIZA));
+                Author.ELIZA, message));
     }
 
 
