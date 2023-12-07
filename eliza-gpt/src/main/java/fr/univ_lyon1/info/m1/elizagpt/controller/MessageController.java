@@ -18,26 +18,29 @@ public class MessageController {
      * Constructor of the MessageController class.
      */
     public MessageController() {
-        addDefaultMessages();
+        addElizaGreeting();
     }
 
-    private void addDefaultMessages() {
+    private void addElizaGreeting() {
+        addElizaMessage("Bonjour, je suis Eliza, votre thérapeute virtuelle.");
+        addElizaMessage("Comment allez-vous ?");
+    }
+
+    private void addElizaMessage(final String message) {
         model.getMessageRepository().addMessage(MessageFactory.createMessage(
-                "Bonjour, je suis Eliza, votre thérapeute virtuelle.", Author.ELIZA));
-        model.getMessageRepository().addMessage(MessageFactory
-                .createMessage("Comment allez-vous ?", Author.ELIZA));
+                message, Author.ELIZA));
     }
 
 
-    public ObservableList<Message> getMessagesObservableList() {
+    public ObservableList<Message> getMessages() {
         return model.getMessageRepository().getMessages();
     }
 
-    public ObservableList<ResearchStrategy> getResearchObservableList() {
+    public ObservableList<ResearchStrategy> getResearchStrategies() {
         return model.getResearchRepository().getResearchMethods();
     }
 
-    public SimpleBooleanProperty getIsFilterObservable() {
+    public SimpleBooleanProperty getFilterStatusProperty() {
         return model.getResearchRepository().getFilterStatus();
     }
 
@@ -65,7 +68,7 @@ public class MessageController {
      * @param searchedString the searched string
      * @param researchClass  the research class implementation
      */
-    public void search(final String searchedString, final ResearchStrategy researchClass) {
+    public void applySearch(final String searchedString, final ResearchStrategy researchClass) {
         model.getResearchRepository().applySearch(
                 searchedString,
                 researchClass,

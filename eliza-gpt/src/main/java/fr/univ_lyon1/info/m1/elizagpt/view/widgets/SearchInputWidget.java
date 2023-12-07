@@ -34,24 +34,56 @@ public class SearchInputWidget implements Widget {
         inputBox = new HBox(10);
         searchLabel = new Label("Rechercher");
         searchField = new TextField();
-        searchField.setPromptText("Rechercher un message");
         comboBox = new ComboBox<>();
-        comboBox.setItems(messageController.getResearchObservableList());
-        comboBox.getSelectionModel().selectFirst();
         searchButton = new Button("Appliquer");
-        searchButton.setOnAction(event -> onSearchButtonClicked());
         cancelButton = new Button("Annuler");
-        cancelButton.setOnAction(event -> onCancelButtonClicked());
 
+        initializeSearchInputs(messageController);
+        initializeButtonActions();
+        setStyleClasses();
+        addComponents();
+        listenToFilterChange();
+    }
+
+    private void setStyleClasses() {
         inputBox.getStyleClass().add("search-input-box");
         searchLabel.getStyleClass().add("search-input-label");
         searchField.getStyleClass().add("search-input-field");
         searchButton.getStyleClass().add("search-input-button");
         cancelButton.getStyleClass().add("cancel-input-button");
+    }
 
-        addComponents();
+    private void listenToFilterChange() {
+        messageController.getFilterStatusProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        updateUIState(Boolean.TRUE.equals(newValue)
+                                ? InputState.SEARCHING : InputState.MESSAGE_INPUT));
+    }
 
-        listenToFilterChange();
+    private void updateUIState(final InputState inputState) {
+        switch (inputState) {
+            case SEARCHING:
+                inputBox.getChildren().remove(searchButton);
+                inputBox.getChildren().add(cancelButton);
+                break;
+            case MESSAGE_INPUT:
+                inputBox.getChildren().remove(cancelButton);
+                inputBox.getChildren().add(searchButton);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown state");
+        }
+    }
+
+    private void initializeButtonActions() {
+        searchButton.setOnAction(e -> onSearchButtonClicked());
+        cancelButton.setOnAction(e -> onCancelButtonClicked());
+    }
+
+    private void initializeSearchInputs(final MessageController messageController) {
+        searchField.setPromptText("Rechercher un message");
+        comboBox.setItems(messageController.getResearchStrategies());
+        comboBox.getSelectionModel().selectFirst();
     }
 
     @Override
@@ -64,18 +96,6 @@ public class SearchInputWidget implements Widget {
         inputBox.getChildren().addAll(searchLabel, searchField, comboBox, searchButton);
     }
 
-    private void listenToFilterChange() {
-        messageController.getIsFilterObservable().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                inputBox.getChildren().remove(searchButton);
-                inputBox.getChildren().add(cancelButton);
-            } else {
-                inputBox.getChildren().remove(cancelButton);
-                inputBox.getChildren().add(searchButton);
-            }
-        });
-    }
-
     @Override
     public Node getWidget() {
         return inputBox;
@@ -84,7 +104,7 @@ public class SearchInputWidget implements Widget {
     private void onSearchButtonClicked() {
         if (comboBox.getValue() != null && searchField.getText() != null) {
             comboBox.getValue().setSearchQuery(searchField.getText());
-            messageController.search(searchField.getText(), comboBox.getValue());
+            messageController.applySearch(searchField.getText(), comboBox.getValue());
         }
     }
 
@@ -92,5 +112,9 @@ public class SearchInputWidget implements Widget {
         if (comboBox.getValue() != null) {
             messageController.undoSearch(comboBox.getValue());
         }
+    }
+
+    private enum InputState {
+        SEARCHING, MESSAGE_INPUT
     }
 }

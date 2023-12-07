@@ -25,7 +25,7 @@ class MessageControllerTest {
      */
     @Test
     void testAddDefaultMessages() {
-        ObservableList<Message> messages = messageController.getMessagesObservableList();
+        ObservableList<Message> messages = messageController.getMessages();
         assertTrue(messages.size() >= 2);
         assertTrue(messages.get(0) instanceof ElizaMessage);
     }
@@ -34,7 +34,7 @@ class MessageControllerTest {
     void testSendUserMessage() {
         // Given
         String userMessage = "Bonjour, Eliza.";
-        ObservableList<Message> messages = messageController.getMessagesObservableList();
+        ObservableList<Message> messages = messageController.getMessages();
         int nbMessages = messages.size();
 
         // When
@@ -50,7 +50,7 @@ class MessageControllerTest {
     void testRemoveMessage() {
         // Given
         String userMessage = "Bonjour, Eliza.";
-        ObservableList<Message> messages = messageController.getMessagesObservableList();
+        ObservableList<Message> messages = messageController.getMessages();
         int nbMessages = messages.size();
         messageController.sendUserMessage(userMessage);
         Message message = messages.get(nbMessages);

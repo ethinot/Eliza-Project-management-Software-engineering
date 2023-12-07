@@ -16,6 +16,7 @@ import java.util.Map;
  * Represents a chat widget that displays the chat history.
  */
 public class ChatWidget implements Widget {
+    public static final int DIALOG_PADDING = 10;
     private final Map<Message, Node> messageNodeMap = new HashMap<>();
     private final ScrollPane dialogScroll;
     private final VBox dialog;
@@ -30,10 +31,10 @@ public class ChatWidget implements Widget {
     public ChatWidget(final MessageController messageController) {
         this.messageController = messageController;
 
-        dialog = new VBox(10);
+        dialog = new VBox(DIALOG_PADDING);
         dialogScroll = new ScrollPane();
 
-        initScrollPane();
+        initializeScrollPane();
         addComponents();
         initMessages();
 
@@ -41,7 +42,7 @@ public class ChatWidget implements Widget {
     }
 
     private void listenToMessagesChanges() {
-        this.messageController.getMessagesObservableList().addListener(this::processMessageChange);
+        this.messageController.getMessages().addListener(this::processMessageChange);
     }
 
     private void processMessageChange(final ListChangeListener.Change<? extends Message> c) {
@@ -62,10 +63,10 @@ public class ChatWidget implements Widget {
     }
 
     private void initMessages() {
-        this.messageController.getMessagesObservableList().forEach(this::addMessage);
+        this.messageController.getMessages().forEach(this::addMessage);
     }
 
-    private void initScrollPane() {
+    private void initializeScrollPane() {
         dialogScroll.setContent(dialog);
         dialogScroll.setPadding(new Insets(10));
         dialogScroll.vvalueProperty().bind(dialog.heightProperty());

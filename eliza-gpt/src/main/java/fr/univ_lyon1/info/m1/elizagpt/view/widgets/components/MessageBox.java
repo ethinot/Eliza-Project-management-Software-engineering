@@ -42,8 +42,13 @@ public class MessageBox implements Component {
     }
 
     private HBox createBoxComponent() {
-        HBox hBox = new HBox();
-        final Label innerText = createLabel();
+        HBox hBox = initializeHBox();
+        addLabels(hBox);
+        return hBox;
+    }
+
+    private void addLabels(final HBox hBox) {
+        Label innerText = createLabel();
         Label deleteIcon = createDeleteIcon();
 
         // Ajoute la croix de suppression avant le message si c'est un message de l'utilisateur
@@ -52,10 +57,12 @@ public class MessageBox implements Component {
         } else {
             hBox.getChildren().addAll(innerText, deleteIcon);
         }
+    }
 
+    private HBox initializeHBox() {
+        HBox hBox = new HBox();
         hBox.setAlignment(getAlignment());
         hBox.setSpacing(10);
-
         return hBox;
     }
 
@@ -69,11 +76,11 @@ public class MessageBox implements Component {
 
     private Label createLabel() {
         Label label = new Label(message.getText());
-        addCSS(label);
+        addStylesToLabel(label);
         return label;
     }
 
-    private void addCSS(final Label label) {
+    private void addStylesToLabel(final Label label) {
         label.getStyleClass().add("message-box");
         label.getStyleClass().add(message.isFromUser()
                 ? "user-message-box" : "eliza-message-box");
