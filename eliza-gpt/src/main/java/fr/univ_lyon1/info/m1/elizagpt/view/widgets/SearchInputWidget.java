@@ -9,8 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+
+import java.util.logging.Logger;
 
 /**
  * Represents a search input widget with label, cancel, and search button.
@@ -63,10 +67,12 @@ public class SearchInputWidget implements Widget {
     private void updateUIState(final InputState inputState) {
         switch (inputState) {
             case SEARCHING:
+                comboBox.setDisable(true);
                 inputBox.getChildren().remove(searchButton);
                 inputBox.getChildren().add(cancelButton);
                 break;
             case MESSAGE_INPUT:
+                comboBox.setDisable(false);
                 inputBox.getChildren().remove(cancelButton);
                 inputBox.getChildren().add(searchButton);
                 break;
@@ -76,8 +82,22 @@ public class SearchInputWidget implements Widget {
     }
 
     private void initializeButtonActions() {
-        searchButton.setOnAction(e -> onSearchButtonClicked());
-        cancelButton.setOnAction(e -> onCancelButtonClicked());
+        searchButton.setOnAction(e -> performSearch());
+        cancelButton.setOnAction(e -> performUndoSearch());
+
+        searchField.setOnKeyPressed(this::onEnterKeyPressed);
+    }
+
+    private void onEnterKeyPressed(final KeyEvent e) {
+        if (e.getCode() == KeyCode.ENTER) {
+            if (Boolean.TRUE.equals(messageController.getFilterStatusProperty().getValue())) {
+                performUndoSearch();
+                Logger.getGlobal().info("Undo search");
+            } else {
+                performSearch();
+                Logger.getGlobal().info("Search");
+            }
+        }
     }
 
     private void initializeSearchInputs(final MessageController messageController) {
@@ -92,7 +112,6 @@ public class SearchInputWidget implements Widget {
         inputBox.setAlignment(Pos.CENTER_LEFT);
         inputBox.setPadding(new Insets(5, 5, 5, 5));
 
-
         inputBox.getChildren().addAll(searchLabel, searchField, comboBox, searchButton);
     }
 
@@ -101,14 +120,14 @@ public class SearchInputWidget implements Widget {
         return inputBox;
     }
 
-    private void onSearchButtonClicked() {
+    private void performSearch() {
         if (comboBox.getValue() != null && searchField.getText() != null) {
             comboBox.getValue().setSearchQuery(searchField.getText());
             messageController.applySearch(searchField.getText(), comboBox.getValue());
         }
     }
 
-    private void onCancelButtonClicked() {
+    private void performUndoSearch() {
         if (comboBox.getValue() != null) {
             messageController.undoSearch(comboBox.getValue());
         }
