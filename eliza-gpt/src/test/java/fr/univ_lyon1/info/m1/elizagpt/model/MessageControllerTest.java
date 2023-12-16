@@ -50,15 +50,15 @@ class MessageControllerTest {
         // Given
         String userMessage = "Bonjour, Eliza.";
         ObservableList<Message> messages = messageController.getMessages();
-        int nbMessages = messages.size();
         messageController.sendUserMessage(userMessage);
-        Message message = messages.get(nbMessages);
+        int nbMessages = messages.size();
+        Message message = messages.get(nbMessages - 2);
 
         // When
         messageController.removeMessage(message);
 
         // Then
-        assertEquals(nbMessages + 1, messages.size());
+        assertEquals(nbMessages - 1, messages.size());
         assertTrue(messages.stream().noneMatch(msg -> msg.getText().equals(userMessage)));
     }
 }
