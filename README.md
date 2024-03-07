@@ -15,3 +15,5 @@ Ce projet à été réaliser dans la cadre de l'unité d'enseignement "Gestion d
 * Intégration Continue (CI): Mise en place de processus d'intégration continue pour automatiser les tests
 * Design Patterns: Utilisation de Design Patterns pour améliorer la structure du code et favoriser la maintenabilité
 * Coding Style: Adoption d'un style de codage cohérent pour garantir la lisibilité du code et la collaboration efficace au sein de l'équipe de développement.
+
+* ### [Rapport du projet](./rapport.pdf)
